@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{03FB2056-251D-5424-624C-AD3996B1095C}</ProjectGuid>
+	<ProjectGuid>{E5C00A68-E6DB-FEA3-938C-F34D364EA738}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -50,7 +50,8 @@
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Effects\ShadowEffect.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ButtonShowHide.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ToggleButtonIcon.cs" />
-     <Compile Include="Assets\LOL.cs" />
+     <Compile Include="Assets\RotateWhole.cs" />
+     <Compile Include="Assets\Try.cs" />
      <Compile Include="Assets\changeButtonImage.cs" />
      <Compile Include="Assets\newscene.cs" />
      <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />

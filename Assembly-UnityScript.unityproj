@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{A8418100-EA25-97BC-209E-BF1C3B34F5B9}</ProjectGuid>
+	<ProjectGuid>{78007966-CCAA-E622-9386-42662A29392B}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,7 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\NewBehaviourScript.js" />
+     <Compile Include="Assets\cameraScript.js" />
      <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
      <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\Bebas\Flat-it License.txt" />
      <None Include="Assets\Code_Snippets.txt" />

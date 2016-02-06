@@ -50,7 +50,6 @@
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Effects\ShadowEffect.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ButtonShowHide.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ToggleButtonIcon.cs" />
-     <Compile Include="Assets\RotateWhole.cs" />
      <Compile Include="Assets\Try.cs" />
      <Compile Include="Assets\changeButtonImage.cs" />
      <Compile Include="Assets\newscene.cs" />

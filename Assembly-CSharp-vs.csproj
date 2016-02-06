@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Exit.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Effects\GradientEffect.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Effects\ShadowEffect.cs" />
      <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ButtonShowHide.cs" />

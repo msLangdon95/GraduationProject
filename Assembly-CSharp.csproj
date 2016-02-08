@@ -46,18 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Exit.cs" />
-     <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Effects\GradientEffect.cs" />
-     <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Effects\ShadowEffect.cs" />
-     <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ButtonShowHide.cs" />
-     <Compile Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Helper Scripts\ToggleButtonIcon.cs" />
-     <Compile Include="Assets\Try.cs" />
-     <Compile Include="Assets\changeButtonImage.cs" />
-     <Compile Include="Assets\newscene.cs" />
-     <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
-     <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\Bebas\Flat-it License.txt" />
-     <None Include="Assets\Code_Snippets.txt" />
-     <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\Lato\SIL Open Font License.txt" />
+     <Compile Include="Assets\Effects\GradientEffect.cs" />
+     <Compile Include="Assets\Effects\ShadowEffect.cs" />
+     <Compile Include="Assets\Helper Scripts\ButtonShowHide.cs" />
+     <Compile Include="Assets\Helper Scripts\Exit.cs" />
+     <Compile Include="Assets\Helper Scripts\GoBack.cs" />
+     <Compile Include="Assets\Helper Scripts\Rotate.cs" />
+     <Compile Include="Assets\Helper Scripts\ToggleButtonIcon.cs" />
+     <Compile Include="Assets\Helper Scripts\changeButtonImage.cs" />
+     <Compile Include="Assets\Helper Scripts\newscene.cs" />
+     <None Include="Assets\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
+     <None Include="Assets\Fonts\Bebas\Flat-it License.txt" />
+     <None Include="Assets\Fonts\Lato\SIL Open Font License.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

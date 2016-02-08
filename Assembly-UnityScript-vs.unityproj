@@ -46,11 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\cameraScript.js" />
-     <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
-     <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\Bebas\Flat-it License.txt" />
-     <None Include="Assets\Code_Snippets.txt" />
-     <None Include="Assets\Gamestrap_UI-2015-11-20\Gamestrap UI\Fonts\Lato\SIL Open Font License.txt" />
+     <Compile Include="Assets\Helper Scripts\cameraScript.js" />
+     <None Include="Assets\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
+     <None Include="Assets\Fonts\Bebas\Flat-it License.txt" />
+     <None Include="Assets\Fonts\Lato\SIL Open Font License.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

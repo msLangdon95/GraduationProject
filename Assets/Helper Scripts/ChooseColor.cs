@@ -13,6 +13,9 @@ public class ChooseColor : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)){
 			Vector2 worldPoint=Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+			if(hit && hit.collider.name == "haha"){
+				GetComponent<SpriteRenderer>().material.color= Color.green;
+			}
 		if(hit && hit.collider.name == "green"){
 				GetComponent<SpriteRenderer>().material.color= Color.green;
 			}
@@ -30,6 +33,9 @@ public class ChooseColor : MonoBehaviour {
 			}
 		if(hit && hit.collider.name == "orange"){
 				GetComponent<SpriteRenderer>().material.color= new Color(30,255,255);
+			}
+		if(hit && hit.collider.name == "toto"){
+				GetComponent<SpriteRenderer>().material.color=Color.red ;
 			}
 		}
 	}

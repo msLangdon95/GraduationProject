@@ -10,10 +10,7 @@
 	 
      private float x = 0.0f;
      private float y = 0.0f;
-	 float f_lastX = 0.0f;
-	 float f_lastY = 0.0f;
-     float f_difX = 0.5f;
-	 float f_difY=0.5f;
+	
      void Start(){
          var angles = transform.eulerAngles;
          x = angles.y;

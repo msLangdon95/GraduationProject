@@ -3,15 +3,17 @@ using UnityEngine;
  
  public class GoBack : MonoBehaviour 
  {
-	 private bool flag;
-	 private string lastLevel;
-
-    public void setLastLevel(string level)
-    {
-        lastLevel = level;
-    }
+	 string[] SceneName = {"main", "newload", "chooseinput","manualinput","rubik","solution"};
+	 
      void Update() {
-           if (Input.GetKeyDown(KeyCode.Escape))
-             Application.LoadLevel(lastLevel);
+           if (Input.GetKeyDown(KeyCode.Escape)){
+			   int LoadedLevel=Application.loadedLevel;
+			   if(LoadedLevel==0)
+				  Application.Quit();
+			  else if(LoadedLevel==4)
+				  Application.LoadLevel("chooseinput");
+			  else
+				Application.LoadLevel(SceneName[LoadedLevel-1]);
+		   }
      }
  }

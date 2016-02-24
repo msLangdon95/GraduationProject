@@ -48,8 +48,9 @@
   <ItemGroup>
      <Compile Include="Assets\Effects\GradientEffect.cs" />
      <Compile Include="Assets\Effects\ShadowEffect.cs" />
+     <Compile Include="Assets\Helper Scripts\ButtonScript.cs" />
      <Compile Include="Assets\Helper Scripts\ButtonShowHide.cs" />
-     <Compile Include="Assets\Helper Scripts\ChangeColor.cs" />
+     <Compile Include="Assets\Helper Scripts\CameraController.cs" />
      <Compile Include="Assets\Helper Scripts\Exit.cs" />
      <Compile Include="Assets\Helper Scripts\GoBack.cs" />
      <Compile Include="Assets\Helper Scripts\OnClickChangeColor.cs" />

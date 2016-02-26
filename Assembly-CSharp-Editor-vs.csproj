@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\GamestrapHelper.cs" />
-     <Compile Include="Assets\Editor\GamestrapUI.cs" />
      <Compile Include="Assets\Editor\GamestrapUIPrefabs.cs" />
      <None Include="Assets\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
      <None Include="Assets\Fonts\Bebas\Flat-it License.txt" />

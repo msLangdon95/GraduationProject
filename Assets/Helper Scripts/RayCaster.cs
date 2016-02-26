@@ -14,17 +14,19 @@ public class RayCaster : MonoBehaviour {
 		 for(int i=1;i<7;i++) // 6 colors, please note it's from 1 to 7
 			 ColorsCount[i]=0;
 	 }
-	 //int GetColor(){
+	 int GetColor(){
 		// lastClicked.gameObject.GetComponent<Renderer>().material.color; -> gives you current color;
+		print(lastClicked.gameObject.GetComponent<Renderer>().material.color);
+		return 1;
 		//it returns a gameObject of type Color, for instance for green, it returns (0,1,0,1); RGB format
 		//you have to deal with this gameobject and return 1 for green, 2 for red, 3 for blue, 4 for orange, 5 for yellow, 6 for white
-	 //}
+	 }
      void FixedUpdate(){
          if(Input.GetMouseButtonDown (0)){
              ray = Camera.main.ScreenPointToRay(Input.mousePosition);
              if(Physics.Raycast(ray, out rayHit)){
                  lastClicked = rayHit.collider.gameObject;
-                 if(lastClicked != null && lastClicked.tag !="1"){ // if it's not reference box
+                 if(lastClicked != null){ // if it's not reference box
                     print(lastClicked.name);
 					if(OnClickChangeColor.flag==1){ // if he actually clicked on any color, flag is a global variable from OnClickChangeColor.cs
 						if(OnClickChangeColor.myColor == 1){ //green

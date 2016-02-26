@@ -46,8 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Effects\GradientEffect.cs" />
-     <Compile Include="Assets\Effects\ShadowEffect.cs" />
      <Compile Include="Assets\Helper Scripts\ButtonScript.cs" />
      <Compile Include="Assets\Helper Scripts\ButtonShowHide.cs" />
      <Compile Include="Assets\Helper Scripts\CameraController.cs" />

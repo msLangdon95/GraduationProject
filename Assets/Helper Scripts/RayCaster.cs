@@ -5,11 +5,11 @@ public class RayCaster : MonoBehaviour {
 	GameObject lastClicked;
      Ray ray;
      RaycastHit rayHit;
-	 int [] ColorsCount;
+	 int [] ColorsCount; // array for color counters, indicates how many times you used a specific color
 	 
 	 void Start(){
 		 ColorsCount=new int[7];
-		 for(int i=1;i<7;i++)
+		 for(int i=1;i<7;i++) // 6 colors, please note it's from 1 to 7
 			 ColorsCount[i]=0;
 	 }
 	 //int GetColor(){
@@ -31,22 +31,22 @@ public class RayCaster : MonoBehaviour {
 							//ColorsCount[1] ++ ;
 							// which means, decrement previous color count and increment green's count
 							// then, find a way to display the changed two colors (green and old color) on the color palette 
-							lastClicked.gameObject.GetComponent<Renderer>().materials[1].color = Color.green;
+							lastClicked.gameObject.GetComponent<Renderer>().material.color = Color.green;
 							}
 						else if(OnClickChangeColor.myColor == 2){ //red
-							lastClicked.gameObject.GetComponent<Renderer>().materials[1].color =  Color.red;
+							lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.red;
 							}
 						else if(OnClickChangeColor.myColor == 3){ //blue
-							lastClicked.gameObject.GetComponent<Renderer>().materials[1].color =  Color.blue;
+							lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.blue;
 							}
 						else if(OnClickChangeColor.myColor == 4){ //orange
-							lastClicked.gameObject.GetComponent<Renderer>().materials[1].color = new Color(1,0.27058823529f,0,1);
+							lastClicked.gameObject.GetComponent<Renderer>().material.color = new Color(1,0.27058823529f,0,1);
 							}
 						else if(OnClickChangeColor.myColor == 5){ //yellow
-							lastClicked.gameObject.GetComponent<Renderer>().materials[1].color =  Color.yellow;
+							lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.yellow;
 							}
 						else if(OnClickChangeColor.myColor == 6){ //white
-							lastClicked.gameObject.GetComponent<Renderer>().materials[1].color =  Color.white;
+							lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.white;
 							}
 						}
 				 }

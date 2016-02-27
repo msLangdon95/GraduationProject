@@ -43,8 +43,9 @@ public class RayCaster : MonoBehaviour {
 		if(Input.GetMouseButtonDown (0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
+				print("clicked!");
 				lastClicked = rayHit.collider.gameObject;
-				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.tag != "1"){
+				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					ColorNumber=GetColor(lastClicked);
 					if(OnClickChangeColor.myColor == 1){ //green
 						if(ColorNumber > 0 && ColorNumber < 7)

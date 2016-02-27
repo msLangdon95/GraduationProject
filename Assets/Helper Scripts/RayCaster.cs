@@ -7,8 +7,10 @@ public class RayCaster : MonoBehaviour {
 	RaycastHit rayHit;
 	int ColorNumber;
 	int [] ColorsCount;
+	bool GreenFlag;
 	
 	void Start(){
+		GreenFlag=true;
 		ColorNumber=0;
 		ColorsCount=new int[7];
 		Green=GameObject.Find("green");
@@ -54,6 +56,18 @@ public class RayCaster : MonoBehaviour {
 			return White;
 	}
 	
+/*	public Rect windowRect = new Rect(220, 280, 220, 220);
+    void OnGUI() {
+		if(!GreenFlag){
+			windowRect = GUI.Window(0, windowRect, DoMyWindow, "Sorry, you can only color using green 8 times");
+		}
+    }
+    void DoMyWindow(int windowID) {
+       // if (GUI.Button(new Rect(10, 20, 100, 20), "Hello World"))
+           // print("Got a click");
+        
+    }*/
+	
 	void FixedUpdate(){
 		if(Input.GetMouseButtonDown (0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -61,14 +75,18 @@ public class RayCaster : MonoBehaviour {
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					ColorNumber=GetColor(lastClicked);
-					if(OnClickChangeColor.myColor == 1){ //green
+					if(OnClickChangeColor.myColor == 1 && GreenFlag){ //green
 						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
 							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
 						}
-						lastClicked.gameObject.GetComponent<Renderer>().material.color = Color.green;
 						ColorsCount[1]++;
+						if(ColorsCount[1] > 8) 
+							GreenFlag=false;
+						else{
+						lastClicked.gameObject.GetComponent<Renderer>().material.color = Color.green;
 						Green.GetComponentInChildren<Text>().text=ColorsCount[1].ToString();
+						}
 					}
 					else if(OnClickChangeColor.myColor == 2){ //red
 						if(ColorNumber > 0 && ColorNumber < 7){

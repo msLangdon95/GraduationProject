@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;    
 public class RayCaster : MonoBehaviour {
-	GameObject lastClicked,Green,Red,Blue,Yellow,White,Orange;
+	GameObject lastClicked,Green,Red,Blue,Yellow,White,Orange,Temp;
 	Ray ray;
 	RaycastHit rayHit;
 	int ColorNumber;
@@ -39,52 +39,78 @@ public class RayCaster : MonoBehaviour {
 			return -1;
 	}
 	
+	GameObject getGameObject(int number){
+		if(number==1)
+			return Green;
+		if(number==2)
+			return Red;
+		if(number==3)
+			return Blue;
+		if(number==4)
+			return Orange;
+		if(number==5)
+			return Yellow;
+		else
+			return White;
+	}
+	
 	void FixedUpdate(){
 		if(Input.GetMouseButtonDown (0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
-				print("clicked!");
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					ColorNumber=GetColor(lastClicked);
 					if(OnClickChangeColor.myColor == 1){ //green
-						if(ColorNumber > 0 && ColorNumber < 7)
+						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
+							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
+						}
 						lastClicked.gameObject.GetComponent<Renderer>().material.color = Color.green;
 						ColorsCount[1]++;
 						Green.GetComponentInChildren<Text>().text=ColorsCount[1].ToString();
 					}
 					else if(OnClickChangeColor.myColor == 2){ //red
-						if(ColorNumber > 0 && ColorNumber < 7)
+						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
+							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
+						}
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.red;
 						ColorsCount[2]++;
 						Red.GetComponentInChildren<Text>().text=ColorsCount[2].ToString();
 					}
 					else if(OnClickChangeColor.myColor == 3){ //blue
-						if(ColorNumber > 0 && ColorNumber < 7)
+						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
+							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
+						}
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.blue;
 						ColorsCount[3]++;
 						Blue.GetComponentInChildren<Text>().text=ColorsCount[3].ToString();
 					}
 					else if(OnClickChangeColor.myColor == 4){ //orange
-						if(ColorNumber > 0 && ColorNumber < 7)
+						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
+							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
+						}
 						lastClicked.gameObject.GetComponent<Renderer>().material.color = new Color(1,0.27058823529f,0,1);
 						ColorsCount[4]++;
 						Orange.GetComponentInChildren<Text>().text=ColorsCount[4].ToString();
 					}
 					else if(OnClickChangeColor.myColor == 5){ //yellow
-						if(ColorNumber > 0 && ColorNumber < 7)
+						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
+							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
+						}
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.yellow;
 						ColorsCount[5]++;
 						Yellow.GetComponentInChildren<Text>().text=ColorsCount[5].ToString();
 					}
 					else if(OnClickChangeColor.myColor == 6){ //white
-						if(ColorNumber > 0 && ColorNumber < 7)
+						if(ColorNumber > 0 && ColorNumber < 7){
 							ColorsCount[ColorNumber] -- ;
+							getGameObject(ColorNumber).GetComponentInChildren<Text>().text=ColorsCount[ColorNumber].ToString();
+						}
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =  Color.white;
 						ColorsCount[6]++;
 						White.GetComponentInChildren<Text>().text=ColorsCount[6].ToString();

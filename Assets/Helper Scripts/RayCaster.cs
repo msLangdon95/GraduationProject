@@ -67,8 +67,10 @@ public class RayCaster : MonoBehaviour {
 			return 5;
 		else if (color==Color.white)
 			return 6;
-		else 
+		else {
 			return -1;
+			print("-1");
+		}
 	}
 	
 	void FixedUpdate(){
@@ -77,24 +79,26 @@ public class RayCaster : MonoBehaviour {
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
-					ColorNumber=GetColor(lastClicked);
 					x=OnClickChangeColor.myColor;
 					if(ColorsArray[x].ColorFlag){
-					if(ColorNumber > 0 && ColorNumber < 7){
-							ColorsArray[ColorNumber].ColorCounter -- ;
-							ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
-							if(ColorsArray[ColorNumber].ColorFlag == false)
-								ColorsArray[ColorNumber].ColorFlag=true;
-						}
 						ColorsArray[x].ColorCounter ++ ;
 						if(ColorsArray[x].ColorCounter >8){
+							ColorsArray[x].ColorCounter -- ;
 							ColorsArray[x].ColorFlag=false;
 							PopUp.ThePanel.SetActive(true);
 						}
 						else{
-							lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
-							ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();
-						}
+							print("else?");
+							ColorNumber=GetColor(lastClicked);
+							if(ColorNumber > 0 && ColorNumber < 7){
+								ColorsArray[ColorNumber].ColorCounter -- ;
+								ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
+								if(ColorsArray[ColorNumber].ColorFlag == false)
+									ColorsArray[ColorNumber].ColorFlag=true;
+								}
+								lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
+								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();
+							}
 					}
 					
 				}

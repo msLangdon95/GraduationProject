@@ -9,7 +9,11 @@ public class OnClickChangeColor : MonoBehaviour {
 	}
 	public void NextColor(int PickedColor){
 		flag=1;
-		myColor=PickedColor;
+		if(RayCaster.ColorsArray[PickedColor].ColorFlag==false)
+			PopUp.ThePanel.SetActive(true);
+		else
+			myColor=PickedColor;
+		
 	}
 	
 }

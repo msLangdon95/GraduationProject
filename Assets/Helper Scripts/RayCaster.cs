@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;    
 public class RayCaster : MonoBehaviour {
-	struct COLOR{
+	public struct COLOR{
 		public GameObject GO;
 		public bool ColorFlag;
 		public Color CurrentColor;
 		public int ColorCounter;
 	};
-	COLOR [] ColorsArray;
+	public static COLOR [] ColorsArray;
 	int x;
 	GameObject lastClicked;
 	Ray ray;
@@ -78,7 +78,6 @@ public class RayCaster : MonoBehaviour {
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					ColorNumber=GetColor(lastClicked);
-					
 					x=OnClickChangeColor.myColor;
 					if(ColorsArray[x].ColorFlag){
 					if(ColorNumber > 0 && ColorNumber < 7){
@@ -88,10 +87,14 @@ public class RayCaster : MonoBehaviour {
 								ColorsArray[ColorNumber].ColorFlag=true;
 						}
 						ColorsArray[x].ColorCounter ++ ;
-						lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
-						ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();
-						if(ColorsArray[x].ColorCounter == 8) 
+						if(ColorsArray[x].ColorCounter >8){
 							ColorsArray[x].ColorFlag=false;
+							PopUp.ThePanel.SetActive(true);
+						}
+						else{
+							lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
+							ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();
+						}
 					}
 					
 				}

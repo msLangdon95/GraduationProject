@@ -15,9 +15,7 @@ public class RayCaster : MonoBehaviour {
 	RaycastHit rayHit;
 	int ColorNumber;
 	Color ORANGE;
-	int i;
 	void Start(){
-		i=0;
 		ColorNumber=0;
 		ORANGE=new Color(1,0.27058823529f,0,1);	
 		
@@ -80,13 +78,11 @@ public class RayCaster : MonoBehaviour {
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(ColorsArray[x].ColorFlag){
-						foreach (Transform child in lastClicked.transform.parent){
+						foreach (Transform child in lastClicked.transform.parent)
 							if(lastClicked != child.gameObject && GetColor(child.gameObject) == x){
 								print("not valid" + child.name);
 								return;
 							}
-							else{
-								print("else"+ i++);
 								ColorsArray[x].ColorCounter ++ ;
 								if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
 									ColorsArray[x].ColorCounter -- ;
@@ -104,8 +100,6 @@ public class RayCaster : MonoBehaviour {
 								lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
 								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();
 							}
-						}
-						}
 					}
 					
 				}

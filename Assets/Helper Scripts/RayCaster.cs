@@ -15,8 +15,9 @@ public class RayCaster : MonoBehaviour {
 	RaycastHit rayHit;
 	int ColorNumber;
 	Color ORANGE;
-	
+	int i;
 	void Start(){
+		i=0;
 		ColorNumber=0;
 		ORANGE=new Color(1,0.27058823529f,0,1);	
 		
@@ -67,10 +68,8 @@ public class RayCaster : MonoBehaviour {
 			return 5;
 		else if (color==Color.white)
 			return 6;
-		else {
+		else
 			return -1;
-			print("-1");
-		}
 	}
 	
 	void FixedUpdate(){
@@ -79,26 +78,34 @@ public class RayCaster : MonoBehaviour {
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
-					x=OnClickChangeColor.myColor;
+					x=OnClickChangeColor.myColor;// to color with color number x
 					if(ColorsArray[x].ColorFlag){
-						ColorsArray[x].ColorCounter ++ ;
-						if(ColorsArray[x].ColorCounter >8){
-							ColorsArray[x].ColorCounter -- ;
-							ColorsArray[x].ColorFlag=false;
-							PopUp.ThePanel.SetActive(true);
-						}
-						else{
-							print("else?");
-							ColorNumber=GetColor(lastClicked);
-							if(ColorNumber > 0 && ColorNumber < 7){
-								ColorsArray[ColorNumber].ColorCounter -- ;
-								ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
-								if(ColorsArray[ColorNumber].ColorFlag == false)
-									ColorsArray[ColorNumber].ColorFlag=true;
-								}
+						foreach (Transform child in lastClicked.transform.parent){
+							if(lastClicked != child.gameObject && GetColor(child.gameObject) == x){
+								print("not valid" + child.name);
+								return;
+							}
+							else{
+								print("else"+ i++);
+								ColorsArray[x].ColorCounter ++ ;
+								if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
+									ColorsArray[x].ColorCounter -- ;
+									ColorsArray[x].ColorFlag=false;
+									PopUp.ThePanel.SetActive(true);
+									}
+							else{ // check the previous color to decrement its counter
+								ColorNumber=GetColor(lastClicked);
+								if(ColorNumber > 0 && ColorNumber < 7){
+									ColorsArray[ColorNumber].ColorCounter -- ;
+									ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
+									if(ColorsArray[ColorNumber].ColorFlag == false)
+										ColorsArray[ColorNumber].ColorFlag=true;
+									}
 								lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
 								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();
 							}
+						}
+						}
 					}
 					
 				}

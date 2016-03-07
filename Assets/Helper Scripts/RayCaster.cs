@@ -15,17 +15,19 @@ public class RayCaster : MonoBehaviour {
 		public string name;
 	};
 	public static COLOR [] ColorsArray;
-	int x;
-	GameObject lastClicked;
+	int x,PrevColorNumber;
+	GameObject lastClicked,PrevGameObj;
 	Ray ray;
 	RaycastHit rayHit;
 	int ColorNumber;
 	Color ORANGE;
 	CornersCombination [] Corners;
 	string test;
-	char forNothing,c1,c2,c3;
+	char c1,c2,c3;
 	void Start(){
 		ColorNumber=0;
+		PrevGameObj=null;
+		PrevColorNumber=0;
 		ORANGE=new Color(1,0.27058823529f,0,1);	
 		Corners = new CornersCombination[8];
 		
@@ -128,14 +130,30 @@ public class RayCaster : MonoBehaviour {
 		Array.Sort(foo);
 		return new string(foo);
 		}
-	
+	bool IfCornersAndPaintedReturnStr(GameObject obj, ref string str){
+		if(obj.transform.parent.childCount==3 ){
+			str="";
+			c1=GetC(lastClicked.transform.parent.GetChild(0).gameObject);
+			c2=GetC(lastClicked.transform.parent.GetChild(1).gameObject);
+			c3=GetC(lastClicked.transform.parent.GetChild(2).gameObject);
+			if(c1 != ' ' && c1 != ' ' && c3 != ' '){
+				str+=c1;
+				str+=c2;
+				str+=c3;
+				str=OrderString(str);
+				return true;
+			}
+		}
+		return false; // if not corners or corners but not fully colored
+	}
 	void FixedUpdate(){
 		if(Input.GetMouseButtonDown (0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
+				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1" ){
 					x=OnClickChangeColor.myColor;// to color with color number x
+					if(x != PrevColorNumber || PrevGameObj != lastClicked){
 					/*if(x==7){//clear
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =Color.gray;
 						return;
@@ -162,20 +180,18 @@ public class RayCaster : MonoBehaviour {
 									if(ColorsArray[ColorNumber].ColorFlag == false)
 										ColorsArray[ColorNumber].ColorFlag=true;
 									}
+							//if it was a corner + mwjod 2bl+false->true
+							if(IfCornersAndPaintedReturnStr(lastClicked,ref test)){
+								for(int i=0;i<8;i++)
+										if(Corners[i].name==test && !Corners[i].flag)
+											Corners[i].flag=true;
+							}
+					
 								lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
-								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();																
-								if(lastClicked.transform.parent.childCount==3 ){ // if it was a corner
-									test="";
-									c1=GetC(lastClicked.transform.parent.GetChild(0).gameObject);
-									c2=GetC(lastClicked.transform.parent.GetChild(1).gameObject);
-									c3=GetC(lastClicked.transform.parent.GetChild(2).gameObject);
-									if(c1 != ' ' && c1 != ' ' && c3 != ' '){
-										test+=c1;
-										test+=c2;
-										test+=c3;
-										test=OrderString(test);
-										print("test is "+test);
-										if(!searchInCorners(test)){
+								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();	
+								if(IfCornersAndPaintedReturnStr(lastClicked,ref test)){
+									print(test);
+									if(!searchInCorners(test)){
 											print("error");
 											for(int i=0;i<3;i++)
 												lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
@@ -185,9 +201,11 @@ public class RayCaster : MonoBehaviour {
 											for(int i=0;i<3;i++)
 												lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
 											}
-									}
 								}
 					}
+					}
+					PrevColorNumber=x;
+					PrevGameObj=lastClicked;
 				}
 			}
 		}

@@ -1,5 +1,3 @@
-// 2 with 3 and 1 (red with green and blue) -> red and white --> third one can be only BLUE or GREEN
-
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;    
@@ -25,7 +23,7 @@ public class RayCaster : MonoBehaviour {
 	Color ORANGE;
 	CornersCombination [] Corners;
 	string test;
-	char forNothing;
+	char forNothing,c1,c2,c3;
 	void Start(){
 		ColorNumber=0;
 		ORANGE=new Color(1,0.27058823529f,0,1);	
@@ -80,7 +78,6 @@ public class RayCaster : MonoBehaviour {
 		Corners[7].flag=true;
 	}
 	
-	
 	int GetColor(GameObject G){
 		Color color = G.gameObject.GetComponent<Renderer> ().material.color;
 		if ( color == Color.green)
@@ -126,7 +123,6 @@ public class RayCaster : MonoBehaviour {
 		return false;
 	}
 	
-	
 	static string OrderString(string str){
 		char[] foo = str.ToArray();
 		Array.Sort(foo);
@@ -140,10 +136,10 @@ public class RayCaster : MonoBehaviour {
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					x=OnClickChangeColor.myColor;// to color with color number x
-					if(x==7){//clear
+					/*if(x==7){//clear
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =Color.gray;
 						return;
-					}
+					}*/
 					if(ColorsArray[x].ColorFlag){
 						ColorsArray[x].ColorCounter ++ ;
 						if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
@@ -168,42 +164,32 @@ public class RayCaster : MonoBehaviour {
 									}
 								lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
 								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();																
-								
-								if(lastClicked.transform.parent.childCount==3 ){
-									for(int i=0;i<3;i++){
-										forNothing=GetC(lastClicked.transform.parent.GetChild(i).gameObject);
-										if(forNothing == ' '){
-											test="";
-											return;
-										}
-										else{
-											test+=forNothing;
-											if(test.Length==3){
-												
-												print("test is "+test);
-												if(!searchInCorners(OrderString(test))){
-													print("error");
-													lastClicked.transform.parent.GetChild(0).gameObject.GetComponentInChildren<TextMesh>().text="X";
-													lastClicked.transform.parent.GetChild(1).gameObject.GetComponentInChildren<TextMesh>().text="X";
-													lastClicked.transform.parent.GetChild(2).gameObject.GetComponentInChildren<TextMesh>().text="X";
-												}
-												else{
-													print("success");
-													lastClicked.transform.parent.GetChild(0).gameObject.GetComponentInChildren<TextMesh>().text="";
-													lastClicked.transform.parent.GetChild(1).gameObject.GetComponentInChildren<TextMesh>().text="";
-													lastClicked.transform.parent.GetChild(2).gameObject.GetComponentInChildren<TextMesh>().text="";
-												}
+								if(lastClicked.transform.parent.childCount==3 ){ // if it was a corner
+									test="";
+									c1=GetC(lastClicked.transform.parent.GetChild(0).gameObject);
+									c2=GetC(lastClicked.transform.parent.GetChild(1).gameObject);
+									c3=GetC(lastClicked.transform.parent.GetChild(2).gameObject);
+									if(c1 != ' ' && c1 != ' ' && c3 != ' '){
+										test+=c1;
+										test+=c2;
+										test+=c3;
+										test=OrderString(test);
+										print("test is "+test);
+										if(!searchInCorners(test)){
+											print("error");
+											for(int i=0;i<3;i++)
+												lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
 											}
-											
-										}
+										else{
+											print("success");
+											for(int i=0;i<3;i++)
+												lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
+											}
 									}
 								}
-								test="";
 					}
-					
 				}
 			}
 		}
 	}
 }
-

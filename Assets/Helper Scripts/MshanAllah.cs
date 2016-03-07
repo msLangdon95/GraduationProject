@@ -13,11 +13,10 @@ public class MshanAllah : MonoBehaviour {
      public float yMaxLimit = 85f;
      private float x = 0.0f;
      private float y = 0.0f;
-	 
 	 float f_lastX = 0.0f;
 	 float f_lastY = 0.0f;
-     float f_difX = 0.5f;
-	 float f_difY=0.5f;
+   //  float f_difX = 0.5f;
+	// float f_difY=0.5f;
      void Start(){
          var angles = transform.eulerAngles;
          x = angles.y;
@@ -27,8 +26,7 @@ public class MshanAllah : MonoBehaviour {
      
      void Update(){
 		 var dt = Time.deltaTime;
-			 f_difX = Mathf.Abs(f_lastX - Input.GetAxis ("Horizontal"));
-			 f_difY= Mathf.Abs(f_lastY - Input.GetAxis ("Vertical"));
+
              if (f_lastX < Input.GetAxis ("Mouse X") || f_lastX > Input.GetAxis ("Mouse X") || f_lastY < Input.GetAxis ("Mouse Y") || f_lastY > Input.GetAxis ("Mouse Y")){
 				x += Input.GetAxis("Mouse X") * xSpeed * dt;
 				y -= Input.GetAxis("Mouse Y") * ySpeed * dt;

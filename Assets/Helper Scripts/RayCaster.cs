@@ -126,6 +126,13 @@ public class RayCaster : MonoBehaviour {
 		return false;
 	}
 	
+	
+	static string OrderString(string str){
+		char[] foo = str.ToArray();
+		Array.Sort(foo);
+		return new string(foo);
+		}
+	
 	void FixedUpdate(){
 		if(Input.GetMouseButtonDown (0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -133,6 +140,10 @@ public class RayCaster : MonoBehaviour {
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"){
 					x=OnClickChangeColor.myColor;// to color with color number x
+					if(x==7){//clear
+						lastClicked.gameObject.GetComponent<Renderer>().material.color =Color.gray;
+						return;
+					}
 					if(ColorsArray[x].ColorFlag){
 						ColorsArray[x].ColorCounter ++ ;
 						if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
@@ -168,17 +179,26 @@ public class RayCaster : MonoBehaviour {
 										else{
 											test+=forNothing;
 											if(test.Length==3){
-												String.Concat(test.OrderBy(c => c));
+												
 												print("test is "+test);
-												if(searchInCorners(test))
-													print("success");
-												else{
+												if(!searchInCorners(OrderString(test))){
 													print("error");
+													lastClicked.transform.parent.GetChild(0).gameObject.GetComponentInChildren<TextMesh>().text="X";
+													lastClicked.transform.parent.GetChild(1).gameObject.GetComponentInChildren<TextMesh>().text="X";
+													lastClicked.transform.parent.GetChild(2).gameObject.GetComponentInChildren<TextMesh>().text="X";
+												}
+												else{
+													print("success");
+													lastClicked.transform.parent.GetChild(0).gameObject.GetComponentInChildren<TextMesh>().text="";
+													lastClicked.transform.parent.GetChild(1).gameObject.GetComponentInChildren<TextMesh>().text="";
+													lastClicked.transform.parent.GetChild(2).gameObject.GetComponentInChildren<TextMesh>().text="";
 												}
 											}
+											
 										}
 									}
-								}			
+								}
+								test="";
 					}
 					
 				}

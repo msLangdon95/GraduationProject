@@ -9,6 +9,11 @@ public class OnClickChangeColor : MonoBehaviour {
 	}
 	public void NextColor(int PickedColor){
 		flag=1;
+		if(PickedColor==7){
+			myColor=PickedColor;
+			return;
+		}
+			
 		if(RayCaster.ColorsArray[PickedColor].ColorFlag==false)
 			PopUp.ThePanel.SetActive(true);
 		else

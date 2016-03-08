@@ -10,7 +10,7 @@ public class RayCaster : MonoBehaviour {
 		public Color CurrentColor;
 		public int ColorCounter;
 	};
-	public struct CornersCombination{
+	public struct Combination{
 		public bool flag;
 		public string name;
 	};
@@ -21,7 +21,8 @@ public class RayCaster : MonoBehaviour {
 	RaycastHit rayHit;
 	int ColorNumber;
 	Color ORANGE;
-	CornersCombination [] Corners;
+	Combination [] Corners;
+	Combination [] Edges;
 	string test;
 	char c1,c2,c3;
 	void Start(){
@@ -29,7 +30,8 @@ public class RayCaster : MonoBehaviour {
 		PrevGameObj=null;
 		PrevColorNumber=0;
 		ORANGE=new Color(1,0.27058823529f,0,1);	
-		Corners = new CornersCombination[8];
+		Corners = new Combination[8];
+		Edges = new Combination[12];
 		
 		ColorsArray=new COLOR[7];
 		ColorsArray[1].GO=GameObject.Find("green");
@@ -78,6 +80,31 @@ public class RayCaster : MonoBehaviour {
 		Corners[6].flag=true;
 		Corners [7].name = "boy";
 		Corners[7].flag=true;
+		
+		Edges[0].name="by";
+		Edges[0].flag=true;
+		Edges[1].name="bo";
+		Edges[1].flag=true;
+		Edges[2].name="bw";
+		Edges[2].flag=true;
+		Edges[3].name="br";
+		Edges[3].flag=true;
+		Edges[4].name="oy";
+		Edges[4].flag=true;
+		Edges[5].name="ow";
+		Edges[5].flag=true;
+		Edges[6].name="rw";
+		Edges[6].flag=true;
+		Edges[7].name="ry";
+		Edges[7].flag=true;
+		Edges[8].name="go";
+		Edges[8].flag=true;
+		Edges[9].name="gy";
+		Edges[9].flag=true;
+		Edges[10].name="gr";
+		Edges[10].flag=true;
+		Edges[11].name="gw";
+		Edges[11].flag=true;
 	}
 	
 	int GetColor(GameObject G){
@@ -118,10 +145,19 @@ public class RayCaster : MonoBehaviour {
 	
 	bool searchInCorners(string x){
 		for(int i=0;i<8;i++)
-			if(Corners[i].name==x && Corners[i].flag){
-				Corners[i].flag=false;
-				return true;
-			}
+		if(Corners[i].name==x && Corners[i].flag){
+			Corners[i].flag=false;
+			return true;
+		}
+		return false;
+	}
+	
+	bool searchInEdges(string x){
+		for(int i=0;i<12;i++)
+		if(Edges[i].name==x && Edges[i].flag){
+			Edges[i].flag=false;
+			return true;
+		}
 		return false;
 	}
 	
@@ -129,14 +165,14 @@ public class RayCaster : MonoBehaviour {
 		char[] foo = str.ToArray();
 		Array.Sort(foo);
 		return new string(foo);
-		}
-	bool IfCornersAndPaintedReturnStr(GameObject obj, ref string str){
-		if(obj.transform.parent.childCount==3 ){
+	}
+	bool IfCornersOrEdgesAndPaintedReturnStr(GameObject obj, ref string str,int x){
+		if(x==3 ){
 			str="";
-			c1=GetC(lastClicked.transform.parent.GetChild(0).gameObject);
-			c2=GetC(lastClicked.transform.parent.GetChild(1).gameObject);
-			c3=GetC(lastClicked.transform.parent.GetChild(2).gameObject);
-			if(c1 != ' ' && c1 != ' ' && c3 != ' '){
+			c1=GetC(obj.transform.parent.GetChild(0).gameObject);
+			c2=GetC(obj.transform.parent.GetChild(1).gameObject);
+			c3=GetC(obj.transform.parent.GetChild(2).gameObject);
+			if(c1 != ' ' && c2 != ' ' && c3 != ' '){
 				str+=c1;
 				str+=c2;
 				str+=c3;
@@ -144,8 +180,20 @@ public class RayCaster : MonoBehaviour {
 				return true;
 			}
 		}
+		else if(x==2){
+			str="";
+			c1=GetC(obj.transform.parent.GetChild(0).gameObject);
+			c2=GetC(obj.transform.parent.GetChild(1).gameObject);
+			if(c1 != ' ' && c2 != ' '){
+				str+=c1;
+				str+=c2;
+				str=OrderString(str);
+				return true;
+			}
+		}		
 		return false; // if not corners or corners but not fully colored
 	}
+	
 	void FixedUpdate(){
 		if(Input.GetMouseButtonDown (0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -154,55 +202,80 @@ public class RayCaster : MonoBehaviour {
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1" ){
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(x != PrevColorNumber || PrevGameObj != lastClicked){
-					/*if(x==7){//clear
+						/*if(x==7){//clear
 						lastClicked.gameObject.GetComponent<Renderer>().material.color =Color.gray;
 						return;
 					}*/
-					if(ColorsArray[x].ColorFlag){
-						ColorsArray[x].ColorCounter ++ ;
-						if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
-							ColorsArray[x].ColorCounter -- ;
-							ColorsArray[x].ColorFlag=false;
-							PopUp.ThePanel.SetActive(true);
-							return;
+						if(ColorsArray[x].ColorFlag){
+							ColorsArray[x].ColorCounter ++ ;
+							if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
+								ColorsArray[x].ColorCounter -- ;
+								ColorsArray[x].ColorFlag=false;
+								PopUp.ThePanel.SetActive(true);
+								return;
 							}
-						foreach (Transform child in lastClicked.transform.parent)
+							foreach (Transform child in lastClicked.transform.parent)
 							if(lastClicked != child.gameObject && GetColor(child.gameObject) == x){ // neighbours can't have the same color
 								ColorsArray[x].ColorCounter -- ;
 								return;
 							}
-								
+							
 							// check the previous color to decrement its counter
-								ColorNumber=GetColor(lastClicked);
-								if(ColorNumber > 0 && ColorNumber < 7){
-									ColorsArray[ColorNumber].ColorCounter -- ;
-									ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
-									if(ColorsArray[ColorNumber].ColorFlag == false)
-										ColorsArray[ColorNumber].ColorFlag=true;
-									}
-							//if it was a corner + mwjod 2bl+false->true
-							if(IfCornersAndPaintedReturnStr(lastClicked,ref test)){
-								for(int i=0;i<8;i++)
-										if(Corners[i].name==test && !Corners[i].flag)
-											Corners[i].flag=true;
+							ColorNumber=GetColor(lastClicked);
+							if(ColorNumber > 0 && ColorNumber < 7){
+								ColorsArray[ColorNumber].ColorCounter -- ;
+								ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
+								if(ColorsArray[ColorNumber].ColorFlag == false)
+									ColorsArray[ColorNumber].ColorFlag=true;
 							}
-					
-								lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
-								ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();	
-								if(IfCornersAndPaintedReturnStr(lastClicked,ref test)){
-									print(test);
-									if(!searchInCorners(test)){
-											print("error");
-											for(int i=0;i<3;i++)
-												lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
-											}
-										else{
-											print("success");
-											for(int i=0;i<3;i++)
-												lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
-											}
+							//if it was a corner + mwjod 2bl+false->true
+							if(lastClicked.transform.parent.childCount == 3 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){
+								for(int i=0;i<8;i++)
+								if(Corners[i].name==test && !Corners[i].flag){
+									Corners[i].flag=true;
+									break;
 								}
-					}
+							}
+							//else if it was an edge+mwjod+false -> true
+							else if(lastClicked.transform.parent.childCount == 2 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){
+								for(int i=0;i<12;i++)
+								if(Edges[i].name==test && !Edges[i].flag){
+									Edges[i].flag=true;
+									break;
+								}
+							}
+							
+							lastClicked.gameObject.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
+							ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();	
+							if(lastClicked.transform.parent.childCount == 3 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
+								print(test);
+								if(!searchInCorners(test)){
+									print("error");
+									for(int i=0;i<3;i++)
+										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
+								}
+								else{
+									print("success");
+									for(int i=0;i<3;i++)
+										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
+								}
+							}
+							//verify new colored edges
+							if(lastClicked.transform.parent.childCount == 2 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){ // verify new colored corner
+								print(test);
+								if(!searchInEdges(test)){
+									print("error");
+									for(int i=0;i<2;i++)
+										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
+								}
+								else{
+									print("success");
+									for(int i=0;i<2;i++)
+										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
+								}
+							}
+							
+						}
 					}
 					PrevColorNumber=x;
 					PrevGameObj=lastClicked;

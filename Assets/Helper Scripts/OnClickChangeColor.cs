@@ -14,7 +14,7 @@ public class OnClickChangeColor : MonoBehaviour {
 			return;
 		}
 			
-		if(RayCaster.ColorsArray[PickedColor].ColorFlag==false)
+		if(Globals.ColorsArray[PickedColor].ColorFlag==false)
 			PopUp.ThePanel.SetActive(true);
 		else
 			myColor=PickedColor;

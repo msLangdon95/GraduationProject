@@ -26,36 +26,6 @@ public class RayCaster : MonoBehaviour {
 		Corners = new Combination[8];
 		Edges = new Combination[12];
 		
-		Globals.ColorsArray[1].GO=GameObject.Find("green");
-		Globals.ColorsArray[1].ColorFlag=true;
-		Globals.ColorsArray[1].CurrentColor=Color.green;
-		Globals.ColorsArray[1].ColorCounter=0;
-		
-		Globals.ColorsArray[2].GO=GameObject.Find("red");
-		Globals.ColorsArray[2].ColorFlag=true;
-		Globals.ColorsArray[2].CurrentColor=Color.red;
-		Globals.ColorsArray[2].ColorCounter=0;
-		
-		Globals.ColorsArray[3].GO=GameObject.Find("blue");
-		Globals.ColorsArray[3].ColorFlag=true;
-		Globals.ColorsArray[3].CurrentColor=Color.blue;
-		Globals.ColorsArray[3].ColorCounter=0;
-		
-		Globals.ColorsArray[4].GO=GameObject.Find("orange");
-		Globals.ColorsArray[4].ColorFlag=true;
-		Globals.ColorsArray[4].CurrentColor=ORANGE; 
-		Globals.ColorsArray[4].ColorCounter=0;
-		
-		Globals.ColorsArray[5].GO=GameObject.Find("yellow");
-		Globals.ColorsArray[5].ColorFlag=true;
-		Globals.ColorsArray[5].CurrentColor=Color.yellow;
-		Globals.ColorsArray[5].ColorCounter=0;
-		
-		Globals.ColorsArray[6].GO=GameObject.Find("white");
-		Globals.ColorsArray[6].ColorFlag=true;
-		Globals.ColorsArray[6].CurrentColor=Color.white;
-		Globals.ColorsArray[6].ColorCounter=0;
-		
 		Corners [0].name = "grw";
 		Corners[0].flag=true;
 		Corners [1].name = "bry";
@@ -102,17 +72,17 @@ public class RayCaster : MonoBehaviour {
 	int GetColor(GameObject G){
 		Color color = G.gameObject.GetComponent<Renderer> ().material.color;
 		if ( color == Color.green)
-			return 1;
+			return 0;
 		else if ( color == Color.red)
-			return 2;
+			return 1;
 		else if ( color == Color.blue)
-			return 3;
+			return 2;
 		else if ( color == ORANGE )
-			return 4;
+			return 3;
 		else if (color==Color.yellow )
-			return 5;
+			return 4;
 		else if (color==Color.white)
-			return 6;
+			return 5;
 		else
 			return -1;
 	}
@@ -214,7 +184,7 @@ public class RayCaster : MonoBehaviour {
 							
 							// check the previous color to decrement its counter
 							ColorNumber=GetColor(lastClicked);
-							if(ColorNumber > 0 && ColorNumber < 7){
+							if(ColorNumber >= 0 && ColorNumber < 6){
 								Globals.ColorsArray[ColorNumber].ColorCounter -- ;
 								Globals.ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[ColorNumber].ColorCounter.ToString();
 								if(Globals.ColorsArray[ColorNumber].ColorFlag == false)

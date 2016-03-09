@@ -10,13 +10,13 @@ public class ManualInputSceneScripts : MonoBehaviour {
 			x=GameObject.Find(Globals.EdgesAndCorners[i]);
 			x.GetComponent<Renderer>().material.color =Color.gray;
 		}
-		for(int i=1;i<7;i++){
+		for(int i=0;i<6;i++){
 			Globals.ColorsArray[i].ColorCounter=0;
 			Globals.ColorsArray[i].GO.GetComponentInChildren<Text>().text="0";
 		}
 	}
 	public void VerifyAndGo(){ // next scene button
-		for(int i=1;i<7;i++){
+		for(int i=0;i<6;i++){
 			if(Globals.ColorsArray[i].ColorCounter!= 8){ //not all cubies are fully colored
 				print("error");
 				return;

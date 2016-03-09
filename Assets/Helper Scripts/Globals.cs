@@ -7,6 +7,12 @@ public class Globals : MonoBehaviour {
 		public bool ColorFlag;
 		public Color CurrentColor;
 		public int ColorCounter;
+		public COLOR(GameObject x,bool cf, Color cc, int cCounter){
+			GO=x;
+			ColorFlag=cf;
+			CurrentColor=cc;
+			ColorCounter=cCounter;
+		}
 	};
 	public static string [] EdgesAndCorners={
 	"Red1","Red2","Red3","Red4","Red6","Red7","Red8","Red9",
@@ -17,5 +23,12 @@ public class Globals : MonoBehaviour {
 	"White1","White2","White3","White4","White6","White7","White8","White9"
 	};
 	public static Color [] CurrentCubeColors=new Color[48];
-	public static COLOR [] ColorsArray=new COLOR[7];
+	public static COLOR [] ColorsArray=new COLOR[]{
+		new COLOR(GameObject.Find("green"),true,Color.green,0),
+		new COLOR(GameObject.Find("red"),true,Color.red,0),
+		new COLOR(GameObject.Find("blue"),true,Color.blue,0),
+		new COLOR(GameObject.Find("orange"),true,new Color(1,0.27058823529f,0,1),0),
+		new COLOR(GameObject.Find("yellow"),true,Color.yellow,0),
+		new COLOR(GameObject.Find("white"),true,Color.white,0),
+	};
 }

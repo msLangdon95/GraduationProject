@@ -18,7 +18,7 @@ public class ManualInputSceneScripts : MonoBehaviour {
 	public void VerifyAndGo(){ // next scene button
 		for(int i=0;i<6;i++){
 			if(Globals.ColorsArray[i].ColorCounter!= 8){ //not all cubies are fully colored
-				print("error");
+				Globals.VerifyPanel.SetActive(true);
 				return;
 			}
 		}
@@ -26,7 +26,7 @@ public class ManualInputSceneScripts : MonoBehaviour {
 		for(int i=0;i<48;i++){
 			x=GameObject.Find(Globals.EdgesAndCorners[i]);
 			if(x.GetComponentInChildren<TextMesh>().text=="X"){//not all cubies are colored correctly
-				print("error");
+				Globals.VerifyPanel.SetActive(true);
 				return;
 			}
 		}
@@ -39,4 +39,12 @@ public class ManualInputSceneScripts : MonoBehaviour {
 		Application.LoadLevel("rubik");
 	}
 	
+	public void Close(GameObject P){
+		P.SetActive(false);
+	}
+	
+	public void DontShowThisMessageAgain(GameObject P){
+		Globals.dontShowAgain=true;
+		P.SetActive(false);
+	}
 }

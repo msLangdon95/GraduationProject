@@ -31,4 +31,8 @@ public class Globals : MonoBehaviour {
 		new COLOR(GameObject.Find("yellow"),true,Color.yellow,0),
 		new COLOR(GameObject.Find("white"),true,Color.white,0),
 	};
+	public static GameObject ThePanel;
+	public static GameObject ColoredWronglyPanel;
+	public static GameObject VerifyPanel;
+	public static bool dontShowAgain;
 }

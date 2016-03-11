@@ -67,6 +67,18 @@ public class RayCaster : MonoBehaviour {
 		Edges[10].flag=true;
 		Edges[11].name="gw";
 		Edges[11].flag=true;
+		
+		Globals.ThePanel=GameObject.Find("PopUp");
+		Globals.ThePanel.SetActive(false);
+		
+		Globals.ColoredWronglyPanel=GameObject.Find("WrongColoring");
+		Globals.ColoredWronglyPanel.SetActive(false);
+		
+		Globals.VerifyPanel=GameObject.Find("VerifyPanel");
+		Globals.VerifyPanel.SetActive(false);
+		
+		Globals.dontShowAgain=false;
+		
 	}
 	
 	int GetColor(GameObject G){
@@ -165,15 +177,21 @@ public class RayCaster : MonoBehaviour {
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(x != PrevColorNumber || PrevGameObj != lastClicked){
 						/*if(x==7){//clear
-						lastClicked.gameObject.GetComponent<Renderer>().material.color =Color.gray;
+						//lastClicked.gameObject.GetComponent<Renderer>().material.color.a=0;
+						//lolo.a = 0;
+						Color color = lastClicked.gameObject.GetComponent<Renderer>().material.color;
+						color.a = 0.0f;
+						lastClicked.gameObject.GetComponent<Renderer>().material.color = color;
+						
+						
 						return;
-					}*/
+						}*/
 						if(Globals.ColorsArray[x].ColorFlag){
 							Globals.ColorsArray[x].ColorCounter ++ ;
 							if(Globals.ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
 								Globals.ColorsArray[x].ColorCounter -- ;
 								Globals.ColorsArray[x].ColorFlag=false;
-								PopUp.ThePanel.SetActive(true);
+								Globals.ThePanel.SetActive(true);
 								return;
 							}
 							foreach (Transform child in lastClicked.transform.parent)
@@ -213,6 +231,8 @@ public class RayCaster : MonoBehaviour {
 								print(test);
 								if(!searchInCorners(test)){
 									print("error");
+									if(Globals.dontShowAgain==false)
+										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<3;i++)
 										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
 								}
@@ -227,6 +247,8 @@ public class RayCaster : MonoBehaviour {
 								print(test);
 								if(!searchInEdges(test)){
 									print("error");
+									if(Globals.dontShowAgain==false)
+										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<2;i++)
 										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
 								}

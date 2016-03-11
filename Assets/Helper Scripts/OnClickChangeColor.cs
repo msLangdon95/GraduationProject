@@ -15,7 +15,7 @@ public class OnClickChangeColor : MonoBehaviour {
 		}
 			
 		if(Globals.ColorsArray[PickedColor].ColorFlag==false)
-			PopUp.ThePanel.SetActive(true);
+			Globals.ThePanel.SetActive(true);
 		else{
 			myColor=PickedColor;
 			print(myColor);

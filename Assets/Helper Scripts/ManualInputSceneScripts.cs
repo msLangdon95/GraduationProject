@@ -22,15 +22,6 @@ public class ManualInputSceneScripts : MonoBehaviour {
 				return;
 			}
 		}
-
-		for(int i=0;i<48;i++){
-			x=GameObject.Find(Globals.EdgesAndCorners[i]);
-			if(x.GetComponentInChildren<TextMesh>().text=="X"){//not all cubies are colored correctly
-				Globals.VerifyPanel.SetActive(true);
-				return;
-			}
-		}
-		
 		//Accepted, store all colors
 		for(int i=0;i<48;i++){
 			x=GameObject.Find(Globals.EdgesAndCorners[i]);

@@ -4,12 +4,12 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 public class RayCaster : MonoBehaviour {
-
+	public Material r1;
 	public struct Combination{
 		public bool flag;
 		public string name;
 	};
-	int x,PrevColorNumber;
+	int x,PrevColorNumber,forNothing;
 	GameObject lastClicked,PrevGameObj;
 	Ray ray;
 	RaycastHit rayHit;
@@ -234,13 +234,12 @@ public class RayCaster : MonoBehaviour {
 									print("error");
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
-									for(int i=0;i<3;i++)
-										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
-								}
-								else{
-									print("success");
-									for(int i=0;i<3;i++)
-										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
+									for(int i=0;i<3;i++){
+										forNothing=GetColor(lastClicked.transform.parent.GetChild(i).gameObject);
+										Globals.ColorsArray[forNothing].ColorCounter--;
+										Globals.ColorsArray[forNothing].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[forNothing].ColorCounter.ToString();
+										lastClicked.transform.parent.GetChild(i).gameObject.GetComponent<Renderer>().material.color=Color.gray;
+									}
 								}
 							}
 							//verify new colored edges
@@ -250,13 +249,12 @@ public class RayCaster : MonoBehaviour {
 									print("error");
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
-									for(int i=0;i<2;i++)
-										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="X";
-								}
-								else{
-									print("success");
-									for(int i=0;i<2;i++)
-										lastClicked.transform.parent.GetChild(i).gameObject.GetComponentInChildren<TextMesh>().text="";
+									for(int i=0;i<2;i++){
+										forNothing=GetColor(lastClicked.transform.parent.GetChild(i).gameObject);
+										Globals.ColorsArray[forNothing].ColorCounter--;
+										Globals.ColorsArray[forNothing].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[forNothing].ColorCounter.ToString();
+										lastClicked.transform.parent.GetChild(i).gameObject.GetComponent<Renderer>().material.color=Color.gray;
+									}
 								}
 							}
 							

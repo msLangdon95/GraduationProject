@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 public class RayCaster : MonoBehaviour {
+
 	public struct Combination{
 		public bool flag;
 		public string name;

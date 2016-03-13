@@ -229,9 +229,9 @@ public class RayCaster : MonoBehaviour {
 							lastClicked.gameObject.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
 							Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
 							if(lastClicked.transform.parent.childCount == 3 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
-								print(test);
+								//print(test);
 								if(!searchInCorners(test)){
-									print("error");
+									//print("error");
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<3;i++){
@@ -244,9 +244,9 @@ public class RayCaster : MonoBehaviour {
 							}
 							//verify new colored edges
 							if(lastClicked.transform.parent.childCount == 2 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){ // verify new colored corner
-								print(test);
+							//	print(test);
 								if(!searchInEdges(test)){
-									print("error");
+									//print("error");
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<2;i++){

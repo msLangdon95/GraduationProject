@@ -35,5 +35,4 @@ public class Globals : MonoBehaviour {
 	public static GameObject ColoredWronglyPanel;
 	public static GameObject VerifyPanel;
 	public static bool dontShowAgain;
-	public static bool ExitColoredWrongly;
 }

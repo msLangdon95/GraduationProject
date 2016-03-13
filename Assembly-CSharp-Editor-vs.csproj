@@ -51,9 +51,6 @@
      <None Include="Assets\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
      <None Include="Assets\Fonts\Bebas\Flat-it License.txt" />
      <None Include="Assets\Fonts\Lato\SIL Open Font License.txt" />
- <Reference Include="Assembly-UnityScript">
- <HintPath>C:/Users/sam/Documents/GitHub/GraduationProject/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

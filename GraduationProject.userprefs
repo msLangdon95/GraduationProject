@@ -1,9 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Helper Scripts\Timer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Helper Scripts\Loading.cs">
     <Files>
-      <File FileName="..\..\..\Desktop\New Unity Project\Assets\Helper Scripts\Timer.cs" Line="29" Column="59" />
-      <File FileName="Assets\Helper Scripts\Timer.cs" Line="6" Column="14" />
+      <File FileName="Assets\Helper Scripts\ManualInputSceneScripts.cs" Line="73" Column="3" />
+      <File FileName="Assets\Helper Scripts\Globals.cs" Line="1" Column="1" />
+      <File FileName="Assets\Helper Scripts\RayCaster.cs" Line="7" Column="21" />
+      <File FileName="Assets\Helper Scripts\Loading.cs" Line="39" Column="52" />
+      <File FileName="Assets\Helper Scripts\Timer.cs" Line="13" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

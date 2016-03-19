@@ -19,7 +19,7 @@ public class Timer : MonoBehaviour {
 			hours+=1;
 			min=0;
 		}
-		time.text = hours + ":" + min + ":" + sec;
+		time.text = hours + ":" + min + ":" +(int) sec;
 	}
 
 }

@@ -53,6 +53,7 @@
      <Compile Include="Assets\Helper Scripts\Exit.cs" />
      <Compile Include="Assets\Helper Scripts\Globals.cs" />
      <Compile Include="Assets\Helper Scripts\GoBack.cs" />
+     <Compile Include="Assets\Helper Scripts\Loading.cs" />
      <Compile Include="Assets\Helper Scripts\ManualInputSceneScripts.cs" />
      <Compile Include="Assets\Helper Scripts\MshanAllah.cs" />
      <Compile Include="Assets\Helper Scripts\OnClickChangeColor.cs" />
@@ -62,6 +63,7 @@
      <Compile Include="Assets\Helper Scripts\ToggleButtonIcon.cs" />
      <Compile Include="Assets\Helper Scripts\changeButtonImage.cs" />
      <Compile Include="Assets\Helper Scripts\newscene.cs" />
+     <Compile Include="Assets\Helper Scripts\timerScript.cs" />
      <None Include="Assets\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
      <None Include="Assets\Fonts\Bebas\Flat-it License.txt" />
      <None Include="Assets\Fonts\Lato\SIL Open Font License.txt" />

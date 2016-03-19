@@ -31,34 +31,23 @@ using System.Text.RegularExpressions;
 			return Color.gray;
 	}
 
-
-
 	 public void LoadMe(){
 		Application.LoadLevel("rubik");
 
 		using (StreamReader sr= new StreamReader (path)){
-
-		while( (a=sr.ReadLine())!= null){
+			while( (a=sr.ReadLine())!= null){
 			words = a.Split(',');
 			}
-			//	for(int i=0;i<48;i++){
 			foreach ( string word in words ) {
-					print (word);
+				print (word);
 				print (i);
-
-      	//w=GameObject.Find(Globals.EdgesAndCorners[i]); 
-		//w.GetComponent<Renderer>().material.color=returnColor(word); 
+				w=GameObject.Find(Globals.EdgesAndCorners[i]); 
+				w.GetComponent<Renderer>().material.color=returnColor(word); 
 				i++;
 			}
-
-			
-		
-		}
-			
-		}
-
-	
-	}
+		}	
+	 }
+}
 	
 
 

@@ -14,7 +14,6 @@ public class RayCaster : MonoBehaviour {
 	Ray ray;
 	RaycastHit rayHit;
 	int ColorNumber;
-	Color ORANGE;
 	Combination [] Corners;
 	Combination [] Edges;
 	string test;
@@ -23,7 +22,6 @@ public class RayCaster : MonoBehaviour {
 		ColorNumber=0;
 		PrevGameObj=null;
 		PrevColorNumber=0;
-		ORANGE=new Color(1,0.27058823529f,0,1);	
 		Corners = new Combination[8];
 		Edges = new Combination[12];
 		
@@ -90,7 +88,7 @@ public class RayCaster : MonoBehaviour {
 			return 1;
 		else if ( color == Color.blue)
 			return 2;
-		else if ( color == ORANGE )
+		else if ( color == Globals.Orange )
 			return 3;
 		else if (color==Color.yellow )
 			return 4;
@@ -108,7 +106,7 @@ public class RayCaster : MonoBehaviour {
 			return 'r';
 		else if ( color == Color.blue)
 			return 'b';
-		else if ( color == ORANGE )
+		else if ( color == Globals.Orange )
 			return 'o';
 		else if (color==Color.yellow )
 			return 'y';
@@ -229,9 +227,7 @@ public class RayCaster : MonoBehaviour {
 							lastClicked.gameObject.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
 							Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
 							if(lastClicked.transform.parent.childCount == 3 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
-								//print(test);
 								if(!searchInCorners(test)){
-									//print("error");
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<3;i++){
@@ -244,9 +240,7 @@ public class RayCaster : MonoBehaviour {
 							}
 							//verify new colored edges
 							if(lastClicked.transform.parent.childCount == 2 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){ // verify new colored corner
-							//	print(test);
 								if(!searchInEdges(test)){
-									//print("error");
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<2;i++){

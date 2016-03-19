@@ -35,4 +35,5 @@ public class Globals : MonoBehaviour {
 	public static GameObject ColoredWronglyPanel;
 	public static GameObject VerifyPanel;
 	public static bool dontShowAgain;
+	public static Color Orange=new Color(1,0.27058823529f,0,1);
 }

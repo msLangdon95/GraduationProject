@@ -1,6 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;    
+using System;
+using System.Linq;  
+using System.IO;
+using System.Text;
+  
 public class RubikScene : MonoBehaviour {
 	string [] UpperFace={"RED","Edge1","Edge3","Edge4","Edge12","Corner1","Corner2","Corner7","Corner8"};
 	/*string[] one = {"WHITE","Edge7","Edge8","Edge9","Edge12","Corner1","Corner4","Corner6","Corner7"};
@@ -15,9 +20,13 @@ public class RubikScene : MonoBehaviour {
 	public Vector3 p;
 	Vector2 fp,lp;
 	GameObject x,RubiksCube,Parent;
+	string path = @"D:\ myColors3.txt";
+	Color a;
 	void Start(){
+		if (File.Exists(path))
+			File.Delete(path);
 		RubiksCube=GameObject.Find("RubiksCube");
-		RubiksCube=GameObject.Find("Parent");
+		Parent=GameObject.Find("Parent");
 		/*for(int i=0;i<48;i++){
 			x=GameObject.Find(Globals.EdgesAndCorners[i]);
 			x.GetComponent<Renderer>().material.color=Globals.CurrentCubeColors[i];
@@ -72,5 +81,36 @@ public class RubikScene : MonoBehaviour {
 	}
 	
 	
+	
+	//DANIA
+	string GetColor(Color G){
+		Color color = G;
+		if (color == Color.green)
+			return "Green";
+		if (color == Color.blue)
+			return "Blue";
+		if (color == Color.red)
+			return "Red";
+		if (color == Color.yellow)
+			return "Yellow";
+		if (color == Color.white)
+			return "White";
+		if (color == Globals.Orange)
+			return "Orange";
+		else 
+			return "Gray" ;
+	}
+	public void Save(){
+		using (StreamWriter sw = File.CreateText(path)) {
+				for(int i=0;i<48;i++){
+					x=GameObject.Find(Globals.EdgesAndCorners[i]);
+					a=x.GetComponent<Renderer>().material.color;
+					String w = GetColor (a);
+					sw.Write(w+",");
+				}	
+			sw.Close();
+			}
+		print("game is saved");
+	}
 	
 }

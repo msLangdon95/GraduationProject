@@ -59,6 +59,7 @@
      <Compile Include="Assets\Helper Scripts\OnClickChangeColor.cs" />
      <Compile Include="Assets\Helper Scripts\RayCaster.cs" />
      <Compile Include="Assets\Helper Scripts\RubikScene.cs" />
+     <Compile Include="Assets\Helper Scripts\Saving.cs" />
      <Compile Include="Assets\Helper Scripts\Timer.cs" />
      <Compile Include="Assets\Helper Scripts\ToggleButtonIcon.cs" />
      <Compile Include="Assets\Helper Scripts\changeButtonImage.cs" />

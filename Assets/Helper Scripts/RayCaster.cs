@@ -1,3 +1,4 @@
+//TAG 1 FOR CENTER, 2 FOR EDGES AND 3 FOR CORNERS
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;    
@@ -25,46 +26,46 @@ public class RayCaster : MonoBehaviour {
 		Corners = new Combination[8];
 		Edges = new Combination[12];
 		
-		Corners [0].name = "grw";
+		Corners [0].name = "gow";
 		Corners[0].flag=true;
-		Corners [1].name = "bry";
+		Corners [1].name = "owy";
 		Corners[1].flag=true;
-		Corners [2].name = "brw";
+		Corners [2].name = "bgw";
 		Corners[2].flag=true;
-		Corners [3].name = "gry";
+		Corners [3].name = "gor";
 		Corners[3].flag=true;
-		Corners [4].name = "bow";
+		Corners [4].name = "bwy";
 		Corners[4].flag=true;
-		Corners [5].name = "gow";
+		Corners [5].name = "ory";
 		Corners[5].flag=true;
-		Corners [6].name = "goy";
+		Corners [6].name = "bry";
 		Corners[6].flag=true;
-		Corners [7].name = "boy";
+		Corners [7].name = "bgr";
 		Corners[7].flag=true;
 		
-		Edges[0].name="by";
+		Edges[0].name="gw";
 		Edges[0].flag=true;
-		Edges[1].name="bo";
+		Edges[1].name="bw";
 		Edges[1].flag=true;
-		Edges[2].name="bw";
+		Edges[2].name="ow";
 		Edges[2].flag=true;
-		Edges[3].name="br";
+		Edges[3].name="wy";
 		Edges[3].flag=true;
-		Edges[4].name="oy";
+		Edges[4].name="bg";
 		Edges[4].flag=true;
-		Edges[5].name="ow";
+		Edges[5].name="by";
 		Edges[5].flag=true;
-		Edges[6].name="rw";
+		Edges[6].name="or";
 		Edges[6].flag=true;
 		Edges[7].name="ry";
 		Edges[7].flag=true;
 		Edges[8].name="go";
 		Edges[8].flag=true;
-		Edges[9].name="gy";
+		Edges[9].name="oy";
 		Edges[9].flag=true;
-		Edges[10].name="gr";
+		Edges[10].name="br";
 		Edges[10].flag=true;
-		Edges[11].name="gw";
+		Edges[11].name="gr";
 		Edges[11].flag=true;
 		
 		Globals.ThePanel=GameObject.Find("PopUp");
@@ -172,19 +173,9 @@ public class RayCaster : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1" ){
+				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.transform.parent.GetComponent<Collider>().tag != "1" ){
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(x != PrevColorNumber || PrevGameObj != lastClicked){
-						/*if(x==7){//clear
-						//lastClicked.gameObject.GetComponent<Renderer>().material.color.a=0;
-						//lolo.a = 0;
-						Color color = lastClicked.gameObject.GetComponent<Renderer>().material.color;
-						color.a = 0.0f;
-						lastClicked.gameObject.GetComponent<Renderer>().material.color = color;
-						
-						
-						return;
-						}*/
 						if(Globals.ColorsArray[x].ColorFlag){
 							Globals.ColorsArray[x].ColorCounter ++ ;
 							if(Globals.ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
@@ -208,7 +199,7 @@ public class RayCaster : MonoBehaviour {
 									Globals.ColorsArray[ColorNumber].ColorFlag=true;
 							}
 							//if it was a corner + mwjod 2bl+false->true
-							if(lastClicked.transform.parent.childCount == 3 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){
+							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){
 								for(int i=0;i<8;i++)
 								if(Corners[i].name==test && !Corners[i].flag){
 									Corners[i].flag=true;
@@ -216,7 +207,7 @@ public class RayCaster : MonoBehaviour {
 								}
 							}
 							//else if it was an edge+mwjod+false -> true
-							else if(lastClicked.transform.parent.childCount == 2 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){
+							else if(lastClicked.transform.parent.GetComponent<Collider>().tag == "2" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){
 								for(int i=0;i<12;i++)
 								if(Edges[i].name==test && !Edges[i].flag){
 									Edges[i].flag=true;
@@ -226,7 +217,7 @@ public class RayCaster : MonoBehaviour {
 							
 							lastClicked.gameObject.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
 							Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
-							if(lastClicked.transform.parent.childCount == 3 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
+							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
 								if(!searchInCorners(test)){
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
@@ -239,7 +230,7 @@ public class RayCaster : MonoBehaviour {
 								}
 							}
 							//verify new colored edges
-							if(lastClicked.transform.parent.childCount == 2 && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){ // verify new colored corner
+							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "2" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){ // verify new colored corner
 								if(!searchInEdges(test)){
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);

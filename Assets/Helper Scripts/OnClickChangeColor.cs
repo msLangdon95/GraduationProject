@@ -9,11 +9,6 @@ public class OnClickChangeColor : MonoBehaviour {
 	}
 	public void NextColor(int PickedColor){
 		flag=1;
-		if(PickedColor==7){
-			myColor=PickedColor;
-			return;
-		}
-			
 		if(Globals.ColorsArray[PickedColor].ColorFlag==false)
 			Globals.ThePanel.SetActive(true);
 		else{

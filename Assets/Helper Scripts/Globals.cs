@@ -15,12 +15,12 @@ public class Globals : MonoBehaviour {
 		}
 	};
 	public static string [] EdgesAndCorners={
-	"Red1","Red2","Red3","Red4","Red6","Red7","Red8","Red9",
-	"Green1","Green2","Green3","Green4","Green6","Green7","Green8","Green9",
-	"Blue1","Blue2","Blue3","Blue4","Blue6","Blue7","Blue8","Blue9",
-	"Yellow1","Yellow2","Yellow3","Yellow4","Yellow6","Yellow7","Yellow8","Yellow9",
-	"Orange1","Orange2","Orange3","Orange4","Orange6","Orange7","Orange8","Orange9",
-	"White1","White2","White3","White4","White6","White7","White8","White9"
+	"Red1","Red2","Red3","Red4","Red6","Red7","Red8","Red5",
+	"Green1","Green2","Green3","Green4","Green6","Green7","Green8","Green5",
+	"Blue1","Blue2","Blue3","Blue4","Blue6","Blue7","Blue8","Blue5",
+	"Yellow1","Yellow2","Yellow3","Yellow4","Yellow6","Yellow7","Yellow8","Yellow5",
+	"Orange1","Orange2","Orange3","Orange4","Orange6","Orange7","Orange8","Orange5",
+	"White1","White2","White3","White4","White6","White7","White8","White5"
 	};
 	public static Color [] CurrentCubeColors=new Color[48];
 	public static COLOR [] ColorsArray=new COLOR[]{

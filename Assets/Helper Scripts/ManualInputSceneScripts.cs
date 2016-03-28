@@ -15,6 +15,7 @@ public class ManualInputSceneScripts : MonoBehaviour {
 		}
 		for(int i=0;i<6;i++){
 			Globals.ColorsArray[i].ColorCounter=0;
+			Globals.ColorsArray[i].ColorFlag=true;
 			Globals.ColorsArray[i].GO.GetComponentInChildren<Text>().text="0";
 		}
 	}

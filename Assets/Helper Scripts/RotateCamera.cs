@@ -16,6 +16,7 @@ using UnityEngine;
      private float x = 0.0f;
      private float y = 0.0f;
      
+
      
      void Start()
      {
@@ -26,24 +27,32 @@ using UnityEngine;
          // Make the rigid body not change rotation
             if (GetComponent<Rigidbody>())
              GetComponent<Rigidbody>().freezeRotation = true;
+		var rotation = Quaternion.Euler(y, x, 0f);
+		var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
+		transform.rotation = rotation;
+		transform.position = position;
      }
      
-     void LateUpdate()
-     {
-         if (target != null && Input.GetMouseButton(0))
-         {
-             x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-             y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
-             
-             y = ClampAngle(y, yMinLimit, yMaxLimit);
-             
-             var rotation = Quaternion.Euler(y, x, 0f);
-             var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
-             
-             transform.rotation = rotation;
-             transform.position = position;
-         }
-     }
+   void LateUpdate(){
+	   if (target != null && Input.touchCount > 0){
+		   Touch touch = Input.touches[0];
+		   if (touch.phase == TouchPhase.Began){
+			   GetComponent<Rigidbody>().freezeRotation = true;
+			   }
+			if (touch.phase == TouchPhase.Moved ){
+				x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+				y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+				y = ClampAngle(y, yMinLimit, yMaxLimit);
+				var rotation = Quaternion.Euler(y, x, 0f);
+				var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
+				transform.rotation = rotation;
+				transform.position = position;
+				}
+			if(touch.phase == TouchPhase.Ended){ 
+				GetComponent<Rigidbody>().freezeRotation = true;
+				}
+		}
+}
  
      static float ClampAngle (float angle, float min, float max)
      {

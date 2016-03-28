@@ -43,19 +43,13 @@ public class Loading : MonoBehaviour {
 			}
 			foreach ( string word in words ) {
 				w=GameObject.Find(Globals.EdgesAndCorners[i]); 
-				//w.GetComponent<Renderer>().material.color=getColor(word); 
-				print (word);
-				//print (i);
-				
-				print (Globals.EdgesAndCorners[i]);
-				
+				w.GetComponent<Renderer>().material.color=getColor(word); 
 				i++;
 			}
 		}	
 	}
 	
 	public void onMouseDown(){
-		
 		LoadMe ();
 	}
 }

@@ -5,7 +5,7 @@ using System;
 using System.Linq;  
 using System.IO;
 using System.Text;
-  
+using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
 	string [] UpperFace={"RED","Edge1","Edge3","Edge4","Edge12","Corner1","Corner2","Corner7","Corner8"};
 	/*string[] one = {"WHITE","Edge7","Edge8","Edge9","Edge12","Corner1","Corner4","Corner6","Corner7"};
@@ -20,11 +20,7 @@ public class RubikScene : MonoBehaviour {
 	public Vector3 p;
 	Vector2 fp,lp;
 	GameObject x,RubiksCube,Parent;
-	string path = @"D:\ myColors3.txt";
-	Color a;
 	void Start(){
-		if (File.Exists(path))
-			File.Delete(path);
 		RubiksCube=GameObject.Find("RubiksCube");
 		Parent=GameObject.Find("Parent");
 		/*for(int i=0;i<48;i++){
@@ -34,6 +30,18 @@ public class RubikScene : MonoBehaviour {
 	}
 	
 	void Update(){
+		/*Process foo = new Process();
+		foo.StartInfo.FileName = @"C:\Users\sam\Desktop\rubik3Sticker.generator";
+		foo.StartInfo.Arguments = "1 1 1";
+		foo.StartInfo.UseShellExecute = false;
+		foo.StartInfo.RedirectStandardOutput = true;
+		foo.StartInfo.CreateNoWindow = true;
+		foo.Start();
+		while(!foo.StandardOutput.EndOfStream)
+			print(foo.StandardOutput.ReadLine());
+				
+         print("?");*/
+		/*
 		if (Input.touchCount > 0){
 			Touch touch = Input.touches[0];
 			 if (touch.phase == TouchPhase.Began){
@@ -61,7 +69,7 @@ public class RubikScene : MonoBehaviour {
 				 print("up");
 				}
 			}
-		}
+		}*/
 	}
 	
 	
@@ -79,38 +87,9 @@ public class RubikScene : MonoBehaviour {
 		}
 		
 	}
-	
-	
-	
-	//DANIA
-	string GetColor(Color G){
-		Color color = G;
-		if (color == Color.green)
-			return "Green";
-		if (color == Color.blue)
-			return "Blue";
-		if (color == Color.red)
-			return "Red";
-		if (color == Color.yellow)
-			return "Yellow";
-		if (color == Color.white)
-			return "White";
-		if (color == Globals.Orange)
-			return "Orange";
-		else 
-			return "Gray" ;
-	}
-	public void Save(){
-		using (StreamWriter sw = File.CreateText(path)) {
-				for(int i=0;i<48;i++){
-					x=GameObject.Find(Globals.EdgesAndCorners[i]);
-					a=x.GetComponent<Renderer>().material.color;
-					String w = GetColor (a);
-					sw.Write(w+",");
-				}	
-			sw.Close();
-			}
-		print("game is saved");
-	}
-	
 }
+
+
+
+
+

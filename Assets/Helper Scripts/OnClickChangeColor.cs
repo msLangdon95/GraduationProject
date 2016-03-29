@@ -13,7 +13,6 @@ public class OnClickChangeColor : MonoBehaviour {
 			Globals.ThePanel.SetActive(true);
 		else{
 			myColor=PickedColor;
-			print(myColor);
 		}
 	}
 	

@@ -173,7 +173,8 @@ public class RayCaster : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.transform.parent.GetComponent<Collider>().tag != "1" ){
+				print(lastClicked.name + "  "+ lastClicked.GetComponent<Collider>().tag );
+				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1" ){
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(x != PrevColorNumber || PrevGameObj != lastClicked){
 						if(Globals.ColorsArray[x].ColorFlag){

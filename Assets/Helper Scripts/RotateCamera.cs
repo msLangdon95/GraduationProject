@@ -36,6 +36,13 @@ using UnityEngine;
    void LateUpdate(){
 	   if (target != null && Input.touchCount > 0){
 		   Touch touch = Input.touches[0];
+		   Ray touchRay = GetComponent<Camera>().ScreenPointToRay(touch.position);
+		   foreach( RaycastHit hit in Physics.RaycastAll(touchRay) ) {
+			   if(hit.transform.parent.parent.name=="RubiksCube" || hit.transform.parent.parent.parent.name=="RubiksCube")
+				   return;
+		   }
+		   
+		   
 		   if (touch.phase == TouchPhase.Began){
 			   GetComponent<Rigidbody>().freezeRotation = true;
 			   }

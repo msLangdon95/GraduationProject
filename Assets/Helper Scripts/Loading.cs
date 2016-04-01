@@ -6,7 +6,7 @@ using System.Timers;
 using System.Text.RegularExpressions;
 
 public class Loading : MonoBehaviour {
-	string path = @"D:\ myColor3.txt";
+	string path = @"C:\ myColor3.txt";
 	public	string a;
 	public string[]words;
 	GameObject w;

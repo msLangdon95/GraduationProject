@@ -9,7 +9,7 @@ using System.Text;
 public class Saving : MonoBehaviour {
 	GameObject x;
 	Color Orange=new Color(1,0.27058823529f,0,1);
-	string path = @"D:\ myColor3.txt";
+	string path = @"C:\ myColor3.txt";
 	Color a;
 	int i=0;
 	void Start () {

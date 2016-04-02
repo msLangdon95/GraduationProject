@@ -9,13 +9,18 @@ using System.Text;
 public class Saving : MonoBehaviour {
 	GameObject x;
 	Color Orange=new Color(1,0.27058823529f,0,1);
-	string path = @"C:\ myColor3.txt";
+	string path = @"C:\Users\Dania\AppData\LocalLow\Lolo\test\ myCubeColor.txt";
+	GameObject w;
+	
 	Color a;
 	int i=0;
-	void Start () {
-		if (File.Exists(path))
-			File.Delete(path);
+	
+	
+	void Start (){
+		if (File.Exists (path))
+			File.Delete (path);
 	}
+	
 	String GetColor(Color G){
 		Color color = G;
 		if (color == Color.green)
@@ -41,14 +46,15 @@ public class Saving : MonoBehaviour {
 				x=GameObject.Find(Globals.EdgesAndCorners[i]);
 				a=x.GetComponent<Renderer>().material.color;
 				String w = GetColor (a);
-				sw.Write(w+",");
+				sw.Write(w);
+				if ( i!=47){
+					sw.Write(",");
+				}
 			}	
 			
 			sw.Close();
 		}
 		
 	}
-	public void onMouseDown(){
-		saveMe ();
-	}
+
 }

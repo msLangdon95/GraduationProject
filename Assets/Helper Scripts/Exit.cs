@@ -20,6 +20,6 @@ using UnityEngine;
 	}
      public void QUIT()
      {
-         Application.Quit ();
+         Application.Quit();
      }
  }

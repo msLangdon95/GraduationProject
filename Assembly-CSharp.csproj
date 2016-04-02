@@ -50,7 +50,6 @@
      <Compile Include="Assets\Helper Scripts\Cancel.cs" />
      <Compile Include="Assets\Helper Scripts\Exit.cs" />
      <Compile Include="Assets\Helper Scripts\ExitMessage.cs" />
-     <Compile Include="Assets\Helper Scripts\ExitOrSave.cs" />
      <Compile Include="Assets\Helper Scripts\Globals.cs" />
      <Compile Include="Assets\Helper Scripts\GoBack.cs" />
      <Compile Include="Assets\Helper Scripts\Loading.cs" />
@@ -59,6 +58,7 @@
      <Compile Include="Assets\Helper Scripts\RayCaster.cs" />
      <Compile Include="Assets\Helper Scripts\RotateCamera.cs" />
      <Compile Include="Assets\Helper Scripts\RubikScene.cs" />
+     <Compile Include="Assets\Helper Scripts\SaveBeforeExit.cs" />
      <Compile Include="Assets\Helper Scripts\Saving.cs" />
      <Compile Include="Assets\Helper Scripts\Timer.cs" />
      <Compile Include="Assets\Helper Scripts\ToggleButtonIcon.cs" />

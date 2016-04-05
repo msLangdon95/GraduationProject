@@ -173,8 +173,7 @@ public class RayCaster : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				print(lastClicked.name + "  "+ lastClicked.GetComponent<Collider>().tag );
-				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1" ){
+				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"  && x>-1 && x<6){
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(x != PrevColorNumber || PrevGameObj != lastClicked){
 						if(Globals.ColorsArray[x].ColorFlag){
@@ -185,15 +184,16 @@ public class RayCaster : MonoBehaviour {
 								Globals.ThePanel.SetActive(true);
 								return;
 							}
-							foreach (Transform child in lastClicked.transform.parent)
-							if(lastClicked != child.gameObject && GetColor(child.gameObject) == x){ // neighbours can't have the same color
-								Globals.ColorsArray[x].ColorCounter -- ;
-								return;
+							foreach (Transform child in lastClicked.transform.parent){
+								if(lastClicked != child.gameObject && GetColor(child.gameObject) == x){ // neighbours can't have the same color
+									Globals.ColorsArray[x].ColorCounter -- ;
+									return;
+								}
 							}
 							
 							// check the previous color to decrement its counter
 							ColorNumber=GetColor(lastClicked);
-							if(ColorNumber >= 0 && ColorNumber < 6){
+							if(ColorNumber > -1 && ColorNumber < 6){
 								Globals.ColorsArray[ColorNumber].ColorCounter -- ;
 								Globals.ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[ColorNumber].ColorCounter.ToString();
 								if(Globals.ColorsArray[ColorNumber].ColorFlag == false)

@@ -10,12 +10,13 @@ public class Loading : MonoBehaviour {
 	public	string a;
 	public string[]words;
 	//string path = (Application.persistentDataPath )+"\myCubeColor.txt";
-	string path = @"C:\Users\Dania\AppData\LocalLow\Lolo\test\ myCubeColor.txt";
+	string path = @"C:\Users\sam\AppData\LocalLow\Lolo\test\myCubeColor.txt";
 	GameObject w;
 	int i=0;
 	Color Orange = new Color(1,0.27058823529f,0,1);
 	
 	void Start () {
+		Debug.Log (Application.persistentDataPath);
 		Globals.LoadingMessagePanel=GameObject.Find("LoadingMessagePanel");
 		Globals.LoadingMessagePanel.SetActive(false);
 		

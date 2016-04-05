@@ -5,7 +5,7 @@ using UnityEngine;
  public class RotateCamera : MonoBehaviour
  {
      public Transform target;
-     public float distance = 0.0f;
+     public float distance = 10.0f;
      
      public float xSpeed = 250.0f;
      public float ySpeed = 120.0f;
@@ -24,6 +24,7 @@ using UnityEngine;
          x = angles.y;
          y = angles.x;
 		distance = (transform.position - target.position).magnitude;
+		print(distance);
          // Make the rigid body not change rotation
             if (GetComponent<Rigidbody>())
              GetComponent<Rigidbody>().freezeRotation = true;

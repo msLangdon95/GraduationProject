@@ -27,15 +27,64 @@ public class RubikScene : MonoBehaviour {
 		  Center=GameObject.Find("CENTER");
 		  rubix=GameObject.Find("RubiksCube");
      } 
+	 void UpOrDown(int flag){
+		 if(l1.Count==9){
+				referenceCount=0;
+				for(int i=0;i<9;i++){
+					temp=GameObject.Find(l1[i]);
+					temp.transform.SetParent(Parent.transform);
+					if(l1[i][0] != 'E' && l1[i][0] != 'C'){
+						referenceCount++;
+						referenceName=l1[i];
+					}
+				}
+				if(referenceCount==1){
+					temp=GameObject.Find(referenceName);
+					Parent.transform.RotateAround(temp.transform.position,flag*Vector3.right,380);
+				}
+				else{
+					Parent.transform.RotateAround(Center.transform.position,flag*Vector3.right,380);
+				}
+				for(int i=0;i<9;i++){
+					temp=GameObject.Find(l1[i]);
+					temp.transform.SetParent(rubix.transform);
+				}
+			}
+	 }
 	 
-     void FixedUpdate(){
-		 if(Input.GetMouseButtonDown (0)){
-			 firstPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
-			 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if(Physics.Raycast(ray, out rayHit))
+	 void LeftOrRight(int flag){
+		 if(l2.Count==9){
+				referenceCount=0;
+				for(int i=0;i<9;i++){
+					temp=GameObject.Find(l2[i]);
+					temp.transform.SetParent(Parent.transform);
+					if(l2[i][0] != 'E' && l2[i][0] != 'C'){
+						referenceCount++;
+						referenceName=l2[i];
+					}
+				}
+				if(referenceCount==1){
+					temp=GameObject.Find(referenceName);
+					Parent.transform.RotateAround(temp.transform.position,flag*Vector3.up,380);
+				}
+				else{
+					Parent.transform.RotateAround(Center.transform.position,flag*Vector3.up,380);
+				}
+				for(int i=0;i<9;i++){
+					temp=GameObject.Find(l2[i]);
+					temp.transform.SetParent(rubix.transform);
+				}
+			}
+	 }
+	 
+	 void FixedUpdate(){
+		 currentSwipe.x=currentSwipe.y=0;
+		if (Input.GetMouseButtonDown (0)) {
+			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			if (Physics.Raycast (ray, out rayHit)) {
 				lastClicked = rayHit.collider.gameObject;
-			if(lastClicked == null)		
-				return;
+			}
+			firstPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
 			foreach(GameObject cube in cubes){
 				if(Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x)<=10){
 					l1.Add(cube.name);
@@ -47,49 +96,35 @@ public class RubikScene : MonoBehaviour {
 					l3.Add(cube.name);
 				}
 			}
+		}
+		if(Input.GetMouseButtonUp(0)){
+			//save ended touch
+			secondPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
+			currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y,secondPressPos.z - firstPressPos.z);
+			currentSwipe.Normalize();
 		 }
-		 if(Input.GetMouseButtonUp(0)){
-         //save ended touch
-        secondPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
-        currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y,secondPressPos.z - firstPressPos.z);
-        currentSwipe.Normalize();
-		 }
-       
+	}
+	
+     void Update(){
         if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe upwards
             print("up swipe "+l1.Count);
-			if(l1.Count==9){
-				referenceCount=0;
-				for(int i=0;i<9;i++){
-					temp=GameObject.Find(l1[i]);
-					temp.transform.parent=Parent.transform;
-					if(l1[i][0] != 'E' && l1[i][0] != 'C'){
-						referenceCount++;
-						referenceName=l1[i];
-					}
-				}
-				if(referenceCount==1){
-					temp=GameObject.Find(referenceName);
-					Parent.transform.RotateAround(temp.transform.position,Vector3.right,380);
-				}
-				else{
-					Parent.transform.RotateAround(Center.transform.position,Vector3.right,380);
-				}
-				for(int i=0;i<9;i++){
-					temp=GameObject.Find(l1[i]);
-					temp.transform.parent=rubix.transform;
-				}
-			}
-			currentSwipe.y=currentSwipe.x=0;
+			UpOrDown(1);
 			l1.Clear();
         }
         else if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe down
-            print("down swipe");
+            print("down swipe "+l1.Count);
+			UpOrDown(-1);
+			l1.Clear();
         }
         else if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe left
-            print("left swipe");
+            print("left swipe" + l2.Count);
+			LeftOrRight(1);
+			l2.Clear();
         }
         else if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe right
-            print("right swipe");
+            print("right swipe "+ l2.Count);
+			LeftOrRight(-1);
+			l2.Clear();
         }
      }
  }

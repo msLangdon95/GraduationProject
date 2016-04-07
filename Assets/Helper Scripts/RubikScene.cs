@@ -6,7 +6,6 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
-
 public class RubikScene : MonoBehaviour {
 	GameObject lastClicked,Parent,temp,Center,rubix;
 	Ray ray;
@@ -110,21 +109,29 @@ public class RubikScene : MonoBehaviour {
             print("up swipe "+l1.Count);
 			UpOrDown(1);
 			l1.Clear();
+			l2.Clear();
+			l3.Clear();
         }
         else if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe down
             print("down swipe "+l1.Count);
 			UpOrDown(-1);
 			l1.Clear();
+			l2.Clear();
+			l3.Clear();
         }
         else if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe left
             print("left swipe" + l2.Count);
 			LeftOrRight(1);
+			l1.Clear();
 			l2.Clear();
+			l3.Clear();
         }
         else if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe right
             print("right swipe "+ l2.Count);
 			LeftOrRight(-1);
+			l1.Clear();
 			l2.Clear();
+			l3.Clear();
         }
      }
  }

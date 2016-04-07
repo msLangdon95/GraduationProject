@@ -5,93 +5,91 @@ using System;
 using System.Linq;  
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 public class RubikScene : MonoBehaviour {
-	GameObject lastClicked,PrevGameObj;
+	GameObject lastClicked,Parent,temp,Center,rubix;
 	Ray ray;
-	GameObject temp;
 	RaycastHit rayHit;
-     //Public Variables
-     public GameObject rubix;
-     //Private Variables
+	Vector2 fp,lp;
+	string referenceName;
+	int referenceCount;
      private GameObject[] cubes;
-     private GameObject[] face;
-     private GameObject Pivot;
-     private int i;
+	 List<string> l1 = new List<string>();
+	 List<string> l2 = new List<string>();
+	 List<string> l3 = new List<string>();
+	 Vector3 firstPressPos;
+	 Vector3 secondPressPos;
+	 Vector3 currentSwipe;
 	 void Start (){
-         //All cubes tagged as Cube
-         cubes = GameObject.FindGameObjectsWithTag("Cube");
-         //9 cubes per face
-         face = new GameObject[9];
-     }
+		  cubes = GameObject.FindGameObjectsWithTag("Cube");
+		  Parent=GameObject.Find("Parent");
+		  Center=GameObject.Find("CENTER");
+		  rubix=GameObject.Find("RubiksCube");
+     } 
 	 
- 
-     void RotateUpper(){//alwats yellow
-		 i = 0;
-		 temp=GameObject.Find("YELLOW");
-		 if(temp!=null){
-			Pivot = new GameObject("upPivot");
-			Pivot.transform.position = new Vector3(0,238,0);
-			Pivot.transform.parent = rubix.transform;
-			foreach(GameObject cube in cubes){
-				if(cube.transform.position.y >=235 && cube.transform.position.y <=245){
-					cube.transform.parent = Pivot.transform;
-					face[i] = cube;
-					i++;
-				}
-			}
-			Pivot.transform.RotateAround(temp.transform.position, Vector3.up, 380);
-			i=0;
-			foreach(GameObject cube in face){
-				face[i++].transform.parent=rubix.transform;
-				}
-			Destroy(Pivot);
-		 }
-		 else
-			 print("it's null");
-	 }
-	 ////////////////////////////////////////////////////////////////////////////////////////////
-	 void RotateDown(){
-		 i = 0;
-		 temp=GameObject.Find("GREEN");
-		 if(temp!=null){
-			Pivot = new GameObject("Pivot");
-			Pivot.transform.position = new Vector3(0,150,0);
-			Pivot.transform.parent = rubix.transform;
-			foreach(GameObject cube in cubes){
-				if(cube.transform.position.y >=150 && cube.transform.position.y <=155){
-					cube.transform.parent = Pivot.transform;
-					face[i] = cube;
-					i++;
-				}
-			}
-			Pivot.transform.RotateAround(temp.transform.position, Vector3.up, 380);
-			i=0;
-			foreach(GameObject cube in face){
-				face[i++].transform.parent=rubix.transform;
-				}
-			Destroy(Pivot);
-		 }
-		 else
-			 print("it's null");
-	 }
-	 
-	 
-	 
-	 
-     void Update(){
+     void FixedUpdate(){
 		 if(Input.GetMouseButtonDown (0)){
+			 firstPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
 			 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit))
 				lastClicked = rayHit.collider.gameObject;
-			if(lastClicked != null)
-				print(lastClicked.transform.position.x + " ? "+lastClicked.transform.position.y+ " ? "+ lastClicked.transform.position.z);
-			//if upper face
-			RotateUpper();
-			RotateDown();
+			if(lastClicked == null)		
+				return;
+			foreach(GameObject cube in cubes){
+				if(Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x)<=10){
+					l1.Add(cube.name);
+				}
+				if(Mathf.Abs(lastClicked.transform.parent.position.y- cube.transform.position.y) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.y- cube.transform.position.y)<=10){
+					l2.Add(cube.name);
+				}
+				if(Mathf.Abs(lastClicked.transform.parent.position.z- cube.transform.position.z) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.z- cube.transform.position.z)<=10){
+					l3.Add(cube.name);
+				}
+			}
 		 }
+		 if(Input.GetMouseButtonUp(0)){
+         //save ended touch
+        secondPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
+        currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y,secondPressPos.z - firstPressPos.z);
+        currentSwipe.Normalize();
+		 }
+       
+        if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe upwards
+            print("up swipe "+l1.Count);
+			if(l1.Count==9){
+				referenceCount=0;
+				for(int i=0;i<9;i++){
+					temp=GameObject.Find(l1[i]);
+					temp.transform.parent=Parent.transform;
+					if(l1[i][0] != 'E' && l1[i][0] != 'C'){
+						referenceCount++;
+						referenceName=l1[i];
+					}
+				}
+				if(referenceCount==1){
+					temp=GameObject.Find(referenceName);
+					Parent.transform.RotateAround(temp.transform.position,Vector3.right,380);
+				}
+				else{
+					Parent.transform.RotateAround(Center.transform.position,Vector3.right,380);
+				}
+				for(int i=0;i<9;i++){
+					temp=GameObject.Find(l1[i]);
+					temp.transform.parent=rubix.transform;
+				}
+			}
+			currentSwipe.y=currentSwipe.x=0;
+			l1.Clear();
+        }
+        else if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe down
+            print("down swipe");
+        }
+        else if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe left
+            print("left swipe");
+        }
+        else if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe right
+            print("right swipe");
+        }
      }
  }
-
-
-

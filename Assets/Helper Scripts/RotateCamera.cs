@@ -24,7 +24,7 @@ using UnityEngine;
          x = angles.y;
          y = angles.x;
 		distance = (transform.position - target.position).magnitude;
-		print(distance);
+		//print(distance);
          // Make the rigid body not change rotation
             if (GetComponent<Rigidbody>())
              GetComponent<Rigidbody>().freezeRotation = true;

@@ -130,22 +130,22 @@ public class RubikScene : MonoBehaviour {
         if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe upwards
             print("up swipe "+l1.Count);
 			UpOrDown(1);
-			//ClearLists();
+			ClearLists();
         }
         else if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe down
             print("down swipe "+l1.Count);
 			UpOrDown(-1);
-			//ClearLists();
+			ClearLists();
         }
         else if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe left
             print("left swipe" + l2.Count);
 			LeftOrRight(1);
-			//ClearLists();
+			ClearLists();
         }
         else if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe right
             print("right swipe "+ l2.Count);
 			LeftOrRight(-1);
-			//ClearLists();
+			ClearLists();
         }
      }
  }

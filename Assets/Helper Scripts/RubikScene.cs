@@ -39,10 +39,18 @@ public class RubikScene : MonoBehaviour {
 				}
 				if(referenceCount==1){
 					temp=GameObject.Find(referenceName);
-					Parent.transform.RotateAround(temp.transform.position,flag*Vector3.right,380);
+					float totalRotation = 0;
+					 while (Mathf.Abs(totalRotation) < 90){
+						totalRotation += Time.deltaTime;
+						Parent.transform.RotateAround(temp.transform.position, flag*Vector3.right, Time.deltaTime);
+					}
 				}
 				else{
-					Parent.transform.RotateAround(Center.transform.position,flag*Vector3.right,380);
+					float totalRotation = 0;
+					 while (Mathf.Abs(totalRotation) < 90){
+						totalRotation += Time.deltaTime;
+						Parent.transform.RotateAround(Center.transform.position, flag*Vector3.right, Time.deltaTime);
+					}
 				}
 				for(int i=0;i<9;i++){
 					temp=GameObject.Find(l1[i]);
@@ -64,16 +72,29 @@ public class RubikScene : MonoBehaviour {
 				}
 				if(referenceCount==1){
 					temp=GameObject.Find(referenceName);
-					Parent.transform.RotateAround(temp.transform.position,flag*Vector3.up,380);
+					float totalRotation = 0;
+					 while (Mathf.Abs(totalRotation) < 90){
+						totalRotation += Time.deltaTime;
+						Parent.transform.RotateAround(temp.transform.position, flag*Vector3.up, Time.deltaTime);
+					}
 				}
 				else{
-					Parent.transform.RotateAround(Center.transform.position,flag*Vector3.up,380);
+					float totalRotation = 0;
+					 while (Mathf.Abs(totalRotation) < 90){
+						totalRotation += Time.deltaTime;
+						Parent.transform.RotateAround(Center.transform.position, flag*Vector3.up, Time.deltaTime);
+					}
 				}
 				for(int i=0;i<9;i++){
 					temp=GameObject.Find(l2[i]);
 					temp.transform.SetParent(rubix.transform);
 				}
 			}
+	 }
+	 void ClearLists(){
+		 l1.Clear();
+		 l2.Clear();
+		 l3.Clear();
 	 }
 	 
 	 void FixedUpdate(){
@@ -108,30 +129,22 @@ public class RubikScene : MonoBehaviour {
         if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe upwards
             print("up swipe "+l1.Count);
 			UpOrDown(1);
-			l1.Clear();
-			l2.Clear();
-			l3.Clear();
+			ClearLists();
         }
         else if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe down
             print("down swipe "+l1.Count);
 			UpOrDown(-1);
-			l1.Clear();
-			l2.Clear();
-			l3.Clear();
+			ClearLists();
         }
         else if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe left
             print("left swipe" + l2.Count);
 			LeftOrRight(1);
-			l1.Clear();
-			l2.Clear();
-			l3.Clear();
+			ClearLists();
         }
         else if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe right
             print("right swipe "+ l2.Count);
 			LeftOrRight(-1);
-			l1.Clear();
-			l2.Clear();
-			l3.Clear();
+			ClearLists();
         }
      }
  }

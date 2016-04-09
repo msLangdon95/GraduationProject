@@ -7,20 +7,23 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 public class RubikScene : MonoBehaviour {
-	GameObject lastClicked,Parent,temp,Center,rubix;
+	public int noOfSteps;
+	GameObject lastClicked,Parent,temp,Center,rubix,steps;
 	Ray ray;
 	RaycastHit rayHit;
 	Vector2 fp,lp;
 	string referenceName;
 	int referenceCount;
+	int i;
      private GameObject[] cubes;
 	 List<string> l1 = new List<string>();
 	 List<string> l2 = new List<string>();
-	 List<string> l3 = new List<string>();
-	 Vector3 firstPressPos;
-	 Vector3 secondPressPos;
-	 Vector3 currentSwipe;
+	 Vector2 firstPressPos;
+	 Vector2 secondPressPos;
+	 Vector2 currentSwipe;
 	 void Start (){
+		 noOfSteps=0;
+		 steps=GameObject.Find("steps");
 		  cubes = GameObject.FindGameObjectsWithTag("Cube");
 		  Parent=GameObject.Find("Parent");
 		  Center=GameObject.Find("CENTER");
@@ -56,6 +59,8 @@ public class RubikScene : MonoBehaviour {
 					temp=GameObject.Find(l1[i]);
 					temp.transform.SetParent(rubix.transform);
 				}
+				noOfSteps++;
+				steps.GetComponent<Text>().text=noOfSteps.ToString();
 			}
 	 }
 	 
@@ -89,61 +94,70 @@ public class RubikScene : MonoBehaviour {
 					temp=GameObject.Find(l2[i]);
 					temp.transform.SetParent(rubix.transform);
 				}
+				noOfSteps++;
+				steps.GetComponent<Text>().text=noOfSteps.ToString();
 			}
 	 }
 	 void ClearLists(){
 		 l1.Clear();
 		 l2.Clear();
-		 l3.Clear();
 	 }
-	 
-	 void FixedUpdate(){
-		 currentSwipe.x=currentSwipe.y=0;
+
+     void Update(){
+		currentSwipe.x=currentSwipe.y=firstPressPos.x=firstPressPos.y=0;
 		if (Input.GetMouseButtonDown (0)) {
 			ClearLists();
 			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if (Physics.Raycast (ray, out rayHit)) {
 				lastClicked = rayHit.collider.gameObject;
+				if(lastClicked==null)
+					return;
+				print(lastClicked.name+" "+(int)lastClicked.transform.position.x+ " " +(int)lastClicked.transform.position.x+ " "+
+				(int)lastClicked.transform.position.z);
 			}
-			firstPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
-			foreach(GameObject cube in cubes){
-				if(Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x)<=10){
-					l1.Add(cube.name);
-				}
-				if(Mathf.Abs(lastClicked.transform.parent.position.y- cube.transform.position.y) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.y- cube.transform.position.y)<=10){
-					l2.Add(cube.name);
-				}
-				if(Mathf.Abs(lastClicked.transform.parent.position.z- cube.transform.position.z) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.z- cube.transform.position.z)<=10){
-					l3.Add(cube.name);
-				}
-			}
+			firstPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y);
 		}
 		if(Input.GetMouseButtonUp(0)){
 			//save ended touch
-			secondPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y,Input.mousePosition.z);
-			currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y,secondPressPos.z - firstPressPos.z);
+			secondPressPos = new Vector3(Input.mousePosition.x,Input.mousePosition.y);
+			currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 			currentSwipe.Normalize();
 		 }
-	}
-	
-     void Update(){
-        if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe upwards
-            print("up swipe "+l1.Count);
+        if(currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//swipe upwards
+			foreach(GameObject cube in cubes){
+				if(Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x)<=5f){
+					l1.Add(cube.name);
+				}
+			}
+			print("up swipe "+l1.Count);
 			UpOrDown(1);
 			ClearLists();
         }
-        else if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//swipe down
-            print("down swipe "+l1.Count);
+        else if(currentSwipe.y < 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//swipe down
+		   foreach(GameObject cube in cubes){
+				if(Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.x- cube.transform.position.x)<=5f){
+					l1.Add(cube.name);
+				}
+			}
+			print("down swipe "+l1.Count);
 			UpOrDown(-1);
 			ClearLists();
         }
-        else if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe left
+        else if(currentSwipe.x < 0 && currentSwipe.y > -0.7f && currentSwipe.y < 0.7f){//swipe left
+			foreach(GameObject cube in cubes){
+				
+			}
             print("left swipe" + l2.Count);
 			LeftOrRight(1);
 			ClearLists();
         }
-        else if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){//swipe right
-            print("right swipe "+ l2.Count);
+        else if(currentSwipe.x > 0 && currentSwipe.y > -0.7f && currentSwipe.y < 0.7f){//swipe right
+			foreach(GameObject cube in cubes){
+				if(Mathf.Abs(lastClicked.transform.parent.position.y- cube.transform.position.y) >= 0 && Mathf.Abs(lastClicked.transform.parent.position.y- cube.transform.position.y)<=7f){
+					l2.Add(cube.name);
+				}
+			}
+            print("right swipe "+l2.Count);
 			LeftOrRight(-1);
 			ClearLists();
         }

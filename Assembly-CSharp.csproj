@@ -53,6 +53,7 @@
      <Compile Include="Assets\Helper Scripts\ExitMessage.cs" />
      <Compile Include="Assets\Helper Scripts\Globals.cs" />
      <Compile Include="Assets\Helper Scripts\GoBack.cs" />
+     <Compile Include="Assets\Helper Scripts\LevelHardness.cs" />
      <Compile Include="Assets\Helper Scripts\Loading.cs" />
      <Compile Include="Assets\Helper Scripts\ManualInputSceneScripts.cs" />
      <Compile Include="Assets\Helper Scripts\OnClickChangeColor.cs" />

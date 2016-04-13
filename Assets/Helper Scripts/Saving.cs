@@ -9,7 +9,7 @@ using System.Text;
 public class Saving : MonoBehaviour {
 	GameObject x;
 	Color Orange=new Color(1,0.27058823529f,0,1);
-	string path = @"C:\Users\sam\AppData\LocalLow\Lolo\test\myCubeColor.txt";
+	string path = @"C:\Users\Dania\AppData\LocalLow\Lolo\test\myCubeColor.txt";
 	GameObject w;
 	
 	Color a;
@@ -49,7 +49,7 @@ public class Saving : MonoBehaviour {
 				String w = GetColor (a);
 				sw.Write(w);
 				if ( i!=47){
-					sw.Write(",");
+					sw.Write(" ");
 				}
 			}	
 			

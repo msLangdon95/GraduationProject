@@ -10,17 +10,34 @@ public class Loading : MonoBehaviour {
 	public	string a;
 	public string[]words;
 	//string path = (Application.persistentDataPath )+"\myCubeColor.txt";
-	string path = @"C:\Users\sam\AppData\LocalLow\Lolo\test\myCubeColor.txt";
+	string path = @"C:\Users\Dania\AppData\LocalLow\Lolo\test\myCubeColor.txt";
 	GameObject w;
-	int i=0;
+	int i,j;
+	string[]m;
+	string word;
 	Color Orange = new Color(1,0.27058823529f,0,1);
 	
 	void Start () {
-		Debug.Log (Application.persistentDataPath);
+		 i=0;
+		j = 0;
+		m = new string[48];
 		Globals.LoadingMessagePanel=GameObject.Find("LoadingMessagePanel");
 		Globals.LoadingMessagePanel.SetActive(false);
-		
+		if (File.Exists (path))
+		using (StreamReader sr= new StreamReader (path)){
+			while( (a=sr.ReadLine())!= null){
+				words = a.Split(' ');
+			}
+			sr.Close();
+		}	
+		foreach ( string word in words) {
+			w = GameObject.Find (Globals.EdgesAndCorners [i]); 
+			m[i]=word;
+			i++;
+		}
 	}
+
+
 	
 	public Color getColor(string c){
 		if (c == "Red")
@@ -41,32 +58,27 @@ public class Loading : MonoBehaviour {
 
 	public void okButton(){
 		Globals.LoadingMessagePanel.SetActive(false);
-		return;
 	}
+
 	public void LoadMe(){
 		if (!File.Exists (path)) {
-			Globals.LoadingMessagePanel.SetActive(true);
+			Globals.LoadingMessagePanel.SetActive (true);
 			return;
 		}
-		else if (File.Exists (path))
-			Application.LoadLevel("rubik");
-		using (StreamReader sr= new StreamReader (path)){
-			while( (a=sr.ReadLine())!= null){
-				words = a.Split(',');
-			}
-			foreach ( string word in words ) {
-				w=GameObject.Find(Globals.EdgesAndCorners[i]); 
-				//	w.GetComponent<Renderer>().material.color=getColor(word); 
-				
-				i++;
-				print (word);
-			}
-		}	
-	}
-	
+
+		Application.LoadLevel("rubik");
+		//foreach ( string word in words ) {
+		//	w=GameObject.Find(Globals.EdgesAndCorners[i]); 
+		for ( j=0 ; j<48 ; j++)
+			w.GetComponent<Renderer>().material.color=getColor(m[i]); 
+			
+			print (m[j]);
+		}
+
+
+
 
 }
-
 
 
 

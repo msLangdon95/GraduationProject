@@ -37,6 +37,7 @@ public class Globals : MonoBehaviour {
 	public static GameObject VerifyPanel;
 	public static GameObject ExitPanel;
 	public static GameObject LoadingMessagePanel;
+	public static GameObject EndOfSolution;
 	public static bool dontShowAgain;
 	public static Color Orange=new Color(1,0.27058823529f,0,1);
 }

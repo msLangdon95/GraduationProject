@@ -16,8 +16,8 @@ public class Globals : MonoBehaviour {
 		}
 	};
 	public static string [] EdgesAndCorners={
-		"Red1","Red2","Red3","Red4","Red5","Red6","Red7","Red8",//up
-		"Green1","Green2","Green3","Green4","Green5","Green6","Green7","Green8",//front
+		"Red1","Red2","Red3","Red4","Red5","Red6","Red7","Red8",
+		"Green1","Green2","Green3","Green4","Green5","Green6","Green7","Green8",
 		"Blue1","Blue2","Blue3","Blue4","Blue5","Blue6","Blue7","Blue8",
 		"Yellow1","Yellow2","Yellow3","Yellow4","Yellow5","Yellow6","Yellow7","Yellow8",//back
 		"Orange1","Orange2","Orange3","Orange4","Orange5","Orange6","Orange7","Orange8",

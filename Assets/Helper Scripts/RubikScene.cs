@@ -33,6 +33,8 @@ public class RubikScene : MonoBehaviour {
 			 return Color.white;
 		 if(s=="BLUE")
 			 return Color.blue;
+		 if(s=="YELLOW")
+			 return Color.yellow;
 		 else
 			 return Globals.Orange;
 	 }

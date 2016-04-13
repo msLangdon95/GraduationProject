@@ -15,7 +15,6 @@ public class RubikScene : MonoBehaviour {
 	string referenceName;
 	int referenceCount;
 	int d1,d2,d3,d4,k,i;
-     private GameObject[] cubes;
 	 Vector3 firstPressPos;
 	 Vector3 secondPressPos;
 	 Vector3 currentSwipe;
@@ -25,39 +24,35 @@ public class RubikScene : MonoBehaviour {
 	 string[]RedFace={"Corner6","Edge11","Corner7","Edge9","RED","Edge12","Corner5","Edge10","Corner8"};
 	 string[]WhiteFace={"Corner3","Edge2","Corner1","Edge4","WHITE","Edge1","Corner4","Edge3","Corner2"};
 	 string[]OrangeFace={"Corner1","Edge5","Corner6","Edge1","ORANGE","Edge9","Corner2","Edge6","Corner5"};
-	 IEnumerator Example() {
-        yield return new WaitForSeconds(3);
-    }
+	 Color returnColor(string s){
+		 if(s=="RED")
+			 return Color.red;
+		 if(s=="GREEN")
+			 return Color.green;
+		 if(s=="WHITE")
+			 return Color.white;
+		 if(s=="BLUE")
+			 return Color.blue;
+		 else
+			 return Globals.Orange;
+	 }
 	 void Start (){
-		 /*try {
-		 Process myProcess = new Process();
-         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-         myProcess.StartInfo.CreateNoWindow = true;
-         myProcess.StartInfo.UseShellExecute = false;
-		 myProcess.StartInfo.RedirectStandardOutput = true;
-         myProcess.StartInfo.FileName = "C:\\Users\\Sam\\Desktop\\Test\\rubik3Sticker.generator";
-         myProcess.EnableRaisingEvents = true;
-		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\Sam\\Desktop\\Test\\";
-		 myProcess.StartInfo.Arguments = "1 1 1";
-		  myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-        {
-            if (!String.IsNullOrEmpty(e.Data))
-            {
-                print(e.Data);
-            }
-        });
-        myProcess.Start();
-		print("started");
-		myProcess.BeginOutputReadLine();
-		
-         //myProcess.WaitForExit();
-         //int ExitCode = myProcess.ExitCode;
-         //print(ExitCode);
-         } catch (Exception e){
-             print(e);        
-         }*/ 
-		 
-		 
+		 print("rubikSceneHasStarted");
+		 i=0;
+		 if(RandomGeneration.RandomGeneratedFlag){
+			 if(RandomGeneration.RandomGeneratedColors.Count()==48){
+				 while(i<48){
+					temp=GameObject.Find(Globals.EdgesAndCorners[i]);
+					temp.GetComponent<Renderer>().material.color=returnColor(RandomGeneration.RandomGeneratedColors[i]);
+					i++;
+				 }
+			 }
+			 else{
+				 print("error!");
+				 return;
+			 }
+			 RandomGeneration.RandomGeneratedFlag=false;
+		 }
 		 
 		 
 		 i=0;
@@ -78,7 +73,7 @@ public class RubikScene : MonoBehaviour {
 		
      } 
 	
-	 int findK(string x){
+	/* int findK(string x){
 		 if(x=="upper")
 			return 0;
 		if(x=="middle")
@@ -369,5 +364,5 @@ public class RubikScene : MonoBehaviour {
 		//RotateRedFace (1);
 		RotateWhiteFace(1);
 		}
-	 }
+	 }*/
 }

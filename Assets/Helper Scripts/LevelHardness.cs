@@ -7,15 +7,21 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
-public class LevelHardness : MonoBehaviour {
+public class Randomize : MonoBehaviour {
 	public int Level;
+	char[] delimiterChars = {' '};
+	public List<string> RandomGeneratedColors = new List<string>();
+	string[] words;
+	Process myProcess;
 	public string RandomGenerated;
+	public bool RandomGeneratedFlag=false;
 	public void Click(int l)
 	{
 		Level=l;
 		Generate(Level);
 	}
 	void Generate(int level){
+		RandomGeneratedFlag=true;
 		int seed=UnityEngine.Random.Range(1,10);
 		int n=1;
 		int hardness=1;
@@ -29,7 +35,7 @@ public class LevelHardness : MonoBehaviour {
 			hardness=15;
 		}
 		try {
-		 Process myProcess = new Process();
+		 myProcess = new Process();
          myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
          myProcess.StartInfo.CreateNoWindow = true;
          myProcess.StartInfo.UseShellExecute = false;
@@ -38,11 +44,11 @@ public class LevelHardness : MonoBehaviour {
          myProcess.EnableRaisingEvents = true;
 		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\Sam\\Desktop\\Test\\";
 		 myProcess.StartInfo.Arguments = seed.ToString()+" "+n.ToString()+" "+hardness.ToString();
-		  myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+		 myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
         {
             if (!String.IsNullOrEmpty(e.Data))
             {
-                print(e.Data);
+                //print(e.Data);
 				RandomGenerated+=e.Data;
             }
         });
@@ -51,5 +57,11 @@ public class LevelHardness : MonoBehaviour {
          } catch (Exception e){
              print(e);        
          }
+		 myProcess.WaitForExit();
+
+		 words = RandomGenerated.Split(delimiterChars);
+		 foreach (string s in words){
+			RandomGeneratedColors.Add(s);
+        }
 	}
 }

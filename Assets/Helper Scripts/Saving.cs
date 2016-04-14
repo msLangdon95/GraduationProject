@@ -8,8 +8,8 @@ using System.Text;
 
 public class Saving : MonoBehaviour {
 	GameObject x;
-	Color Orange=new Color(1,0.27058823529f,0,1);
-	string path = @"C:\Users\Dania\AppData\LocalLow\Lolo\test\myCubeColor.txt";
+	Color ORANGE=new Color(1,0.27058823529f,0,1);
+	string path = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"myCubeColor.txt";
 	GameObject w;
 	
 	Color a;
@@ -25,19 +25,19 @@ public class Saving : MonoBehaviour {
 	String GetColor(Color G){
 		Color color = G;
 		if (color == Color.green)
-			return "Green";
+			return "GREEN";
 		if (color == Color.blue)
-			return "Blue";
+			return "BLUE";
 		if (color == Color.red)
-			return "Red";
+			return "RED";
 		if (color == Color.yellow)
-			return "Yellow";
+			return "YELLOW";
 		if (color == Color.white)
-			return "White";
-		if (color == Orange)
-			return "Orange";
+			return "WHITE";
+		if (color == ORANGE)
+			return "ORANGE";
 		else 
-			return "Gray" ;
+			return "GRAY" ;
 	}
 	
 	

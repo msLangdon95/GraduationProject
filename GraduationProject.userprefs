@@ -2,12 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Helper Scripts\Loading.cs">
     <Files>
-      <File FileName="Assets\Helper Scripts\solution.cs" Line="118" Column="3" />
-      <File FileName="Assets\Helper Scripts\Saving.cs" Line="52" Column="17" />
-      <File FileName="Assets\Helper Scripts\Globals.cs" Line="43" Column="2" />
-      <File FileName="Assets\Helper Scripts\Loading.cs" Line="74" Column="4" />
-      <File FileName="Assets\Helper Scripts\ManualInputSceneScripts.cs" Line="23" Column="5" />
-      <File FileName="Assets\Helper Scripts\RubikScene.cs" Line="1" Column="1" />
+      <File FileName="Assets\Helper Scripts\Saving.cs" Line="1" Column="1" />
+      <File FileName="Assets\Helper Scripts\solution.cs" Line="128" Column="27" />
+      <File FileName="Assets\Helper Scripts\Loading.cs" Line="75" Column="4" />
+      <File FileName="Assets\Helper Scripts\RubikScene.cs" Line="378" Column="2" />
+      <File FileName="Assets\Helper Scripts\ManualInputSceneScripts.cs" Line="1" Column="1" />
+      <File FileName="Assets\Helper Scripts\GoBack.cs" Line="1" Column="1" />
+      <File FileName="Assets\Helper Scripts\Globals.cs" Line="26" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

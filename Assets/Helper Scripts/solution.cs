@@ -9,7 +9,7 @@ using System.Text;
 using System.Collections.Generic;
 
 public class solution : MonoBehaviour {
-	string Sol=@"C:\Users\Dania\AppData\LocalLow\Lolo\test\Sol.txt";
+	string Sol=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"Sol.txt";
 	public static GameObject LoadingMessagePanel;
 	public string[]words;
 	public string[]solMsgs;
@@ -26,7 +26,6 @@ public class solution : MonoBehaviour {
 	void Start(){
 		if (File.Exists (Sol))
 			Application.LoadLevel ("soultion");
-
 		Globals.EndOfSolution = GameObject.Find ("EndOfSolution");
 		Globals.EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
@@ -127,7 +126,6 @@ public class solution : MonoBehaviour {
 	}// end of Start
 
 	 public void nextStep() {
-		print ("Step#" + j + " " + solMsgs [j]);
 		myMSG.GetComponent<Text> ().text = solMsgs [j];
 		j++;
 		if (j == lines) {

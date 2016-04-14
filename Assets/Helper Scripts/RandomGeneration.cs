@@ -40,19 +40,21 @@ public class RandomGeneration : MonoBehaviour {
          myProcess.StartInfo.CreateNoWindow = true;
          myProcess.StartInfo.UseShellExecute = false;
 		 myProcess.StartInfo.RedirectStandardOutput = true;
-         myProcess.StartInfo.FileName = "C:\\Users\\Sam\\Desktop\\Test\\rubik3Sticker.generator";
+         myProcess.StartInfo.FileName = "C:\\Users\\Dania\\Desktop\\Test\\rubik3Sticker.generator";
          myProcess.EnableRaisingEvents = true;
-		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\Sam\\Desktop\\Test\\";
+		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\Dania\\Desktop\\Test";
 		 myProcess.StartInfo.Arguments = seed.ToString()+" "+n.ToString()+" "+hardness.ToString();
 		 myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
         {
             if (!String.IsNullOrEmpty(e.Data))
             {
                 print(e.Data);
+					print ("here");
 				RandomGenerated+=e.Data;
             }
         });
         myProcess.Start();
+			print ("started");
 		myProcess.BeginOutputReadLine();
          } catch (Exception e){
              print(e);        

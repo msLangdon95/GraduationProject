@@ -8,7 +8,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
-	GameObject lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,FrontFace,RightFace,BackFace;
+	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,FrontFace,RightFace,BackFace;
 	Ray ray;
 	RaycastHit rayHit;
 	Vector2 fp,lp;
@@ -41,6 +41,14 @@ public class RubikScene : MonoBehaviour {
 	 void Start (){
 		 print("rubikSceneHasStarted");
 		 i=0;
+		/*for (int j=0 ; j<48 ; j++){
+			//print (m[j]);
+			w=GameObject.Find(Globals.EdgesAndCorners[j]); 
+			w.GetComponent<Renderer>().material.color=getColor(m[j]); 
+			
+			
+		}*/
+
 		 if(RandomGeneration.RandomGeneratedFlag){
 			 if(RandomGeneration.RandomGeneratedColors.Count()==48){
 				 while(i<48){

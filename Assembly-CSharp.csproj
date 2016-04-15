@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Helper Scripts\ButtonShowHide.cs" />
-     <Compile Include="Assets\Helper Scripts\CameraController.cs" />
      <Compile Include="Assets\Helper Scripts\Cancel.cs" />
      <Compile Include="Assets\Helper Scripts\Exit.cs" />
      <Compile Include="Assets\Helper Scripts\ExitMessage.cs" />

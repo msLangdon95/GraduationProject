@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;    
+using System;
+using System.Linq;  
 using System.IO;
-using UnityEngine.UI;
-using System.Timers;
-using System.Text.RegularExpressions;
 using System.Text;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 public class solution : MonoBehaviour {
 	string Sol=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"Sol.txt";
 	public static GameObject LoadingMessagePanel;
@@ -23,7 +25,41 @@ public class solution : MonoBehaviour {
 	 int j=1;
 	int L=0;
 	public int lines=0;
+	
+	
+	Process myProcess;
 	void Start(){
+		try {
+		 myProcess = new Process();
+         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+         myProcess.StartInfo.CreateNoWindow = true;
+         myProcess.StartInfo.UseShellExecute = false;
+		 myProcess.StartInfo.RedirectStandardOutput = true;
+         myProcess.StartInfo.FileName = "C:\\Users\\sam\\Desktop\\Test\\rubik3Sticker.ida2";
+         myProcess.EnableRaisingEvents = true;
+		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\sam\\Desktop\\Test";
+		 myProcess.StartInfo.Arguments = "corner.bin edge1.bin edge2.bin < input.txt";
+		 myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+        {
+            if (!String.IsNullOrEmpty(e.Data))
+            {
+                print(e.Data);
+				print ("here");
+            }
+        });
+        myProcess.Start();
+		print ("started");
+		myProcess.BeginOutputReadLine();
+         } catch (Exception e){
+             print(e);        
+         }
+		 myProcess.WaitForExit();
+		
+		
+		
+		
+		
+		
 		if (File.Exists (Sol))
 			Application.LoadLevel ("soultion");
 		Globals.EndOfSolution = GameObject.Find ("EndOfSolution");

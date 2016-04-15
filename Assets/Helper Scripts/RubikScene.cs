@@ -14,7 +14,7 @@ public class RubikScene : MonoBehaviour {
 	Vector2 fp,lp;
 	string referenceName;
 	int referenceCount;
-	int d1,d2,d3,d4,k,i;
+	int k,i;
 	 Vector3 firstPressPos;
 	 Vector3 secondPressPos;
 	 Vector3 currentSwipe;
@@ -38,6 +38,38 @@ public class RubikScene : MonoBehaviour {
 		 else
 			 return Globals.Orange;
 	 }
+	 
+	 
+	 
+	 
+	 
+	const float speed = 180f;
+	IEnumerator Rotate () {
+    float rotated = 0;
+    //while the duration hasn't over.
+    while (rotated < 90f) {
+        float rotation = speed*Time.fixedDeltaTime;
+        rotated += rotation;
+        Parent.transform.RotateAround(green.transform.position,green.transform.forward, rotation);
+        //wait for the next fixed update to continue.
+        yield return new WaitForFixedUpdate ();
+    }
+}
+/*IEnumerator WaitABit()
+{
+   yield return new WaitForSeconds(1);
+}	
+	 */
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 void Start (){
 		 print("rubikSceneHasStarted");
 		 i=0;
@@ -56,20 +88,15 @@ public class RubikScene : MonoBehaviour {
 			 RandomGeneration.RandomGeneratedFlag=false;
 		 }
 		 blue=GameObject.Find("BLUE");
-		 d1=(int)blue.transform.position.z;
 		 red=GameObject.Find("RED");
-		 d2=(int)red.transform.position.z;
 		 orange=GameObject.Find("ORANGE");
-		 d3=(int)orange.transform.position.z;
 		 white=GameObject.Find("WHITE");
-		 d4=(int)white.transform.position.z;
 		 yellow=GameObject.Find("YELLOW");
 		 green=GameObject.Find("GREEN");
 		 
 		  Parent=GameObject.Find("Parent");
 		  Center=GameObject.Find("CENTER");
 		  rubix=GameObject.Find("RubiksCube");
-		
      } 
 	
 	 int findK(string x){
@@ -250,7 +277,21 @@ public class RubikScene : MonoBehaviour {
 			temp=GameObject.Find(GreenFace[i]);
 			temp.transform.SetParent(Parent.transform);
 		}
-		Parent.transform.RotateAround(green.transform.position, green.transform.forward,flag*90f);
+		
+		
+		
+		
+		
+		
+		/* float totalRotation = 0;
+		while (Mathf.Abs(totalRotation) < 90){
+			totalRotation += Time.deltaTime;
+			Parent.transform.RotateAround(green.transform.position, green.transform.forward,Time.deltaTime);
+			StartCoroutine(WaitABit());
+		}*/
+		StartCoroutine(Rotate());
+		
+		
 		for(int i=0;i<9;i++){
 			temp=GameObject.Find(GreenFace[i]);
 			temp.transform.SetParent(rubix.transform);
@@ -356,19 +397,20 @@ public class RubikScene : MonoBehaviour {
 		OrangeFace[5]=YellowFace[3];
 		OrangeFace[8]=YellowFace[6];
 	}
-	 void FixedUpdate(){ 
+	 void Update(){ 
 	    if (Input.GetMouseButtonDown(0)){
-		RotateUpperOrDownFace(-1,"upper");
-		RotateUpperOrDownFace(1,"down");
-		//RotateOrangeFace(1);
-		RotateBlueFace(1);
-		RotateYellowFace(1);
-		RotateGreenFace(-1);
+		//RotateUpperOrDownFace(-1,"upper");
+		//RotateUpperOrDownFace(1,"down");
 		RotateGreenFace(1);
-		RotateYellowFace(-1);
-		RotateBlueFace(-1);
-		RotateUpperOrDownFace(-1,"down");
-		RotateUpperOrDownFace(1,"upper");
+		//RotateOrangeFace(1);
+		//RotateBlueFace(1);
+		//RotateYellowFace(1);
+		//RotateGreenFace(-1);
+		//RotateGreenFace(1);
+		//RotateYellowFace(-1);
+		//RotateBlueFace(-1);
+		//RotateUpperOrDownFace(-1,"down");
+		//RotateUpperOrDownFace(1,"upper");
 		//RotateBlueFace (1);
 		//RotateRedFace (1);
 		//RotateWhiteFace(1);

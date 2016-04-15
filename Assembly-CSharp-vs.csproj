@@ -67,6 +67,7 @@
      <Compile Include="Assets\Helper Scripts\ToggleButtonIcon.cs" />
      <Compile Include="Assets\Helper Scripts\changeButtonImage.cs" />
      <Compile Include="Assets\Helper Scripts\newscene.cs" />
+     <Compile Include="Assets\Helper Scripts\solution.cs" />
      <None Include="Assets\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
      <None Include="Assets\Fonts\Bebas\Flat-it License.txt" />
      <None Include="Assets\Fonts\Lato\SIL Open Font License.txt" />

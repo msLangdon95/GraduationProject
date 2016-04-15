@@ -8,7 +8,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
-	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,FrontFace,RightFace,BackFace;
+	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green;
 	Ray ray;
 	RaycastHit rayHit;
 	Vector2 fp,lp;
@@ -20,10 +20,10 @@ public class RubikScene : MonoBehaviour {
 	 Vector3 currentSwipe;
 	 string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	 string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
-	 string[]BlueFace={"Corner7","Edge7","Corner3","Edge12","BLUE", "Edge4","Corner8","Edge8","Corner4"};
-	 string[]RedFace={"Corner6","Edge11","Corner7","Edge9","RED","Edge12","Corner5","Edge10","Corner8"};
-	 string[]WhiteFace={"Corner3","Edge2","Corner1","Edge4","WHITE","Edge1","Corner4","Edge3","Corner2"};
-	 string[]OrangeFace={"Corner1","Edge5","Corner6","Edge1","ORANGE","Edge9","Corner2","Edge6","Corner5"};
+	 string[]GreenFace={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
+	 string[]BlueFace={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
+	 string[]OrangeFace={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
+	 string[]YellowFace={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
 	 Color returnColor(string s){
 		 if(s=="RED")
 			 return Color.red;
@@ -41,14 +41,6 @@ public class RubikScene : MonoBehaviour {
 	 void Start (){
 		 print("rubikSceneHasStarted");
 		 i=0;
-		/*for (int j=0 ; j<48 ; j++){
-			//print (m[j]);
-			w=GameObject.Find(Globals.EdgesAndCorners[j]); 
-			w.GetComponent<Renderer>().material.color=getColor(m[j]); 
-			
-			
-		}*/
-
 		 if(RandomGeneration.RandomGeneratedFlag){
 			 if(RandomGeneration.RandomGeneratedColors.Count()==48){
 				 while(i<48){
@@ -63,9 +55,6 @@ public class RubikScene : MonoBehaviour {
 			 }
 			 RandomGeneration.RandomGeneratedFlag=false;
 		 }
-		 
-		 
-		 i=0;
 		 blue=GameObject.Find("BLUE");
 		 d1=(int)blue.transform.position.z;
 		 red=GameObject.Find("RED");
@@ -83,7 +72,7 @@ public class RubikScene : MonoBehaviour {
 		
      } 
 	
-	/* int findK(string x){
+	 int findK(string x){
 		 if(x=="upper")
 			return 0;
 		if(x=="middle")
@@ -98,12 +87,12 @@ public class RubikScene : MonoBehaviour {
 		GameObject whatCenter=null;
 		if(plane=="upper"){
 			whatPlane=UpperFace;
-			whatCenter=yellow;
+			whatCenter=red;
 		}
 
 		else if(plane=="down"){
 			whatPlane=DownFace;
-			whatCenter=green;
+			whatCenter=white;
 		}
 		else return;
 		for(int i=0;i<8;i++){
@@ -132,141 +121,100 @@ public class RubikScene : MonoBehaviour {
 		}
 		k=findK(plane);
 		for(int i=0;i<3;i++)
-			BlueFace[k++]=whatPlane[i];
+			GreenFace[k++]=whatPlane[i];
 		k=findK(plane);
 		for(int i=2;i<5;i++)
-			WhiteFace[k++]=whatPlane[i];
+			OrangeFace[k++]=whatPlane[i];
 		k=findK(plane);
 		for(int i=4;i<7;i++)
-			OrangeFace[k++]=whatPlane[i];		
+			YellowFace[k++]=whatPlane[i];		
 		k=findK(plane);
 		for(int i=6;i<9;i++)
-			RedFace[k++]=whatPlane[i%8];
+			BlueFace[k++]=whatPlane[i%8];
 	}
 	
-	void RotateWhiteFace(int flag){
+	void RotateOrangeFace(int flag){
 		for(int i=0;i<9;i++){
-			temp=GameObject.Find(WhiteFace[i]);
+			temp=GameObject.Find(OrangeFace[i]);
 			temp.transform.SetParent(Parent.transform);
 		}
-		Parent.transform.RotateAround(white.transform.position, white.transform.right,flag*90f);
+		Parent.transform.RotateAround(orange.transform.position, orange.transform.right,flag*90f);
 		for(int i=0;i<9;i++){
-			temp=GameObject.Find(WhiteFace[i]);
+			temp=GameObject.Find(OrangeFace[i]);
 			temp.transform.SetParent(rubix.transform);
 		}
 		if(flag==1){ //CCW
 			string[]ForCopy=new string[9];
-			ForCopy[0]=WhiteFace[6];
-			ForCopy[1]=WhiteFace[3];
-			ForCopy[2]=WhiteFace[0];
-			ForCopy[3]=WhiteFace[7];
-			ForCopy[4]=WhiteFace[4];
-			ForCopy[5]=WhiteFace[1];
-			ForCopy[6]=WhiteFace[8];
-			ForCopy[7]=WhiteFace[5];
-			ForCopy[8]=WhiteFace[2];
+			ForCopy[0]=OrangeFace[6];
+			ForCopy[1]=OrangeFace[3];
+			ForCopy[2]=OrangeFace[0];
+			ForCopy[3]=OrangeFace[7];
+			ForCopy[4]=OrangeFace[4];
+			ForCopy[5]=OrangeFace[1];
+			ForCopy[6]=OrangeFace[8];
+			ForCopy[7]=OrangeFace[5];
+			ForCopy[8]=OrangeFace[2];
 			for(int i=0;i<9;i++)
-				WhiteFace[i]=ForCopy[i];
+				OrangeFace[i]=ForCopy[i];
 		}
 		else if(flag==-1){ //CW
 			string[]ForCopy=new string[9];
-			ForCopy[0]=WhiteFace[2];
-			ForCopy[1]=WhiteFace[5];
-			ForCopy[2]=WhiteFace[8];
-			ForCopy[3]=WhiteFace[1];
-			ForCopy[4]=WhiteFace[4];
-			ForCopy[5]=WhiteFace[7];
-			ForCopy[6]=WhiteFace[0];
-			ForCopy[7]=WhiteFace[3];
-			ForCopy[8]=WhiteFace[6];
+			ForCopy[0]=OrangeFace[2];
+			ForCopy[1]=OrangeFace[5];
+			ForCopy[2]=OrangeFace[8];
+			ForCopy[3]=OrangeFace[1];
+			ForCopy[4]=OrangeFace[4];
+			ForCopy[5]=OrangeFace[7];
+			ForCopy[6]=OrangeFace[0];
+			ForCopy[7]=OrangeFace[3];
+			ForCopy[8]=OrangeFace[6];
 			for(int i=0;i<9;i++)
-				WhiteFace[i]=ForCopy[i];
+				OrangeFace[i]=ForCopy[i];
 		}
-		OrangeFace[0]=WhiteFace[2];
-		OrangeFace[3]=WhiteFace[5];
-		OrangeFace[6]=WhiteFace[8];
+		YellowFace[0]=OrangeFace[2];
+		YellowFace[3]=OrangeFace[5];
+		YellowFace[6]=OrangeFace[8];
 		
-		BlueFace[2]=WhiteFace[0];
-		BlueFace[5]=WhiteFace[3];
-		BlueFace[8]=WhiteFace[6];
+		GreenFace[2]=OrangeFace[0];
+		GreenFace[5]=OrangeFace[3];
+		GreenFace[8]=OrangeFace[6];
 		
-		DownFace[2]=WhiteFace[6];
-		DownFace[3]=WhiteFace[7];
-		DownFace[4]=WhiteFace[8];
+		DownFace[2]=OrangeFace[6];
+		DownFace[3]=OrangeFace[7];
+		DownFace[4]=OrangeFace[8];
 		
-		UpperFace[2]=WhiteFace[0];
-		UpperFace[3]=WhiteFace[1];
-		UpperFace[4]=WhiteFace[2];
+		UpperFace[2]=OrangeFace[0];
+		UpperFace[3]=OrangeFace[1];
+		UpperFace[4]=OrangeFace[2];
 	}
 	
-	
-	void RotateRedFace(int flag){
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(RedFace[i]);
-			temp.transform.SetParent(Parent.transform);
-		}
-		Parent.transform.RotateAround(red.transform.position, red.transform.right,flag*90f);
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(RedFace[i]);
-			temp.transform.SetParent(rubix.transform);
-		}
-		
-		if(flag==1){ //CW
-		string[]ForCopy=new string[9];
-		ForCopy[0]=RedFace[2];
-		ForCopy[1]=RedFace[5];
-		ForCopy[2]=RedFace[8];
-		ForCopy[3]=RedFace[1];
-		ForCopy[4]=RedFace[4];
-		ForCopy[5]=RedFace[7];
-		ForCopy[6]=RedFace[0];
-		ForCopy[7]=RedFace[3];
-		ForCopy[8]=RedFace[6];
-		for(int i=0;i<9;i++)
-			RedFace[i]=ForCopy[i];
-		}
-		else if(flag==-1){ //CCW
-		string[]ForCopy=new string[9];
-		ForCopy[0]=RedFace[6];
-		ForCopy[1]=RedFace[3];
-		ForCopy[2]=RedFace[0];
-		ForCopy[3]=RedFace[7];
-		ForCopy[4]=RedFace[4];
-		ForCopy[5]=RedFace[1];
-		ForCopy[6]=RedFace[8];
-		ForCopy[7]=RedFace[5];
-		ForCopy[8]=RedFace[2];
-		for(int i=0;i<9;i++)
-			RedFace[i]=ForCopy[i];
-		}
-		OrangeFace[2]=RedFace[0];
-		OrangeFace[5]=RedFace[3];
-		OrangeFace[8]=RedFace[6];
-		
-		BlueFace[0]=RedFace[2];
-		BlueFace[3]=RedFace[5];
-		BlueFace[6]=RedFace[8];
-		
-		DownFace[0]=RedFace[8];
-		DownFace[6]=RedFace[6];
-		DownFace[7]=RedFace[7];
-		
-		UpperFace[0]=RedFace[2];
-		UpperFace[6]=RedFace[0];
-		UpperFace[7]=RedFace[1];
-	}
 	
 	void RotateBlueFace(int flag){
 		for(int i=0;i<9;i++){
 			temp=GameObject.Find(BlueFace[i]);
 			temp.transform.SetParent(Parent.transform);
 		}
-		Parent.transform.RotateAround(blue.transform.position, blue.transform.forward,flag*90f);
+		Parent.transform.RotateAround(blue.transform.position, blue.transform.right,flag*90f);
 		for(int i=0;i<9;i++){
 			temp=GameObject.Find(BlueFace[i]);
 			temp.transform.SetParent(rubix.transform);
 		}
-		if(flag==1){ // CCW
+		
+		if(flag==1){ //CW
+		string[]ForCopy=new string[9];
+		ForCopy[0]=BlueFace[2];
+		ForCopy[1]=BlueFace[5];
+		ForCopy[2]=BlueFace[8];
+		ForCopy[3]=BlueFace[1];
+		ForCopy[4]=BlueFace[4];
+		ForCopy[5]=BlueFace[7];
+		ForCopy[6]=BlueFace[0];
+		ForCopy[7]=BlueFace[3];
+		ForCopy[8]=BlueFace[6];
+		for(int i=0;i<9;i++)
+			BlueFace[i]=ForCopy[i];
+		}
+		else if(flag==-1){ //CCW
 		string[]ForCopy=new string[9];
 		ForCopy[0]=BlueFace[6];
 		ForCopy[1]=BlueFace[3];
@@ -280,99 +228,150 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			BlueFace[i]=ForCopy[i];
 		}
-		else if(flag==-1){ //CW
-			string[]ForCopy=new string[9];
-		ForCopy[0]=BlueFace[2];
-		ForCopy[1]=BlueFace[5];
-		ForCopy[2]=BlueFace[8];
-		ForCopy[3]=BlueFace[1];
-		ForCopy[4]=BlueFace[4];
-		ForCopy[5]=BlueFace[7];
-		ForCopy[6]=BlueFace[0];
-		ForCopy[7]=BlueFace[3];
-		ForCopy[8]=BlueFace[6];
-		for(int i=0;i<9;i++)
-			BlueFace[i]=ForCopy[i];
-		}
+		YellowFace[2]=BlueFace[0];
+		YellowFace[5]=BlueFace[3];
+		YellowFace[8]=BlueFace[6];
 		
-		DownFace[0]=BlueFace[6];
-		DownFace[1]=BlueFace[7];
-		DownFace[2]=BlueFace[8];
+		GreenFace[0]=BlueFace[2];
+		GreenFace[3]=BlueFace[5];
+		GreenFace[6]=BlueFace[8];
 		
-		UpperFace[0]=BlueFace[0];
-		UpperFace[1]=BlueFace[1];
-		UpperFace[2]=BlueFace[2];
+		DownFace[0]=BlueFace[8];
+		DownFace[6]=BlueFace[6];
+		DownFace[7]=BlueFace[7];
 		
-		RedFace[2]=BlueFace[0];
-		RedFace[5]=BlueFace[3];
-		RedFace[8]=BlueFace[6];
-		
-		WhiteFace[0]=BlueFace[2];
-		WhiteFace[3]=BlueFace[5];
-		WhiteFace[6]=BlueFace[8];
+		UpperFace[0]=BlueFace[2];
+		UpperFace[6]=BlueFace[0];
+		UpperFace[7]=BlueFace[1];
 	}
-	void RotateOrangeFace(int flag){
+	
+	void RotateGreenFace(int flag){
 		for(int i=0;i<9;i++){
-			temp=GameObject.Find(OrangeFace[i]);
+			temp=GameObject.Find(GreenFace[i]);
 			temp.transform.SetParent(Parent.transform);
 		}
-		Parent.transform.RotateAround(orange.transform.position, orange.transform.forward,flag*90f);
+		Parent.transform.RotateAround(green.transform.position, green.transform.forward,flag*90f);
 		for(int i=0;i<9;i++){
-			temp=GameObject.Find(OrangeFace[i]);
+			temp=GameObject.Find(GreenFace[i]);
+			temp.transform.SetParent(rubix.transform);
+		}
+		if(flag==1){ // CCW
+		string[]ForCopy=new string[9];
+		ForCopy[0]=GreenFace[6];
+		ForCopy[1]=GreenFace[3];
+		ForCopy[2]=GreenFace[0];
+		ForCopy[3]=GreenFace[7];
+		ForCopy[4]=GreenFace[4];
+		ForCopy[5]=GreenFace[1];
+		ForCopy[6]=GreenFace[8];
+		ForCopy[7]=GreenFace[5];
+		ForCopy[8]=GreenFace[2];
+		for(int i=0;i<9;i++)
+			GreenFace[i]=ForCopy[i];
+		}
+		else if(flag==-1){ //CW
+			string[]ForCopy=new string[9];
+		ForCopy[0]=GreenFace[2];
+		ForCopy[1]=GreenFace[5];
+		ForCopy[2]=GreenFace[8];
+		ForCopy[3]=GreenFace[1];
+		ForCopy[4]=GreenFace[4];
+		ForCopy[5]=GreenFace[7];
+		ForCopy[6]=GreenFace[0];
+		ForCopy[7]=GreenFace[3];
+		ForCopy[8]=GreenFace[6];
+		for(int i=0;i<9;i++)
+			GreenFace[i]=ForCopy[i];
+		}
+		
+		DownFace[0]=GreenFace[6];
+		DownFace[1]=GreenFace[7];
+		DownFace[2]=GreenFace[8];
+		
+		UpperFace[0]=GreenFace[0];
+		UpperFace[1]=GreenFace[1];
+		UpperFace[2]=GreenFace[2];
+		
+		BlueFace[2]=GreenFace[0];
+		BlueFace[5]=GreenFace[3];
+		BlueFace[8]=GreenFace[6];
+		
+		OrangeFace[0]=GreenFace[2];
+		OrangeFace[3]=GreenFace[5];
+		OrangeFace[6]=GreenFace[8];
+	}
+	
+	void RotateYellowFace(int flag){
+		for(int i=0;i<9;i++){
+			temp=GameObject.Find(YellowFace[i]);
+			temp.transform.SetParent(Parent.transform);
+		}
+		Parent.transform.RotateAround(yellow.transform.position, yellow.transform.forward,flag*90f);
+		for(int i=0;i<9;i++){
+			temp=GameObject.Find(YellowFace[i]);
 			temp.transform.SetParent(rubix.transform);
 		}
 		if(flag==-1){
 		string[]ForCopy=new string[9];
-		ForCopy[0]=OrangeFace[6];
-		ForCopy[1]=OrangeFace[3];
-		ForCopy[2]=OrangeFace[0];
-		ForCopy[3]=OrangeFace[7];
-		ForCopy[4]=OrangeFace[4];
-		ForCopy[5]=OrangeFace[1];
-		ForCopy[6]=OrangeFace[8];
-		ForCopy[7]=OrangeFace[5];
-		ForCopy[8]=OrangeFace[2];
+		ForCopy[0]=YellowFace[6];
+		ForCopy[1]=YellowFace[3];
+		ForCopy[2]=YellowFace[0];
+		ForCopy[3]=YellowFace[7];
+		ForCopy[4]=YellowFace[4];
+		ForCopy[5]=YellowFace[1];
+		ForCopy[6]=YellowFace[8];
+		ForCopy[7]=YellowFace[5];
+		ForCopy[8]=YellowFace[2];
 		for(int i=0;i<9;i++)
-			OrangeFace[i]=ForCopy[i];
+			YellowFace[i]=ForCopy[i];
 		}
 		else if(flag==1){
 			string[]ForCopy=new string[9];
-		ForCopy[0]=OrangeFace[2];
-		ForCopy[1]=OrangeFace[5];
-		ForCopy[2]=OrangeFace[8];
-		ForCopy[3]=OrangeFace[1];
-		ForCopy[4]=OrangeFace[4];
-		ForCopy[5]=OrangeFace[7];
-		ForCopy[6]=OrangeFace[0];
-		ForCopy[7]=OrangeFace[3];
-		ForCopy[8]=OrangeFace[6];
+		ForCopy[0]=YellowFace[2];
+		ForCopy[1]=YellowFace[5];
+		ForCopy[2]=YellowFace[8];
+		ForCopy[3]=YellowFace[1];
+		ForCopy[4]=YellowFace[4];
+		ForCopy[5]=YellowFace[7];
+		ForCopy[6]=YellowFace[0];
+		ForCopy[7]=YellowFace[3];
+		ForCopy[8]=YellowFace[6];
 		for(int i=0;i<9;i++)
-			OrangeFace[i]=ForCopy[i];
+			YellowFace[i]=ForCopy[i];
 		}
 		
-		DownFace[4]=OrangeFace[6];
-		DownFace[5]=OrangeFace[7];
-		DownFace[6]=OrangeFace[8];
+		DownFace[4]=YellowFace[6];
+		DownFace[5]=YellowFace[7];
+		DownFace[6]=YellowFace[8];
 		
-		UpperFace[4]=OrangeFace[0];
-		UpperFace[5]=OrangeFace[1];
-		UpperFace[6]=OrangeFace[2];
+		UpperFace[4]=YellowFace[0];
+		UpperFace[5]=YellowFace[1];
+		UpperFace[6]=YellowFace[2];
 		
-		RedFace[0]=OrangeFace[2];
-		RedFace[3]=OrangeFace[5];
-		RedFace[6]=OrangeFace[8];
+		BlueFace[0]=YellowFace[2];
+		BlueFace[3]=YellowFace[5];
+		BlueFace[6]=YellowFace[8];
 		
-		WhiteFace[2]=OrangeFace[0];
-		WhiteFace[5]=OrangeFace[3];
-		WhiteFace[8]=OrangeFace[6];
+		OrangeFace[2]=YellowFace[0];
+		OrangeFace[5]=YellowFace[3];
+		OrangeFace[8]=YellowFace[6];
 	}
 	 void FixedUpdate(){ 
 	    if (Input.GetMouseButtonDown(0)){
 		RotateUpperOrDownFace(-1,"upper");
 		RotateUpperOrDownFace(1,"down");
-		RotateBlueFace (1);
+		//RotateOrangeFace(1);
+		RotateBlueFace(1);
+		RotateYellowFace(1);
+		RotateGreenFace(-1);
+		RotateGreenFace(1);
+		RotateYellowFace(-1);
+		RotateBlueFace(-1);
+		RotateUpperOrDownFace(-1,"down");
+		RotateUpperOrDownFace(1,"upper");
+		//RotateBlueFace (1);
 		//RotateRedFace (1);
-		RotateWhiteFace(1);
+		//RotateWhiteFace(1);
 		}
-	 }*/
+	 }
 }

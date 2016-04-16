@@ -56,6 +56,7 @@
      <Compile Include="Assets\Helper Scripts\Loading.cs" />
      <Compile Include="Assets\Helper Scripts\ManualInputSceneScripts.cs" />
      <Compile Include="Assets\Helper Scripts\OnClickChangeColor.cs" />
+     <Compile Include="Assets\Helper Scripts\OptimalSolution.cs" />
      <Compile Include="Assets\Helper Scripts\RandomGeneration.cs" />
      <Compile Include="Assets\Helper Scripts\RayCaster.cs" />
      <Compile Include="Assets\Helper Scripts\RotateCamera.cs" />

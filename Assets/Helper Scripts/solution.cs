@@ -11,6 +11,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class solution : MonoBehaviour {
+	public static string [] ArrayOfSolution={"UCW","DCW"};
+	
+	
 	string Sol=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"Sol.txt";
 	public static GameObject LoadingMessagePanel;
 	public string[]words;
@@ -29,39 +32,8 @@ public class solution : MonoBehaviour {
 	
 	Process myProcess;
 	void Start(){
-		try {
-		 myProcess = new Process();
-         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-         myProcess.StartInfo.CreateNoWindow = true;
-         myProcess.StartInfo.UseShellExecute = false;
-		 myProcess.StartInfo.RedirectStandardOutput = true;
-         myProcess.StartInfo.FileName = "C:\\Users\\sam\\Desktop\\Test\\rubik3Sticker.ida2";
-         myProcess.EnableRaisingEvents = true;
-		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\sam\\Desktop\\Test";
-		 myProcess.StartInfo.Arguments = "corner.bin edge1.bin edge2.bin < input.txt";
-		 myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-        {
-            if (!String.IsNullOrEmpty(e.Data))
-            {
-                print(e.Data);
-				print ("here");
-            }
-        });
-        myProcess.Start();
-		print ("started");
-		myProcess.BeginOutputReadLine();
-         } catch (Exception e){
-             print(e);        
-         }
-		 myProcess.WaitForExit();
-		
-		
-		
-		
-		
-		
 		if (File.Exists (Sol))
-			Application.LoadLevel ("soultion");
+			Application.LoadLevel ("solution");
 		Globals.EndOfSolution = GameObject.Find ("EndOfSolution");
 		Globals.EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
@@ -166,15 +138,12 @@ public class solution : MonoBehaviour {
 		j++;
 		if (j == lines) {
 			Globals.EndOfSolution.SetActive (true);
-	
+			j=0;
 		}
 	}
-
 	public void hideMessage(){
 		Globals.EndOfSolution.SetActive(false);
 	}
-
-
 
 }
 

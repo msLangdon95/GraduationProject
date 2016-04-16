@@ -8,16 +8,16 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
+
 	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green;
+	bool GreenFaceFlag,BlueFaceFlag,OrangeFaceFlag,UpFaceFlagcw,UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlag;
 	Ray ray;
 	RaycastHit rayHit;
-	Vector2 fp,lp;
-	string referenceName;
-	int referenceCount;
+	 Vector2 firstPressPos;
+	 Vector2 secondPressPos;
+	 Vector2 currentSwipe;
 	int k,i;
-	 Vector3 firstPressPos;
-	 Vector3 secondPressPos;
-	 Vector3 currentSwipe;
+	 float totalRotation = 0;
 	 string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	 string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
 	 string[]GreenFace={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
@@ -38,39 +38,8 @@ public class RubikScene : MonoBehaviour {
 		 else
 			 return Globals.Orange;
 	 }
-	 
-	 
-	 
-	 
-	 
-	const float speed = 180f;
-	IEnumerator Rotate () {
-    float rotated = 0;
-    //while the duration hasn't over.
-    while (rotated < 90f) {
-        float rotation = speed*Time.fixedDeltaTime;
-        rotated += rotation;
-        Parent.transform.RotateAround(green.transform.position,green.transform.forward, rotation);
-        //wait for the next fixed update to continue.
-        yield return new WaitForFixedUpdate ();
-    }
-}
-/*IEnumerator WaitABit()
-{
-   yield return new WaitForSeconds(1);
-}	
-	 */
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	 void Start (){
+		 GreenFaceFlag=BlueFaceFlag=OrangeFaceFlag=UpFaceFlagcw=UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlag=false;
 		 print("rubikSceneHasStarted");
 		 i=0;
 		 if(RandomGeneration.RandomGeneratedFlag){
@@ -93,211 +62,45 @@ public class RubikScene : MonoBehaviour {
 		 white=GameObject.Find("WHITE");
 		 yellow=GameObject.Find("YELLOW");
 		 green=GameObject.Find("GREEN");
-		 
 		  Parent=GameObject.Find("Parent");
 		  Center=GameObject.Find("CENTER");
 		  rubix=GameObject.Find("RubiksCube");
      } 
-	
-	 int findK(string x){
+	 
+	int findK(string x){
 		 if(x=="upper")
 			return 0;
-		if(x=="middle")
+		else if(x=="middle")
 			return 3;
-		else 
-			return 6;
-		 
+		else if(x=="down")
+			return 6; 
+		else
+			return -1;
 	 }
-	void RotateUpperOrDownFace(int flag,string plane){
-		string[] NewString=new string[8];
-		string[] whatPlane=new string[8];
-		GameObject whatCenter=null;
-		if(plane=="upper"){
-			whatPlane=UpperFace;
-			whatCenter=red;
-		}
-
-		else if(plane=="down"){
-			whatPlane=DownFace;
-			whatCenter=white;
-		}
-		else return;
-		for(int i=0;i<8;i++){
-			temp=GameObject.Find(whatPlane[i]);
-			temp.transform.SetParent(Parent.transform);
-		}
-		Parent.transform.RotateAround(whatCenter.transform.position, whatCenter.transform.up,(-1 * flag)* 90f);
-		for(int i=0;i<8;i++){
-			temp=GameObject.Find(whatPlane[i]);
-			temp.transform.SetParent(rubix.transform);
-			}
-		if(flag==-1){//left swipe
-			for(int i=0;i<8;i++)
-				NewString[(i+2)%8]=whatPlane[i];
-			for(int i=0;i<8;i++)
-				whatPlane[i]=NewString[i];
-		}
-		else if(flag==1){//right swipe
-			for(int i=7;i>=2;i--)
-				NewString[i-2]=whatPlane[i];
-			NewString[6]=whatPlane[0];
-			NewString[7]=whatPlane[1];
-			
-			for(int i=0;i<8;i++)
-				whatPlane[i]=NewString[i];
-		}
-		k=findK(plane);
-		for(int i=0;i<3;i++)
-			GreenFace[k++]=whatPlane[i];
-		k=findK(plane);
-		for(int i=2;i<5;i++)
-			OrangeFace[k++]=whatPlane[i];
-		k=findK(plane);
-		for(int i=4;i<7;i++)
-			YellowFace[k++]=whatPlane[i];		
-		k=findK(plane);
-		for(int i=6;i<9;i++)
-			BlueFace[k++]=whatPlane[i%8];
-	}
-	
-	void RotateOrangeFace(int flag){
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(OrangeFace[i]);
-			temp.transform.SetParent(Parent.transform);
-		}
-		Parent.transform.RotateAround(orange.transform.position, orange.transform.right,flag*90f);
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(OrangeFace[i]);
-			temp.transform.SetParent(rubix.transform);
-		}
-		if(flag==1){ //CCW
-			string[]ForCopy=new string[9];
-			ForCopy[0]=OrangeFace[6];
-			ForCopy[1]=OrangeFace[3];
-			ForCopy[2]=OrangeFace[0];
-			ForCopy[3]=OrangeFace[7];
-			ForCopy[4]=OrangeFace[4];
-			ForCopy[5]=OrangeFace[1];
-			ForCopy[6]=OrangeFace[8];
-			ForCopy[7]=OrangeFace[5];
-			ForCopy[8]=OrangeFace[2];
-			for(int i=0;i<9;i++)
-				OrangeFace[i]=ForCopy[i];
-		}
-		else if(flag==-1){ //CW
-			string[]ForCopy=new string[9];
-			ForCopy[0]=OrangeFace[2];
-			ForCopy[1]=OrangeFace[5];
-			ForCopy[2]=OrangeFace[8];
-			ForCopy[3]=OrangeFace[1];
-			ForCopy[4]=OrangeFace[4];
-			ForCopy[5]=OrangeFace[7];
-			ForCopy[6]=OrangeFace[0];
-			ForCopy[7]=OrangeFace[3];
-			ForCopy[8]=OrangeFace[6];
-			for(int i=0;i<9;i++)
-				OrangeFace[i]=ForCopy[i];
-		}
-		YellowFace[0]=OrangeFace[2];
-		YellowFace[3]=OrangeFace[5];
-		YellowFace[6]=OrangeFace[8];
-		
-		GreenFace[2]=OrangeFace[0];
-		GreenFace[5]=OrangeFace[3];
-		GreenFace[8]=OrangeFace[6];
-		
-		DownFace[2]=OrangeFace[6];
-		DownFace[3]=OrangeFace[7];
-		DownFace[4]=OrangeFace[8];
-		
-		UpperFace[2]=OrangeFace[0];
-		UpperFace[3]=OrangeFace[1];
-		UpperFace[4]=OrangeFace[2];
-	}
-	
-	
-	void RotateBlueFace(int flag){
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(BlueFace[i]);
-			temp.transform.SetParent(Parent.transform);
-		}
-		Parent.transform.RotateAround(blue.transform.position, blue.transform.right,flag*90f);
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(BlueFace[i]);
-			temp.transform.SetParent(rubix.transform);
-		}
-		
-		if(flag==1){ //CW
-		string[]ForCopy=new string[9];
-		ForCopy[0]=BlueFace[2];
-		ForCopy[1]=BlueFace[5];
-		ForCopy[2]=BlueFace[8];
-		ForCopy[3]=BlueFace[1];
-		ForCopy[4]=BlueFace[4];
-		ForCopy[5]=BlueFace[7];
-		ForCopy[6]=BlueFace[0];
-		ForCopy[7]=BlueFace[3];
-		ForCopy[8]=BlueFace[6];
-		for(int i=0;i<9;i++)
-			BlueFace[i]=ForCopy[i];
-		}
-		else if(flag==-1){ //CCW
-		string[]ForCopy=new string[9];
-		ForCopy[0]=BlueFace[6];
-		ForCopy[1]=BlueFace[3];
-		ForCopy[2]=BlueFace[0];
-		ForCopy[3]=BlueFace[7];
-		ForCopy[4]=BlueFace[4];
-		ForCopy[5]=BlueFace[1];
-		ForCopy[6]=BlueFace[8];
-		ForCopy[7]=BlueFace[5];
-		ForCopy[8]=BlueFace[2];
-		for(int i=0;i<9;i++)
-			BlueFace[i]=ForCopy[i];
-		}
-		YellowFace[2]=BlueFace[0];
-		YellowFace[5]=BlueFace[3];
-		YellowFace[8]=BlueFace[6];
-		
-		GreenFace[0]=BlueFace[2];
-		GreenFace[3]=BlueFace[5];
-		GreenFace[6]=BlueFace[8];
-		
-		DownFace[0]=BlueFace[8];
-		DownFace[6]=BlueFace[6];
-		DownFace[7]=BlueFace[7];
-		
-		UpperFace[0]=BlueFace[2];
-		UpperFace[6]=BlueFace[0];
-		UpperFace[7]=BlueFace[1];
-	}
-	
-	void RotateGreenFace(int flag){
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(GreenFace[i]);
-			temp.transform.SetParent(Parent.transform);
-		}
-		
-		
-		
-		
-		
-		
-		/* float totalRotation = 0;
-		while (Mathf.Abs(totalRotation) < 90){
-			totalRotation += Time.deltaTime;
-			Parent.transform.RotateAround(green.transform.position, green.transform.forward,Time.deltaTime);
-			StartCoroutine(WaitABit());
-		}*/
-		StartCoroutine(Rotate());
-		
-		
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(GreenFace[i]);
-			temp.transform.SetParent(rubix.transform);
-		}
-		if(flag==1){ // CCW
-		string[]ForCopy=new string[9];
+	 void PutStuffInParent(string[] face){
+		 int until;
+		 if(face==UpperFace || face==DownFace)
+			 until=8;
+		 else
+			 until=9;
+		 for(int i=0;i<until;i++){
+			 temp=GameObject.Find(face[i]);
+			 temp.transform.SetParent(Parent.transform);
+		 }
+	 }
+	 void PutStuffInRubix(string[] face){
+		 int until;
+		 if(face==UpperFace || face==DownFace)
+			 until=8;
+		 else
+			 until=9;
+		 for(int i=0;i<until;i++){
+			 temp=GameObject.Find(face[i]);
+			 temp.transform.SetParent(rubix.transform);
+		 }
+	 }
+	 void UpdateGreenFaceCCW(){
+		 string[]ForCopy=new string[9];
 		ForCopy[0]=GreenFace[6];
 		ForCopy[1]=GreenFace[3];
 		ForCopy[2]=GreenFace[0];
@@ -309,9 +112,9 @@ public class RubikScene : MonoBehaviour {
 		ForCopy[8]=GreenFace[2];
 		for(int i=0;i<9;i++)
 			GreenFace[i]=ForCopy[i];
-		}
-		else if(flag==-1){ //CW
-			string[]ForCopy=new string[9];
+	 } 
+	 void UpdateGreenFaceCW(){
+		 string[]ForCopy=new string[9];
 		ForCopy[0]=GreenFace[2];
 		ForCopy[1]=GreenFace[5];
 		ForCopy[2]=GreenFace[8];
@@ -323,8 +126,8 @@ public class RubikScene : MonoBehaviour {
 		ForCopy[8]=GreenFace[6];
 		for(int i=0;i<9;i++)
 			GreenFace[i]=ForCopy[i];
-		}
-		
+	 }
+	 void UpdateGreenFace(){
 		DownFace[0]=GreenFace[6];
 		DownFace[1]=GreenFace[7];
 		DownFace[2]=GreenFace[8];
@@ -340,20 +143,99 @@ public class RubikScene : MonoBehaviour {
 		OrangeFace[0]=GreenFace[2];
 		OrangeFace[3]=GreenFace[5];
 		OrangeFace[6]=GreenFace[8];
-	}
-	
-	void RotateYellowFace(int flag){
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(YellowFace[i]);
-			temp.transform.SetParent(Parent.transform);
-		}
-		Parent.transform.RotateAround(yellow.transform.position, yellow.transform.forward,flag*90f);
-		for(int i=0;i<9;i++){
-			temp=GameObject.Find(YellowFace[i]);
-			temp.transform.SetParent(rubix.transform);
-		}
-		if(flag==-1){
-		string[]ForCopy=new string[9];
+	 } 
+	 void UpdateBlueFaceCW(){
+		 string[]ForCopy=new string[9];
+		 ForCopy[0]=BlueFace[2];
+		ForCopy[1]=BlueFace[5];
+		ForCopy[2]=BlueFace[8];
+		ForCopy[3]=BlueFace[1];
+		ForCopy[4]=BlueFace[4];
+		ForCopy[5]=BlueFace[7];
+		ForCopy[6]=BlueFace[0];
+		ForCopy[7]=BlueFace[3];
+		ForCopy[8]=BlueFace[6];
+		for(int i=0;i<9;i++)
+			BlueFace[i]=ForCopy[i];
+	 }
+	 void UpdateBlueFaceCCW(){
+		 string[]ForCopy=new string[9];
+		ForCopy[0]=BlueFace[6];
+		ForCopy[1]=BlueFace[3];
+		ForCopy[2]=BlueFace[0];
+		ForCopy[3]=BlueFace[7];
+		ForCopy[4]=BlueFace[4];
+		ForCopy[5]=BlueFace[1];
+		ForCopy[6]=BlueFace[8];
+		ForCopy[7]=BlueFace[5];
+		ForCopy[8]=BlueFace[2];
+		for(int i=0;i<9;i++)
+			BlueFace[i]=ForCopy[i];
+	 }
+	 void UpdateBlueFace(){
+		YellowFace[2]=BlueFace[0];
+		YellowFace[5]=BlueFace[3];
+		YellowFace[8]=BlueFace[6];
+		
+		GreenFace[0]=BlueFace[2];
+		GreenFace[3]=BlueFace[5];
+		GreenFace[6]=BlueFace[8];
+		
+		DownFace[0]=BlueFace[8];
+		DownFace[6]=BlueFace[6];
+		DownFace[7]=BlueFace[7];
+		
+		UpperFace[0]=BlueFace[2];
+		UpperFace[6]=BlueFace[0];
+		UpperFace[7]=BlueFace[1];
+	 }
+	 void UpdateOrangeFaceCCW(){
+		 string[]ForCopy=new string[9];
+			ForCopy[0]=OrangeFace[6];
+			ForCopy[1]=OrangeFace[3];
+			ForCopy[2]=OrangeFace[0];
+			ForCopy[3]=OrangeFace[7];
+			ForCopy[4]=OrangeFace[4];
+			ForCopy[5]=OrangeFace[1];
+			ForCopy[6]=OrangeFace[8];
+			ForCopy[7]=OrangeFace[5];
+			ForCopy[8]=OrangeFace[2];
+			for(int i=0;i<9;i++)
+				OrangeFace[i]=ForCopy[i];
+	 }
+	 void UpdateOrangeFaceCW(){
+		 string[]ForCopy=new string[9];
+			ForCopy[0]=OrangeFace[2];
+			ForCopy[1]=OrangeFace[5];
+			ForCopy[2]=OrangeFace[8];
+			ForCopy[3]=OrangeFace[1];
+			ForCopy[4]=OrangeFace[4];
+			ForCopy[5]=OrangeFace[7];
+			ForCopy[6]=OrangeFace[0];
+			ForCopy[7]=OrangeFace[3];
+			ForCopy[8]=OrangeFace[6];
+			for(int i=0;i<9;i++)
+				OrangeFace[i]=ForCopy[i];
+	 }
+	 void UpdateOrangeFace(){
+		 YellowFace[0]=OrangeFace[2];
+		YellowFace[3]=OrangeFace[5];
+		YellowFace[6]=OrangeFace[8];
+		
+		GreenFace[2]=OrangeFace[0];
+		GreenFace[5]=OrangeFace[3];
+		GreenFace[8]=OrangeFace[6];
+		
+		DownFace[2]=OrangeFace[6];
+		DownFace[3]=OrangeFace[7];
+		DownFace[4]=OrangeFace[8];
+		
+		UpperFace[2]=OrangeFace[0];
+		UpperFace[3]=OrangeFace[1];
+		UpperFace[4]=OrangeFace[2];
+	 }
+	 void UpdateYellowFaceCCW(){
+		 string[]ForCopy=new string[9];
 		ForCopy[0]=YellowFace[6];
 		ForCopy[1]=YellowFace[3];
 		ForCopy[2]=YellowFace[0];
@@ -365,9 +247,9 @@ public class RubikScene : MonoBehaviour {
 		ForCopy[8]=YellowFace[2];
 		for(int i=0;i<9;i++)
 			YellowFace[i]=ForCopy[i];
-		}
-		else if(flag==1){
-			string[]ForCopy=new string[9];
+	 }
+	 void UpdateYellowFaceCW(){
+		string[]ForCopy=new string[9];
 		ForCopy[0]=YellowFace[2];
 		ForCopy[1]=YellowFace[5];
 		ForCopy[2]=YellowFace[8];
@@ -379,9 +261,9 @@ public class RubikScene : MonoBehaviour {
 		ForCopy[8]=YellowFace[6];
 		for(int i=0;i<9;i++)
 			YellowFace[i]=ForCopy[i];
-		}
-		
-		DownFace[4]=YellowFace[6];
+	 }
+	 void UpdateYellowFace(){
+		 DownFace[4]=YellowFace[6];
 		DownFace[5]=YellowFace[7];
 		DownFace[6]=YellowFace[8];
 		
@@ -396,24 +278,171 @@ public class RubikScene : MonoBehaviour {
 		OrangeFace[2]=YellowFace[0];
 		OrangeFace[5]=YellowFace[3];
 		OrangeFace[8]=YellowFace[6];
+	 }
+	void UpdateUpOrDownFaceCCW(string plane){
+		string[] whatPlane=new string[8];
+		string[] NewString=new string[8];
+		if(plane=="upper")
+			whatPlane=UpperFace;
+		else if(plane=="down")
+			whatPlane=DownFace;
+		else return;
+		for(int i=7;i>=2;i--)
+			NewString[i-2]=whatPlane[i];
+			NewString[6]=whatPlane[0];
+			NewString[7]=whatPlane[1];
+			for(int i=0;i<8;i++)
+				whatPlane[i]=NewString[i];
 	}
-	 void Update(){ 
-	    if (Input.GetMouseButtonDown(0)){
-		//RotateUpperOrDownFace(-1,"upper");
-		//RotateUpperOrDownFace(1,"down");
-		RotateGreenFace(1);
-		//RotateOrangeFace(1);
-		//RotateBlueFace(1);
-		//RotateYellowFace(1);
-		//RotateGreenFace(-1);
-		//RotateGreenFace(1);
-		//RotateYellowFace(-1);
-		//RotateBlueFace(-1);
-		//RotateUpperOrDownFace(-1,"down");
-		//RotateUpperOrDownFace(1,"upper");
-		//RotateBlueFace (1);
-		//RotateRedFace (1);
-		//RotateWhiteFace(1);
+	void UpdateUpOrDownFaceCW(string plane){
+		string[] whatPlane=new string[8];
+		string[] NewString=new string[8];
+		if(plane=="upper")
+			whatPlane=UpperFace;
+		else if(plane=="down")
+			whatPlane=DownFace;
+		else return;
+		for(int i=0;i<8;i++)
+			NewString[(i+2)%8]=whatPlane[i];
+		for(int i=0;i<8;i++)
+			whatPlane[i]=NewString[i];
+	}
+	void UpdateUpOrDownFace(string plane){
+		string[] whatPlane=new string[8];
+		if(plane=="upper")
+			whatPlane=UpperFace;
+		else if(plane=="down")
+			whatPlane=DownFace;
+		else return;
+		k=findK(plane);
+		for(int i=0;i<3;i++)
+			GreenFace[k++]=whatPlane[i];
+		k=findK(plane);
+		for(int i=2;i<5;i++)
+			OrangeFace[k++]=whatPlane[i];
+		k=findK(plane);
+		for(int i=4;i<7;i++)
+			YellowFace[k++]=whatPlane[i];		
+		k=findK(plane);
+		for(int i=6;i<9;i++)
+			BlueFace[k++]=whatPlane[i%8];
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	void FixedUpdate(){ 
+		if(Input.GetMouseButtonDown(0)){
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if(Physics.Raycast(ray, out rayHit)){
+				lastClicked = rayHit.collider.gameObject;
+				print(lastClicked.transform.parent.position.y);
+			}
+			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+		}
+		if(Input.GetMouseButtonUp(0)){
+			secondPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+			currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+			currentSwipe.Normalize();
+
+        if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){
+            print("up swipe");
+        }
+        if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){
+            print("down swipe");
+        }
+        if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){
+			if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 202f){ // up face clock wise
+				PutStuffInParent(UpperFace);
+				UpFaceFlagcw=true;
+				print("left swipe of up face");
+			}
+			if(lastClicked.transform.parent.position.y>=130f && lastClicked.transform.parent.position.y<= 132f){ // down face clock wise
+				PutStuffInParent(DownFace);
+				DownFaceFlagcw=true;
+				print("left swipe of down face");
+			}
+			
+        }
+        if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){
+            if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 202f){ // up face counter clock wise
+				PutStuffInParent(UpperFace);
+				UpFaceFlagccw=true;
+				print("right swipe of up face");
+			}
+			
+			if(lastClicked.transform.parent.position.y>=130f && lastClicked.transform.parent.position.y<= 132f){ // down face counter clock wise
+				PutStuffInParent(DownFace);
+				DownFaceFlagccw=true;
+				print("right swipe of down face");
+			}
+			
+        }
+		}
+	}
+	
+void Update(){
+	if(UpFaceFlagcw){
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 60*Time.deltaTime;
+			Parent.transform.RotateAround(red.transform.position,red.transform.up,60*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			UpFaceFlagcw=false;
+			totalRotation=0;
+			PutStuffInRubix(UpperFace);
+			UpdateUpOrDownFaceCW("upper");
+			UpdateUpOrDownFace("upper");
 		}
 	 }
+	 
+	 if(UpFaceFlagccw){
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 60*Time.deltaTime;
+			Parent.transform.RotateAround(red.transform.position,-1*red.transform.up,60*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			UpFaceFlagccw=false;
+			totalRotation=0;
+			PutStuffInRubix(UpperFace);
+			UpdateUpOrDownFaceCCW("upper");
+			UpdateUpOrDownFace("upper");
+		}
+	 }
+	 if(DownFaceFlagcw){
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 60*Time.deltaTime;
+			Parent.transform.RotateAround(white.transform.position,white.transform.up,60*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			DownFaceFlagcw=false;
+			totalRotation=0;
+			PutStuffInRubix(DownFace);
+			UpdateUpOrDownFaceCW("down");
+			UpdateUpOrDownFace("down");
+		}
+	 }
+	 
+	 if(DownFaceFlagccw){
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 60*Time.deltaTime;
+			Parent.transform.RotateAround(white.transform.position,-1*white.transform.up,60*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			DownFaceFlagccw=false;
+			totalRotation=0;
+			PutStuffInRubix(DownFace);
+			UpdateUpOrDownFaceCCW("down");
+			UpdateUpOrDownFace("down");
+		}
+	 }
+	 
+	 
+	}
 }
+
+

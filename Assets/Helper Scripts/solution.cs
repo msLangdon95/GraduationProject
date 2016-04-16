@@ -9,23 +9,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 public class solution : MonoBehaviour {
-	List<string> output=new List<string>();
+	public static List<string> output=new List<string>();
 	int i=0; 
 	string solMsgs;
 	GameObject myMSG,EndOfSolution;
-	
 	void Start () {
-		output.Add("FCW");
-		output.Add("BCW");
-		output.Add("LCW");
-			
 		EndOfSolution = GameObject.Find ("EndOfSolution");
 		EndOfSolution.SetActive (false);
-
 		myMSG = GameObject.Find ("Mymsg");
-	}// end of Start
-
-
+	}
 	public void nextStep() {
 		if(i<output.Count){
 		if (output[i]=="UCW"){

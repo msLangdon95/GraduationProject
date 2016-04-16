@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 public class OptimalSolution : MonoBehaviour {
 	Process myProcess;
+	String inputFilePath="C:\\Users\\sam\\Desktop\\Test\\input.txt";
 	void Start(){
 	try {
 		 myProcess = new Process();
@@ -16,6 +17,12 @@ public class OptimalSolution : MonoBehaviour {
          myProcess.StartInfo.CreateNoWindow = true;
          myProcess.StartInfo.UseShellExecute = false;
 		 myProcess.StartInfo.RedirectStandardOutput = true;
+		 
+		 myProcess.StartInfo.RedirectStandardInput = true;
+		 String inputText = File.ReadAllText(inputFilePath);
+		 StreamWriter myStreamWriter = myProcess.StandardInput;
+		 myStreamWriter.Write(inputText);
+		 
          myProcess.StartInfo.FileName = "C:\\Users\\sam\\Desktop\\Test\\rubik3Sticker.ida2";
          myProcess.EnableRaisingEvents = true;
 		 myProcess.StartInfo.WorkingDirectory = "C:\\Users\\sam\\Desktop\\Test";
@@ -29,7 +36,6 @@ public class OptimalSolution : MonoBehaviour {
             }
         });
         myProcess.Start();
-		print ("started");
 		myProcess.BeginOutputReadLine();
          } catch (Exception e){
              print(e);        

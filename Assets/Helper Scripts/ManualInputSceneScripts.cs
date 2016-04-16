@@ -45,6 +45,5 @@ public class ManualInputSceneScripts : MonoBehaviour {
 	}
 	public void onMouseDown(){
 		VerifyAndGo ();
-		
 	}
 }

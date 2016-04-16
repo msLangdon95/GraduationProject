@@ -16,7 +16,7 @@ public class RubikScene : MonoBehaviour {
 	 Vector2 firstPressPos;
 	 Vector2 secondPressPos;
 	 Vector2 currentSwipe;
-	int k,i;
+	 int k,i;
 	 float totalRotation = 0;
 	 string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	 string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
@@ -56,6 +56,7 @@ public class RubikScene : MonoBehaviour {
 			 }
 			 RandomGeneration.RandomGeneratedFlag=false;
 		 }
+		 
 		 blue=GameObject.Find("BLUE");
 		 red=GameObject.Find("RED");
 		 orange=GameObject.Find("ORANGE");
@@ -340,7 +341,7 @@ public class RubikScene : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				print(lastClicked.transform.parent.position.y);
+				print((int)lastClicked.transform.parent.position.x+" "+(int)lastClicked.transform.parent.position.y+" ");
 			}
 			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 		}
@@ -361,7 +362,7 @@ public class RubikScene : MonoBehaviour {
 				UpFaceFlagcw=true;
 				print("left swipe of up face");
 			}
-			if(lastClicked.transform.parent.position.y>=130f && lastClicked.transform.parent.position.y<= 132f){ // down face clock wise
+			if(lastClicked.transform.parent.position.y>=129f && lastClicked.transform.parent.position.y<= 132f){ // down face clock wise
 				PutStuffInParent(DownFace);
 				DownFaceFlagcw=true;
 				print("left swipe of down face");
@@ -375,7 +376,7 @@ public class RubikScene : MonoBehaviour {
 				print("right swipe of up face");
 			}
 			
-			if(lastClicked.transform.parent.position.y>=130f && lastClicked.transform.parent.position.y<= 132f){ // down face counter clock wise
+			if(lastClicked.transform.parent.position.y>=129f && lastClicked.transform.parent.position.y<= 132f){ // down face counter clock wise
 				PutStuffInParent(DownFace);
 				DownFaceFlagccw=true;
 				print("right swipe of down face");
@@ -384,12 +385,12 @@ public class RubikScene : MonoBehaviour {
         }
 		}
 	}
-	
+
 void Update(){
 	if(UpFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 60*Time.deltaTime;
-			Parent.transform.RotateAround(red.transform.position,red.transform.up,60*Time.deltaTime);
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(red.transform.position,red.transform.up,100*Time.deltaTime);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			UpFaceFlagcw=false;
@@ -402,8 +403,8 @@ void Update(){
 	 
 	 if(UpFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 60*Time.deltaTime;
-			Parent.transform.RotateAround(red.transform.position,-1*red.transform.up,60*Time.deltaTime);
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(red.transform.position,-1*red.transform.up,100*Time.deltaTime);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			UpFaceFlagccw=false;
@@ -415,8 +416,8 @@ void Update(){
 	 }
 	 if(DownFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 60*Time.deltaTime;
-			Parent.transform.RotateAround(white.transform.position,white.transform.up,60*Time.deltaTime);
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(white.transform.position,white.transform.up,100*Time.deltaTime);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			DownFaceFlagcw=false;
@@ -429,8 +430,8 @@ void Update(){
 	 
 	 if(DownFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 60*Time.deltaTime;
-			Parent.transform.RotateAround(white.transform.position,-1*white.transform.up,60*Time.deltaTime);
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(white.transform.position,-1*white.transform.up,100*Time.deltaTime);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			DownFaceFlagccw=false;

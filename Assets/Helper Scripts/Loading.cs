@@ -11,10 +11,8 @@ public class Loading : MonoBehaviour {
 	string path = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"myCubeColor.txt";
 	GameObject w;
 	int i,j;
-	string[]m;
+	public static string[]m;
 	string word;
-	Color ORANGE = new Color(1,0.27058823529f,0,1);
-	
 	void Start () {
 		 i=0;
 		j = 0;
@@ -35,25 +33,6 @@ public class Loading : MonoBehaviour {
 		}
 	}
 
-
-	
-	public Color getColor(string c){
-		if (c == "RED")
-			return Color.red;
-		if (c == "BLUE")
-			return Color.blue;
-		if (c == "YELLOW")
-			return Color.yellow;
-		if (c == "GREEN")
-			return Color.green;
-		if (c == "WHITE")
-			return Color.white;
-		if (c == "ORANGE")
-			return ORANGE;
-		else 
-			return Color.gray;
-	}
-
 	public void okButton(){
 		Globals.LoadingMessagePanel.SetActive(false);
 	}
@@ -63,22 +42,11 @@ public class Loading : MonoBehaviour {
 			Globals.LoadingMessagePanel.SetActive (true);
 			return;
 		}
-
+		Globals.LoadFlag=true;
+		Globals.ManualInputFlag=false;
+		Globals.RandomGeneratedFlag=false;
 		Application.LoadLevel("rubik");
-		//foreach ( string word in words ) {
-			//w=GameObject.Find(Globals.EdgesAndCorners[i]); 
-		for ( j=0 ; j<48 ; j++){
-			print (m[j]);
-			w=GameObject.Find(Globals.EdgesAndCorners[j]); 
-			w.GetComponent<Renderer>().material.color=getColor(m[j]); 
-			
-			
-		}
-
-
-
-
-}
+	}
 }
 
 

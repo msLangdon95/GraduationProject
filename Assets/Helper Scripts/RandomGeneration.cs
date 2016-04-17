@@ -14,14 +14,13 @@ public class RandomGeneration : MonoBehaviour {
 	string[] words;
 	Process myProcess;
 	string RandomGenerated;
-	public static bool RandomGeneratedFlag=false;
+	
 	public void Click(int l)
 	{
 		Level=l;
 		Generate(Level);
 	}
 	void Generate(int level){
-		RandomGeneratedFlag=true;
 		int seed=UnityEngine.Random.Range(1,10);
 		int n=1;
 		int hardness=1;
@@ -48,22 +47,21 @@ public class RandomGeneration : MonoBehaviour {
         {
             if (!String.IsNullOrEmpty(e.Data))
             {
-                print(e.Data);
-					print ("here");
 				RandomGenerated+=e.Data;
             }
         });
         myProcess.Start();
-			print ("started");
 		myProcess.BeginOutputReadLine();
          } catch (Exception e){
              print(e);        
          }
 		 myProcess.WaitForExit();
-		 
 		 words = RandomGenerated.Split(delimiterChars);
 		 foreach (string s in words){
 			RandomGeneratedColors.Add(s);
         }
+		Globals.RandomGeneratedFlag=true;
+		Globals.ManualInputFlag=false;
+		Globals.LoadFlag=false;
 	}
 }

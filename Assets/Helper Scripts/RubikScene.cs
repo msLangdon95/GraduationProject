@@ -40,21 +40,33 @@ public class RubikScene : MonoBehaviour {
 	 }
 	 void Start (){
 		 GreenFaceFlag=BlueFaceFlag=OrangeFaceFlag=UpFaceFlagcw=UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlag=false;
-		 print("rubikSceneHasStarted");
 		 i=0;
-		 if(RandomGeneration.RandomGeneratedFlag){
+		 if(Globals.RandomGeneratedFlag){
 			 if(RandomGeneration.RandomGeneratedColors.Count()==48){
-				 while(i<48){
+				 for(i=0;i<48;i++){
 					temp=GameObject.Find(Globals.EdgesAndCorners[i]);
 					temp.GetComponent<Renderer>().material.color=returnColor(RandomGeneration.RandomGeneratedColors[i]);
-					i++;
 				 }
 			 }
 			 else{
 				 print("error!");
 				 return;
 			 }
-			 RandomGeneration.RandomGeneratedFlag=false;
+			 Globals.RandomGeneratedFlag=false;
+		 }
+		 else if(Globals.ManualInputFlag){
+			 for(i=0;i<48;i++){
+				temp=GameObject.Find(Globals.EdgesAndCorners[i]);
+				temp.GetComponent<Renderer>().material.color=Globals.CurrentCubeColors[i];
+			}
+			 Globals.ManualInputFlag=false;
+		 }
+		 else if(Globals.LoadFlag){
+			 for ( i=0 ; i<48 ; i++){
+				temp=GameObject.Find(Globals.EdgesAndCorners[i]); 
+				temp.GetComponent<Renderer>().material.color=returnColor(Loading.m[i]); 	
+				}
+			 Globals.LoadFlag=false;
 		 }
 		 
 		 blue=GameObject.Find("BLUE");
@@ -357,7 +369,7 @@ public class RubikScene : MonoBehaviour {
             print("down swipe");
         }
         if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){
-			if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 202f){ // up face clock wise
+			if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 206f){ // up face clock wise
 				PutStuffInParent(UpperFace);
 				UpFaceFlagcw=true;
 				print("left swipe of up face");
@@ -370,7 +382,7 @@ public class RubikScene : MonoBehaviour {
 			
         }
         if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){
-            if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 202f){ // up face counter clock wise
+            if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 206f){ // up face counter clock wise
 				PutStuffInParent(UpperFace);
 				UpFaceFlagccw=true;
 				print("right swipe of up face");

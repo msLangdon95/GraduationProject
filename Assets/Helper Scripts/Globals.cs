@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;    
 public class Globals : MonoBehaviour {
-	
+	public static bool ManualInputFlag=false;
+	public static bool RandomGeneratedFlag=false;
+	public static bool LoadFlag=false;
 	public struct COLOR{
 		public GameObject GO;
 		public bool ColorFlag;

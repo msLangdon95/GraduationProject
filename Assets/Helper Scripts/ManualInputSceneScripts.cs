@@ -20,18 +20,20 @@ public class ManualInputSceneScripts : MonoBehaviour {
 		}
 	}
 	public void VerifyAndGo(){ // next scene button
-		/*for(int i=0;i<6;i++){
+		for(int i=0;i<6;i++){
 			if(Globals.ColorsArray[i].ColorCounter!= 8){ //not all cubies are fully colored
 				Globals.VerifyPanel.SetActive(true);
 				return;
 			}
-		}*/
-		
+		}
 		//Accepted, store all colors
 		for(int i=0;i<48;i++){
 			x=GameObject.Find(Globals.EdgesAndCorners[i]);
 			Globals.CurrentCubeColors[i]=x.GetComponent<Renderer>().material.color;
 		}
+		Globals.ManualInputFlag=true;
+		Globals.RandomGeneratedFlag=false;
+		Globals.LoadFlag=false;
 		Application.LoadLevel("rubik");
 	}
 

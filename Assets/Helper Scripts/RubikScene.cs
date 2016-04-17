@@ -8,7 +8,6 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
-
 	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green;
 	bool GreenFaceFlag,BlueFaceFlag,OrangeFaceFlag,UpFaceFlagcw,UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlag;
 	Ray ray;
@@ -353,7 +352,10 @@ public class RubikScene : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				print((int)lastClicked.transform.parent.position.x+" "+(int)lastClicked.transform.parent.position.y+" ");
+				print((int)lastClicked.transform.parent.position.x+" "+(int)lastClicked.transform.parent.position.y+" "+(int)lastClicked.transform.parent.position.z+" CenterAt "+
+				(int)Center.transform.position.x+" "+(int)Center.transform.position.y+" "+(int)Center.transform.position.z+" ");
+				print(lastClicked.GetComponent<Collider>().bounds.size);
+				
 			}
 			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 		}
@@ -368,27 +370,31 @@ public class RubikScene : MonoBehaviour {
         if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){
             print("down swipe");
         }
-        if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){
-			if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 206f){ // up face clock wise
+        if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //leftSwipe
+			if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=8){ // up face clock wise
 				PutStuffInParent(UpperFace);
 				UpFaceFlagcw=true;
 				print("left swipe of up face");
 			}
-			if(lastClicked.transform.parent.position.y>=129f && lastClicked.transform.parent.position.y<= 132f){ // down face clock wise
+			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=8){ // down face clock wise
 				PutStuffInParent(DownFace);
 				DownFaceFlagcw=true;
 				print("left swipe of down face");
 			}
 			
         }
-        if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){
-            if(lastClicked.transform.parent.position.y>=200f && lastClicked.transform.parent.position.y<= 206f){ // up face counter clock wise
+        if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //rightSwipe
+            if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=8){ // up face counter clock wise
 				PutStuffInParent(UpperFace);
 				UpFaceFlagccw=true;
 				print("right swipe of up face");
 			}
 			
-			if(lastClicked.transform.parent.position.y>=129f && lastClicked.transform.parent.position.y<= 132f){ // down face counter clock wise
+			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=8){ // down face counter clock wise
 				PutStuffInParent(DownFace);
 				DownFaceFlagccw=true;
 				print("right swipe of down face");

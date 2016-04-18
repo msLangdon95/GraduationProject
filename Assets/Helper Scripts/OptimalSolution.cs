@@ -233,6 +233,7 @@ public class OptimalSolution : MonoBehaviour {
 	}
 	public void onClickFindSol(){
 		//put in right position//add menu
+		GameObject.Find("RubiksCube").transform.rotation= Quaternion.Euler(0f, 0f, 0f);
 		ReadRedFace();
 		ReadGreenFace();
 		ReadBlueFace();

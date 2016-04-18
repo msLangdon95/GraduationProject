@@ -15,6 +15,10 @@ using UnityEngine;
      
      private float x = 0.0f;
      private float y = 0.0f;
+	 
+	 Ray ray;
+	 RaycastHit rayHit;
+	 GameObject lastClicked;
      void Start()
      {
          var angles = transform.eulerAngles;
@@ -32,31 +36,25 @@ using UnityEngine;
      }
      
    void LateUpdate(){
-	   if (target != null && Input.touchCount > 0){
-		   Touch touch = Input.touches[0];
-		   Ray touchRay = GetComponent<Camera>().ScreenPointToRay(touch.position);
-		   foreach( RaycastHit hit in Physics.RaycastAll(touchRay) ) {
-			   if(hit.transform.parent.parent.name=="RubiksCube" || hit.transform.parent.parent.parent.name=="RubiksCube")
-				   return;
-		   }
-		   
-		   
-		   if (touch.phase == TouchPhase.Began){
-			   GetComponent<Rigidbody>().freezeRotation = true;
-			   }
-			if (touch.phase == TouchPhase.Moved ){
-				x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-				y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
-				y = ClampAngle(y, yMinLimit, yMaxLimit);
-				var rotation = Quaternion.Euler(y, x, 0f);
-				var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
-				transform.rotation = rotation;
-				transform.position = position;
+         if (target != null && Input.GetMouseButton(0))
+         {
+			 print("!");
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if(Physics.Raycast(ray, out rayHit)){
+				lastClicked = rayHit.collider.gameObject;
+				if(lastClicked.transform.parent.parent.name=="RubiksCube"){
+					print("return");
+					return;
 				}
-			if(touch.phase == TouchPhase.Ended){ 
-				GetComponent<Rigidbody>().freezeRotation = true;
-				}
-		}
+			}
+					x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+					y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+					y = ClampAngle(y, yMinLimit, yMaxLimit);
+					var rotation = Quaternion.Euler(y, x, 0f);
+					var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
+					transform.rotation = rotation;
+					transform.position = position;
+         }
 }
  
      static float ClampAngle (float angle, float min, float max)

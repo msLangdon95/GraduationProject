@@ -591,9 +591,21 @@ public class RubikScene : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				print((int)lastClicked.transform.position.x+" "+(int)lastClicked.transform.position.y+" "+(int)lastClicked.transform.position.z+" CenterAt "+
-				(int)Center.transform.position.x+" "+(int)Center.transform.position.y+" "+(int)Center.transform.position.z+" ");
-				print(lastClicked.GetComponent<Collider>().bounds.size);
+			//	print((int)lastClicked.transform.position.x+" "+(int)lastClicked.transform.position.y+" "+(int)lastClicked.transform.position.z+" CenterAt "+
+				//(int)Center.transform.position.x+" "+(int)Center.transform.position.y+" "+(int)Center.transform.position.z+" ");
+				//print((int)lastClicked.transform.parent.position.x+" "+(int)lastClicked.transform.parent.position.y+" "+(int)lastClicked.transform.parent.position.z);
+				//print(lastClicked.GetComponent<Collider>().bounds.size);
+				print(lastClicked.transform.parent.GetChild(0).name+" "+(int)lastClicked.transform.parent.GetChild(0).position.x);
+				print(lastClicked.transform.parent.GetChild(1).name+" "+(int)lastClicked.transform.parent.GetChild(1).position.x);
+				print(lastClicked.transform.parent.GetChild(2).name+" "+(int)lastClicked.transform.parent.GetChild(2).position.x);
+				print((int)lastClicked.transform.position.x);
+				
+				
+				
+				
+				
+				//if((lastClicked.transform.parent.GetChild(0)==lastClicked.transform && (int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(1).position.x) ||
+					//(lastClicked.transform.parent.GetChild(1)==lastClicked.transform && (int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(0).position.x)	)
 			}
 			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 		}
@@ -604,29 +616,71 @@ public class RubikScene : MonoBehaviour {
 
         if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//UP
 			string[]whatFace=findFrontCenter();
-			if(lastClicked.transform.parent.name==whatFace[6]){ //rotate right face cw
-				rightFace=findRightFace();
-				PutStuffInParent(rightFace);
-				SetFlagcw(rightFace,true);
-				print("rotate right face cw");				
+			rightFace=findRightFace();
+			if(lastClicked.transform.parent.name==whatFace[6]){ //rotate right face cw  OR FRONT small x rotate right big x rotate front
+			
+				if(
+				((lastClicked.transform.parent.GetChild(0)==lastClicked.transform) && 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(1).position.x) 
+				&&((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(2).position.x) )
+				||
+				((lastClicked.transform.parent.GetChild(1)==lastClicked.transform) && 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(0).position.x)&& 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(2).position.x))
+				||
+				((lastClicked.transform.parent.GetChild(2)==lastClicked.transform) && 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(0).position.x)&& 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(1).position.x))
+				)	
+				{
+						rightFace=findRightFace();
+						PutStuffInParent(rightFace);
+						SetFlagcw(rightFace,true);
+						print("rotate right face cw");
+						return;
+				}
+				else
+					print("rotateFrontFace");
+			
 			}
-			if(lastClicked.transform.parent.name==whatFace[8]){ //rotate left face ccw
+			else if(lastClicked.transform.parent.name==whatFace[8]){ //rotate left face ccw
 				leftFace=findLeftFace();
 				PutStuffInParent(leftFace);
 				SetFlagccw(leftFace,true);
-				print("rotate left face ccw");				
+				print("rotate left face ccw");	
 			}
             print("up swipe");
         }
-        if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//DownFace
+        if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//DownSwipe
 			string[]whatFace=findFrontCenter();
-			if(lastClicked.transform.parent.name==whatFace[0]){ //rotate right face ccw
-				rightFace=findRightFace();
-				PutStuffInParent(rightFace);
-				SetFlagccw(rightFace,true);
-				print("rotate right face ccw");				
+			if(lastClicked.transform.parent.name==whatFace[0]){ //rotate right face ccw OR FRONT
+				if(
+				((lastClicked.transform.parent.GetChild(0)==lastClicked.transform) && 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(1).position.x) 
+				&&((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(2).position.x) )
+				||
+				((lastClicked.transform.parent.GetChild(1)==lastClicked.transform) && 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(0).position.x)&& 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(2).position.x))
+				||
+				((lastClicked.transform.parent.GetChild(2)==lastClicked.transform) && 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(0).position.x)&& 
+				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(1).position.x))
+				
+				
+				
+				)	
+				{
+					rightFace=findRightFace();
+					PutStuffInParent(rightFace);
+					SetFlagccw(rightFace,true);
+					print("rotate right face ccw");
+					}
+					else{
+						//frontFace
+					}
 			}
-			if(lastClicked.transform.parent.name==whatFace[2]){ //rotate left face cw
+			else if(lastClicked.transform.parent.name==whatFace[2]){ //rotate left face cw
 				leftFace=findLeftFace();
 				PutStuffInParent(leftFace);
 				SetFlagcw(leftFace,true);
@@ -720,7 +774,7 @@ void Update(){
 			PutStuffInRubix(DownFace);
 			UpdateUpOrDownFaceCCW("down");
 			UpdateUpOrDownFace("down");
-			PrintGreen();
+			//PrintGreen();
 		}
 	 }
 	 
@@ -735,7 +789,7 @@ void Update(){
 			PutStuffInRubix(BlueFace);
 			UpdateBlueFaceCW();
 			UpdateBlueFace();
-			PrintGreen();
+			//PrintGreen();
 		}
 	 }
 	 
@@ -750,7 +804,7 @@ void Update(){
 			PutStuffInRubix(BlueFace);
 			UpdateBlueFaceCCW();
 			UpdateBlueFace();
-			PrintGreen();
+			//PrintGreen();
 		}
 	 }
 	 if(OrangeFaceFlagcw){
@@ -764,7 +818,7 @@ void Update(){
 			PutStuffInRubix(OrangeFace);
 			UpdateOrangeFaceCW();
 			UpdateOrangeFace();
-			PrintGreen();
+			//PrintGreen();
 		}
 	 }
 	 if(OrangeFaceFlagccw){
@@ -778,7 +832,7 @@ void Update(){
 			PutStuffInRubix(OrangeFace);
 			UpdateOrangeFaceCCW();
 			UpdateOrangeFace();
-			PrintGreen();
+			//PrintGreen();
 		}
 	 }
 	}

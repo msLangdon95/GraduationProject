@@ -19,12 +19,12 @@ public class RubikScene : MonoBehaviour {
 	 string[]rightFace;
 	 string[]leftFace;
 	 float totalRotation = 0;
-	 string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
-	 string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
-	 string[]GreenFace={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
-	 string[]BlueFace={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
-	 string[]OrangeFace={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
-	 string[]YellowFace={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
+	 public static string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
+	 public static string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
+	 public static string[]GreenFace={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
+	 public static string[]BlueFace={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
+	 public static string[]OrangeFace={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
+	 public static string[]YellowFace={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
 	 Color returnColor(string s){
 		 if(s=="RED")
 			 return Color.red;
@@ -591,6 +591,9 @@ public class RubikScene : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
+				print(lastClicked.transform.parent.GetChild(0).name+" "+(int)lastClicked.transform.parent.GetChild(0).position.x+" "+(int)lastClicked.transform.parent.GetChild(0).position.y+" "+(int)lastClicked.transform.parent.GetChild(0).position.z);
+				print(lastClicked.transform.parent.GetChild(1).name+" "+(int)lastClicked.transform.parent.GetChild(1).position.x+" "+(int)lastClicked.transform.parent.GetChild(1).position.y+" "+(int)lastClicked.transform.parent.GetChild(1).position.z);
+				print(lastClicked.transform.parent.GetChild(2).name+" "+(int)lastClicked.transform.parent.GetChild(2).position.x+" "+(int)lastClicked.transform.parent.GetChild(2).position.y+" "+(int)lastClicked.transform.parent.GetChild(2).position.z);
 			}
 			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 		}
@@ -834,7 +837,6 @@ void Update(){
 			PutStuffInRubix(GreenFace);
 			UpdateGreenFaceCW();
 			UpdateGreenFace();
-			//PrintGreen();
 		}
 	 }
 	 if(GreenFaceFlagccw){
@@ -848,7 +850,6 @@ void Update(){
 			PutStuffInRubix(GreenFace);
 			UpdateGreenFaceCCW();
 			UpdateGreenFace();
-			//PrintGreen();
 		}
 	 }
 	 if(YellowFaceFlagcw){
@@ -862,7 +863,6 @@ void Update(){
 			PutStuffInRubix(YellowFace);
 			UpdateYellowFaceCW();
 			UpdateYellowFace();
-			//PrintGreen();
 		}
 	 }
 	 if(YellowFaceFlagccw){
@@ -876,11 +876,8 @@ void Update(){
 			PutStuffInRubix(YellowFace);
 			UpdateYellowFaceCCW();
 			UpdateYellowFace();
-			//PrintGreen();
 		}
 	 }
-	
-	
 	}
 }
 

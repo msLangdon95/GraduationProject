@@ -8,7 +8,6 @@ using System.Text;
 
 public class Saving : MonoBehaviour {
 	GameObject x;
-	Color ORANGE=new Color(1,0.27058823529f,0,1);
 	string path = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"myCubeColor.txt";
 	GameObject w;
 	
@@ -22,7 +21,7 @@ public class Saving : MonoBehaviour {
 			File.Delete (path);
 	}
 	
-	String GetColor(Color G){
+	public static String GetColor(Color G){
 		Color color = G;
 		if (color == Color.green)
 			return "GREEN";
@@ -34,7 +33,7 @@ public class Saving : MonoBehaviour {
 			return "YELLOW";
 		if (color == Color.white)
 			return "WHITE";
-		if (color == ORANGE)
+		if (color == Globals.Orange)
 			return "ORANGE";
 		else 
 			return "GRAY" ;

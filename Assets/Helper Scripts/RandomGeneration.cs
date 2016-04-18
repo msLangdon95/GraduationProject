@@ -47,6 +47,7 @@ public class RandomGeneration : MonoBehaviour {
         {
             if (!String.IsNullOrEmpty(e.Data))
             {
+				print(e.Data);
 				RandomGenerated+=e.Data;
             }
         });

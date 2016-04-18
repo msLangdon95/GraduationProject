@@ -216,7 +216,7 @@ public class RayCaster : MonoBehaviour {
 								}
 							}
 							
-							lastClicked.gameObject.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
+							lastClicked.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
 							Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
 							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
 								if(!searchInCorners(test)){

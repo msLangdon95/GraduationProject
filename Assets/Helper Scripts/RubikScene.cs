@@ -639,8 +639,11 @@ public class RubikScene : MonoBehaviour {
 						print("rotate right face cw");
 						return;
 				}
-				else
-					print("rotateFrontFace");
+				else{
+					PutStuffInParent(whatFace);
+					SetFlagccw(whatFace,true);
+					return;
+				}
 			
 			}
 			else if(lastClicked.transform.parent.name==whatFace[8]){ //rotate left face ccw
@@ -648,6 +651,7 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(leftFace);
 				SetFlagccw(leftFace,true);
 				print("rotate left face ccw");	
+				return;
 			}
             print("up swipe");
         }
@@ -666,25 +670,26 @@ public class RubikScene : MonoBehaviour {
 				((lastClicked.transform.parent.GetChild(2)==lastClicked.transform) && 
 				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(0).position.x)&& 
 				((int)lastClicked.transform.position.x < (int)lastClicked.transform.parent.GetChild(1).position.x))
-				
-				
-				
 				)	
 				{
 					rightFace=findRightFace();
 					PutStuffInParent(rightFace);
 					SetFlagccw(rightFace,true);
 					print("rotate right face ccw");
+					return;
 					}
 					else{
-						//frontFace
+						PutStuffInParent(whatFace);
+						SetFlagcw(whatFace,true);
+						return;
 					}
 			}
 			else if(lastClicked.transform.parent.name==whatFace[2]){ //rotate left face cw
 				leftFace=findLeftFace();
 				PutStuffInParent(leftFace);
 				SetFlagcw(leftFace,true);
-				print("rotate left face cw");				
+				print("rotate left face cw");	
+				return;
 			}
             print("down swipe");
         }
@@ -700,6 +705,7 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(DownFace);
 				DownFaceFlagcw=true;
 				print("left swipe of down face");
+				return;
 			}
 			
         }
@@ -709,6 +715,7 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(UpperFace);
 				UpFaceFlagccw=true;
 				print("right swipe of up face");
+				return;
 			}
 			
 			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
@@ -716,6 +723,7 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(DownFace);
 				DownFaceFlagccw=true;
 				print("right swipe of down face");
+				return;
 			}
         }
 		}
@@ -734,8 +742,7 @@ void Update(){
 			UpdateUpOrDownFaceCW("upper");
 			UpdateUpOrDownFace("upper");
 		}
-	 }
-	 
+	 } 
 	 if(UpFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 100*Time.deltaTime;
@@ -761,8 +768,7 @@ void Update(){
 			UpdateUpOrDownFaceCW("down");
 			UpdateUpOrDownFace("down");
 		}
-	 }
-	 
+	 } 
 	 if(DownFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 100*Time.deltaTime;
@@ -777,7 +783,6 @@ void Update(){
 			//PrintGreen();
 		}
 	 }
-	 
 	 if(BlueFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 100*Time.deltaTime;
@@ -791,8 +796,7 @@ void Update(){
 			UpdateBlueFace();
 			//PrintGreen();
 		}
-	 }
-	 
+	 } 
 	 if(BlueFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 100*Time.deltaTime;
@@ -834,7 +838,65 @@ void Update(){
 			UpdateOrangeFace();
 			//PrintGreen();
 		}
+	 }	
+	 if(GreenFaceFlagcw){
+		 if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(green.transform.position,-1*green.transform.forward,100*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			GreenFaceFlagcw=false;
+			totalRotation=0;
+			PutStuffInRubix(GreenFace);
+			UpdateGreenFaceCW();
+			UpdateGreenFace();
+			//PrintGreen();
+		}
 	 }
+	 if(GreenFaceFlagccw){
+		 if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(green.transform.position,green.transform.forward,100*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			GreenFaceFlagccw=false;
+			totalRotation=0;
+			PutStuffInRubix(GreenFace);
+			UpdateGreenFaceCCW();
+			UpdateGreenFace();
+			//PrintGreen();
+		}
+	 }
+	 if(YellowFaceFlagcw){
+		 if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.up,100*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			YellowFaceFlagcw=false;
+			totalRotation=0;
+			PutStuffInRubix(YellowFace);
+			UpdateYellowFaceCW();
+			UpdateYellowFace();
+			//PrintGreen();
+		}
+	 }
+	 if(YellowFaceFlagccw){
+		 if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(yellow.transform.position,-1*yellow.transform.up,100*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			YellowFaceFlagccw=false;
+			totalRotation=0;
+			PutStuffInRubix(YellowFace);
+			UpdateYellowFaceCCW();
+			UpdateYellowFace();
+			//PrintGreen();
+		}
+	 }
+	
+	
 	}
 }
 

@@ -27,12 +27,12 @@ public class Globals : MonoBehaviour {
 	};
 	public static Color [] CurrentCubeColors=new Color[48];
 	public static COLOR [] ColorsArray=new COLOR[]{
-		new COLOR(GameObject.Find("green"),true,Color.green,0),
-		new COLOR(GameObject.Find("red"),true,Color.red,0),
-		new COLOR(GameObject.Find("blue"),true,Color.blue,0),
-		new COLOR(GameObject.Find("orange"),true,new Color(1,0.27058823529f,0,1),0),
-		new COLOR(GameObject.Find("yellow"),true,Color.yellow,0),
-		new COLOR(GameObject.Find("white"),true,Color.white,0),
+		new COLOR(GameObject.Find("greenc"),true,Color.green,0),
+		new COLOR(GameObject.Find("redc"),true,Color.red,0),
+		new COLOR(GameObject.Find("bluec"),true,Color.blue,0),
+		new COLOR(GameObject.Find("orangec"),true,new Color(1,0.27058823529f,0,1),0),
+		new COLOR(GameObject.Find("yellowc"),true,Color.yellow,0),
+		new COLOR(GameObject.Find("whitec"),true,Color.white,0),
 	};
 	public static GameObject ThePanel;
 	public static GameObject ColoredWronglyPanel;

@@ -195,7 +195,7 @@ public class RayCaster : MonoBehaviour {
 							ColorNumber=GetColor(lastClicked);
 							if(ColorNumber > -1 && ColorNumber < 6){
 								Globals.ColorsArray[ColorNumber].ColorCounter -- ;
-								Globals.ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[ColorNumber].ColorCounter.ToString();
+								//Globals.ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[ColorNumber].ColorCounter.ToString();
 								if(Globals.ColorsArray[ColorNumber].ColorFlag == false)
 									Globals.ColorsArray[ColorNumber].ColorFlag=true;
 							}
@@ -217,7 +217,7 @@ public class RayCaster : MonoBehaviour {
 							}
 							
 							lastClicked.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
-							Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
+							//Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
 							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
 								if(!searchInCorners(test)){
 									if(Globals.dontShowAgain==false)

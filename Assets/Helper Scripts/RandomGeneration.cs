@@ -23,9 +23,9 @@ public class RandomGeneration : MonoBehaviour {
 	void Generate(int level){
 		int seed=UnityEngine.Random.Range(1,10);
 		int n=1;
-		int hardness=1;
+		int hardness=2;
 		if(Level==0){ //easy
-			hardness=5;
+			hardness=3;
 		}
 		else if(Level==1){//Moderate
 			hardness=10;

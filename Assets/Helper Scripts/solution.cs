@@ -10,10 +10,17 @@ using System.Diagnostics;
 
 public class solution : MonoBehaviour {
 	public static List<string> output=new List<string>();
+	GameObject Parent;
+	float totalRotation=0;
 	int i=0; 
 	string solMsgs;
 	GameObject myMSG,EndOfSolution;
 	void Start () {
+		Parent=GameObject.Find("Parent");
+		for(int i=0;i<48;i++){
+			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i];
+		}
+
 		EndOfSolution = GameObject.Find ("EndOfSolution");
 		EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
@@ -89,7 +96,4 @@ public class solution : MonoBehaviour {
 		EndOfSolution.SetActive(false);
 		myMSG.GetComponent<Text> ().text = " ";
 	}
-	
-
-
 }

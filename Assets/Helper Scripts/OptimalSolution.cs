@@ -12,14 +12,18 @@ public class OptimalSolution : MonoBehaviour {
 	string InputToAlgo="";
 	int d1,d2,d3,result;
 	string path="C:\\Users\\sam\\Desktop\\Test\\input.txt";
+	public static List<Color> GoToSolve=new List<Color>();
 	void blahleasty(GameObject x,string number){
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.y > x.transform.GetChild(1).position.y){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
+				
 			}
 			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 		}
@@ -31,14 +35,17 @@ public class OptimalSolution : MonoBehaviour {
 			result=Mathf.Min(d1,d2,d3);
 			if(result==d1){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else if(result==d2){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else if(result==d3){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 		}
@@ -47,10 +54,12 @@ public class OptimalSolution : MonoBehaviour {
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.y < x.transform.GetChild(1).position.y){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 		}
@@ -62,14 +71,17 @@ public class OptimalSolution : MonoBehaviour {
 			result=Mathf.Max(d1,d2,d3);
 			if(result==d1){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else if(result==d2){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else if(result==d3){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 		}
@@ -78,10 +90,12 @@ public class OptimalSolution : MonoBehaviour {
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.z > x.transform.GetChild(1).position.z){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 		}
@@ -93,14 +107,17 @@ public class OptimalSolution : MonoBehaviour {
 			result=Mathf.Min(d1,d2,d3);
 			if(result==d1){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else if(result==d2){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 			else if(result==d3){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
 			}
 		}
@@ -144,10 +161,15 @@ public class OptimalSolution : MonoBehaviour {
 	}
 	void blahbigz(GameObject x,string number){
 		if(number=="2"){
-			if(x.transform.GetChild(0).position.z < x.transform.GetChild(1).position.z)
+			if(x.transform.GetChild(0).position.z < x.transform.GetChild(1).position.z){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
-			else
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+			}
+			
+			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+			}
 			InputToAlgo+=" ";
 		}
 		else{
@@ -156,21 +178,31 @@ public class OptimalSolution : MonoBehaviour {
 			d2=(int)x.transform.GetChild(1).position.z;
 			d3=(int)x.transform.GetChild(2).position.z;
 			result=Mathf.Max(d1,d2,d3);
-			if(result==d1)
+			if(result==d1){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
-			else if(result==d2)
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+			}
+			else if(result==d2){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
-			else if(result==d3)
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+			}
+			else if(result==d3){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+			}
 			InputToAlgo+=" ";
 		}
 	}
 	void blahbigx(GameObject x,string number){
 		if(number=="2"){
-			if(x.transform.GetChild(0).position.x < x.transform.GetChild(1).position.x)
+			if(x.transform.GetChild(0).position.x < x.transform.GetChild(1).position.x){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
-			else
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+			}
+			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+			}
 			InputToAlgo+=" ";
 		}
 		else{
@@ -179,21 +211,31 @@ public class OptimalSolution : MonoBehaviour {
 			d2=(int)x.transform.GetChild(1).position.x;
 			d3=(int)x.transform.GetChild(2).position.x;
 			result=Mathf.Max(d1,d2,d3);
-			if(result==d1)
+			if(result==d1){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
-			else if(result==d2)
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+			}
+			else if(result==d2){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
-			else if(result==d3)
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+			}
+			else if(result==d3){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+			}
 			InputToAlgo+=" ";
 		}
 	}
 	void blahsmallx(GameObject x,string number){
 		if(number=="2"){
-			if(x.transform.GetChild(0).position.x > x.transform.GetChild(1).position.x)
+			if(x.transform.GetChild(0).position.x > x.transform.GetChild(1).position.x){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
-			else
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+			}
+			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+			}	
 			InputToAlgo+=" ";
 		}
 		else{
@@ -202,12 +244,18 @@ public class OptimalSolution : MonoBehaviour {
 			d2=(int)x.transform.GetChild(1).position.x;
 			d3=(int)x.transform.GetChild(2).position.x;
 			result=Mathf.Min(d1,d2,d3);
-			if(result==d1)
+			if(result==d1){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
-			else if(result==d2)
+				GoToSolve.Add(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
+			}
+			else if(result==d2){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
-			else if(result==d3)
+				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
+			}
+			else if(result==d3){
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+				GoToSolve.Add(x.transform.GetChild(2).GetComponent<Renderer>().material.color);
+			}
 			InputToAlgo+=" ";
 		}
 	}

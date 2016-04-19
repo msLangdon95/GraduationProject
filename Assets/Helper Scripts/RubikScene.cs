@@ -8,17 +8,18 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
-	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green;
-	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw;
+	public static GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps;
+	public static bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw;
 	Ray ray;
 	RaycastHit rayHit;
 	 Vector2 firstPressPos;
 	 Vector2 secondPressPos;
 	 Vector2 currentSwipe;
-	 int k,i,d1,d2,d3,d4;
+	 public static int k,i,d1,d2,d3,d4;
 	 string[]rightFace;
 	 string[]leftFace;
 	 float totalRotation = 0;
+	 int NoOfSteps=0;
 	 public static string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	 public static string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
 	 public static string[]GreenFace={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
@@ -40,6 +41,7 @@ public class RubikScene : MonoBehaviour {
 			 return Globals.Orange;
 	 }
 	 void Start (){
+		 steps=GameObject.Find("steps");
 		 GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=false;
 		 i=0;
 		 if(Globals.RandomGeneratedFlag){
@@ -108,7 +110,7 @@ public class RubikScene : MonoBehaviour {
 		 if(whatsoever==YellowFace) return BlueFace;
 		 else return null;
 	 }
-	int findK(string x){
+	public static int findK(string x){
 		 if(x=="upper")
 			return 0;
 		else if(x=="middle")
@@ -118,7 +120,7 @@ public class RubikScene : MonoBehaviour {
 		else
 			return -1;
 	 }
-	 void PutStuffInParent(string[] face){
+	void PutStuffInParent(string[] face){
 		 int until;
 		 if(face==UpperFace || face==DownFace)
 			 until=8;
@@ -129,7 +131,7 @@ public class RubikScene : MonoBehaviour {
 			 temp.transform.SetParent(Parent.transform);
 		 }
 	 }
-	 void PutStuffInRubix(string[] face){
+	public static void PutStuffInRubix(string[] face){
 		 int until;
 		 if(face==UpperFace || face==DownFace)
 			 until=8;
@@ -140,7 +142,7 @@ public class RubikScene : MonoBehaviour {
 			 temp.transform.SetParent(rubix.transform);
 		 }
 	 }
-	 void UpdateGreenFaceCCW(){
+	public static void UpdateGreenFaceCCW(){
 		 string[]ForCopy=new string[9];
 		ForCopy[0]=GreenFace[6];
 		ForCopy[1]=GreenFace[3];
@@ -154,7 +156,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			GreenFace[i]=ForCopy[i];
 	 } 
-	 void UpdateGreenFaceCW(){
+	public static void UpdateGreenFaceCW(){
 		 string[]ForCopy=new string[9];
 		ForCopy[0]=GreenFace[2];
 		ForCopy[1]=GreenFace[5];
@@ -168,7 +170,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			GreenFace[i]=ForCopy[i];
 	 }
-	 void UpdateGreenFace(){
+	public static void UpdateGreenFace(){
 		DownFace[0]=GreenFace[6];
 		DownFace[1]=GreenFace[7];
 		DownFace[2]=GreenFace[8];
@@ -185,7 +187,7 @@ public class RubikScene : MonoBehaviour {
 		OrangeFace[3]=GreenFace[5];
 		OrangeFace[6]=GreenFace[8];
 	 } 
-	 void UpdateBlueFaceCW(){
+	public static void UpdateBlueFaceCW(){
 		 string[]ForCopy=new string[9];
 		 ForCopy[0]=BlueFace[2];
 		ForCopy[1]=BlueFace[5];
@@ -199,7 +201,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			BlueFace[i]=ForCopy[i];
 	 }
-	 void UpdateBlueFaceCCW(){
+	public static void UpdateBlueFaceCCW(){
 		 string[]ForCopy=new string[9];
 		ForCopy[0]=BlueFace[6];
 		ForCopy[1]=BlueFace[3];
@@ -213,7 +215,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			BlueFace[i]=ForCopy[i];
 	 }
-	 void UpdateBlueFace(){
+	public static void UpdateBlueFace(){
 		YellowFace[2]=BlueFace[0];
 		YellowFace[5]=BlueFace[3];
 		YellowFace[8]=BlueFace[6];
@@ -230,7 +232,7 @@ public class RubikScene : MonoBehaviour {
 		UpperFace[6]=BlueFace[0];
 		UpperFace[7]=BlueFace[1];
 	 }
-	 void UpdateOrangeFaceCCW(){
+	public static void UpdateOrangeFaceCCW(){
 		 string[]ForCopy=new string[9];
 			ForCopy[0]=OrangeFace[6];
 			ForCopy[1]=OrangeFace[3];
@@ -244,7 +246,7 @@ public class RubikScene : MonoBehaviour {
 			for(int i=0;i<9;i++)
 				OrangeFace[i]=ForCopy[i];
 	 }
-	 void UpdateOrangeFaceCW(){
+	public static void UpdateOrangeFaceCW(){
 		 string[]ForCopy=new string[9];
 			ForCopy[0]=OrangeFace[2];
 			ForCopy[1]=OrangeFace[5];
@@ -258,7 +260,7 @@ public class RubikScene : MonoBehaviour {
 			for(int i=0;i<9;i++)
 				OrangeFace[i]=ForCopy[i];
 	 }
-	 void UpdateOrangeFace(){
+	public static void UpdateOrangeFace(){
 		 YellowFace[0]=OrangeFace[2];
 		YellowFace[3]=OrangeFace[5];
 		YellowFace[6]=OrangeFace[8];
@@ -275,7 +277,7 @@ public class RubikScene : MonoBehaviour {
 		UpperFace[3]=OrangeFace[1];
 		UpperFace[4]=OrangeFace[2];
 	 }
-	 void UpdateYellowFaceCCW(){
+	public static void UpdateYellowFaceCCW(){
 		 string[]ForCopy=new string[9];
 		ForCopy[0]=YellowFace[6];
 		ForCopy[1]=YellowFace[3];
@@ -289,7 +291,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			YellowFace[i]=ForCopy[i];
 	 }
-	 void UpdateYellowFaceCW(){
+	public static void UpdateYellowFaceCW(){
 		string[]ForCopy=new string[9];
 		ForCopy[0]=YellowFace[2];
 		ForCopy[1]=YellowFace[5];
@@ -303,7 +305,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<9;i++)
 			YellowFace[i]=ForCopy[i];
 	 }
-	 void UpdateYellowFace(){
+	public static void UpdateYellowFace(){
 		 DownFace[4]=YellowFace[6];
 		DownFace[5]=YellowFace[7];
 		DownFace[6]=YellowFace[8];
@@ -320,7 +322,7 @@ public class RubikScene : MonoBehaviour {
 		OrangeFace[5]=YellowFace[3];
 		OrangeFace[8]=YellowFace[6];
 	 }
-	void UpdateUpOrDownFaceCCW(string plane){
+	public static void UpdateUpOrDownFaceCCW(string plane){
 		string[] whatPlane=new string[8];
 		string[] NewString=new string[8];
 		if(plane=="upper")
@@ -335,7 +337,7 @@ public class RubikScene : MonoBehaviour {
 			for(int i=0;i<8;i++)
 				whatPlane[i]=NewString[i];
 	}
-	void UpdateUpOrDownFaceCW(string plane){
+	public static void UpdateUpOrDownFaceCW(string plane){
 		string[] whatPlane=new string[8];
 		string[] NewString=new string[8];
 		if(plane=="upper")
@@ -348,7 +350,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=0;i<8;i++)
 			whatPlane[i]=NewString[i];
 	}
-	void UpdateUpOrDownFace(string plane){
+	public static void UpdateUpOrDownFace(string plane){
 		string[] whatPlane=new string[8];
 		if(plane=="upper")
 			whatPlane=UpperFace;
@@ -368,7 +370,7 @@ public class RubikScene : MonoBehaviour {
 		for(int i=6;i<9;i++)
 			BlueFace[k++]=whatPlane[i%8];
 	}
-	void AllInOneUpdateCW(string []x){
+	public static void AllInOneUpdateCW(string []x){
 		if(x==GreenFace){
 			 string[]ForCopy=new string[9];
 		ForCopy[0]=GreenFace[2];
@@ -426,7 +428,7 @@ public class RubikScene : MonoBehaviour {
 				OrangeFace[i]=ForCopy[i];
 		}
 	}
-	void AllInOneUpdateCCW(string []x){
+	public static void AllInOneUpdateCCW(string []x){
 		if(x==GreenFace){
 			 string[]ForCopy=new string[9];
 		ForCopy[0]=GreenFace[6];
@@ -484,7 +486,7 @@ public class RubikScene : MonoBehaviour {
 				OrangeFace[i]=ForCopy[i];
 		}
 	}
-	void AllInOneUpdateFace(string []x){
+	public static void AllInOneUpdateFace(string []x){
 		if(x==GreenFace){
 			DownFace[0]=GreenFace[6];
 		DownFace[1]=GreenFace[7];
@@ -554,7 +556,7 @@ public class RubikScene : MonoBehaviour {
 		UpperFace[4]=OrangeFace[2];
 		}
 	}	
-	void SetFlagcw(string []x,bool b){
+	public static void SetFlagcw(string []x,bool b){
 		if(x==GreenFace){
 			GreenFaceFlagcw=b;
 		}
@@ -568,7 +570,7 @@ public class RubikScene : MonoBehaviour {
 			OrangeFaceFlagcw=b;
 		}
 	}
-	void SetFlagccw(string []x,bool b){
+	public static void SetFlagccw(string []x,bool b){
 		if(x==GreenFace){
 			GreenFaceFlagccw=b;
 		}
@@ -728,6 +730,8 @@ void Update(){
 			PutStuffInRubix(UpperFace);
 			UpdateUpOrDownFaceCW("upper");
 			UpdateUpOrDownFace("upper");
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 } 
 	 if(UpFaceFlagccw){
@@ -741,6 +745,9 @@ void Update(){
 			PutStuffInRubix(UpperFace);
 			UpdateUpOrDownFaceCCW("upper");
 			UpdateUpOrDownFace("upper");
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
+			
 		}
 	 }
 	 if(DownFaceFlagcw){
@@ -754,6 +761,8 @@ void Update(){
 			PutStuffInRubix(DownFace);
 			UpdateUpOrDownFaceCW("down");
 			UpdateUpOrDownFace("down");
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 } 
 	 if(DownFaceFlagccw){
@@ -767,7 +776,8 @@ void Update(){
 			PutStuffInRubix(DownFace);
 			UpdateUpOrDownFaceCCW("down");
 			UpdateUpOrDownFace("down");
-			//PrintGreen();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	 if(BlueFaceFlagcw){
@@ -781,7 +791,8 @@ void Update(){
 			PutStuffInRubix(BlueFace);
 			UpdateBlueFaceCW();
 			UpdateBlueFace();
-			//PrintGreen();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 } 
 	 if(BlueFaceFlagccw){
@@ -795,7 +806,8 @@ void Update(){
 			PutStuffInRubix(BlueFace);
 			UpdateBlueFaceCCW();
 			UpdateBlueFace();
-			//PrintGreen();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	 if(OrangeFaceFlagcw){
@@ -809,7 +821,8 @@ void Update(){
 			PutStuffInRubix(OrangeFace);
 			UpdateOrangeFaceCW();
 			UpdateOrangeFace();
-			//PrintGreen();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	 if(OrangeFaceFlagccw){
@@ -837,6 +850,8 @@ void Update(){
 			PutStuffInRubix(GreenFace);
 			UpdateGreenFaceCW();
 			UpdateGreenFace();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	 if(GreenFaceFlagccw){
@@ -850,6 +865,8 @@ void Update(){
 			PutStuffInRubix(GreenFace);
 			UpdateGreenFaceCCW();
 			UpdateGreenFace();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	 if(YellowFaceFlagcw){
@@ -863,6 +880,8 @@ void Update(){
 			PutStuffInRubix(YellowFace);
 			UpdateYellowFaceCW();
 			UpdateYellowFace();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	 if(YellowFaceFlagccw){
@@ -876,6 +895,8 @@ void Update(){
 			PutStuffInRubix(YellowFace);
 			UpdateYellowFaceCCW();
 			UpdateYellowFace();
+			NoOfSteps++;
+			steps.GetComponentInChildren<Text>().text=NoOfSteps.ToString();
 		}
 	 }
 	}

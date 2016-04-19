@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Helper Scripts\solution.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Helper Scripts\RubikScene.cs">
     <Files>
-      <File FileName="Assets\Helper Scripts\solution.cs" Line="23" Column="1" />
+      <File FileName="Assets\Helper Scripts\RubikScene.cs" Line="893" Column="1" />
+      <File FileName="Assets\Helper Scripts\solution.cs" Line="100" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

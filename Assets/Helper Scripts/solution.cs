@@ -10,12 +10,21 @@ using System.Diagnostics;
 
 public class solution : MonoBehaviour {
 	public static List<string> output=new List<string>();
-	GameObject Parent;
 	float totalRotation=0;
 	int i=0; 
 	string solMsgs;
-	GameObject myMSG,EndOfSolution;
+	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green;
+	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
+	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw;
 	void Start () {
+		 blue=GameObject.Find("BLUE");
+		 red=GameObject.Find("RED");
+		 orange=GameObject.Find("ORANGE");
+		 white=GameObject.Find("WHITE");
+		 yellow=GameObject.Find("YELLOW");
+		 green=GameObject.Find("GREEN");
+		GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
+		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=false;
 		Parent=GameObject.Find("Parent");
 		for(int i=0;i<48;i++){
 			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i];
@@ -25,13 +34,54 @@ public class solution : MonoBehaviour {
 		EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	void UpdateUpOrDownFaceCW(string plane){
+		string[] whatPlane=new string[8];
+		string[] NewString=new string[8];
+		if(plane=="upper")
+			whatPlane=RubikScene.UpperFace;
+		else if(plane=="down")
+			whatPlane=RubikScene.DownFace;
+		else return;
+		for(int i=0;i<8;i++)
+			NewString[(i+2)%8]=whatPlane[i];
+		for(int i=0;i<8;i++)
+			whatPlane[i]=NewString[i];
+	}
+	 void PutStuffInParent(string[] face){
+		 int until;
+		 if(face==RubikScene.UpperFace || face==RubikScene.DownFace)
+			 until=8;
+		 else
+			 until=9;
+		 for(int i=0;i<until;i++){
+			 temp=GameObject.Find(face[i]);
+			 temp.transform.SetParent(Parent.transform);
+		 }
+	 }
 	public void nextStep() {
 		if(i<output.Count){
 		if (output[i]=="UCW"){
 				solMsgs="Rotate upper face clock wise";
+				UpFaceFlagcw=true;
+				PutStuffInParent(RubikScene.UpperFace);
 			}
 			if (output[i]=="UCCW"){
 				solMsgs="Rotate upper face counter clock wise";
+				UpFaceFlagccw=true;
 			}
 			if (output[i]=="U180"){
 				solMsgs="Rotate upper face 180 degree";
@@ -95,5 +145,22 @@ public class solution : MonoBehaviour {
 	public void hideMessage(){
 		EndOfSolution.SetActive(false);
 		myMSG.GetComponent<Text> ().text = " ";
+	}
+	
+	void Update(){
+		if(UpFaceFlagcw){
+			print("ho");
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 100*Time.deltaTime;
+			Parent.transform.RotateAround(red.transform.position,Vector3.up,100*Time.deltaTime);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			UpFaceFlagcw=false;
+			totalRotation=0;
+			//PutStuffInRubix(UpperFace);
+			UpdateUpOrDownFaceCW("upper");
+			//UpdateUpOrDownFace("upper");
+		}
+	 }
 	}
 }

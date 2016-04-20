@@ -11,7 +11,7 @@ public class RubikScene : MonoBehaviour {
 	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps;
 	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
 	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw;
-	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ;
+	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ,YellowFaceZ;
 	Ray ray;
 	RaycastHit rayHit;
 	 Vector2 firstPressPos;
@@ -45,6 +45,7 @@ public class RubikScene : MonoBehaviour {
 		 GreenFaceZ=GameObject.Find("Line084");
 		 BlueFaceZ=GameObject.Find("Line026");
 		 OrangeFaceZ=GameObject.Find("Line128");
+		 YellowFaceZ=GameObject.Find("Line086");
 		 steps=GameObject.Find("steps");
 		 GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
 		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=false;
@@ -377,7 +378,7 @@ public class RubikScene : MonoBehaviour {
 			currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 			currentSwipe.Normalize();
 
-        if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//UP
+        if(currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
 		print(lastClicked.transform.parent.name+" "+(int)lastClicked.transform.position.x);
 		print(BlueFace[6]+" "+(int)BlueFaceZ.transform.position.x);
 			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
@@ -396,7 +397,6 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(GreenFace);
 				GreenFaceFlagccw=true;
 			}
-			
 			if(lastClicked.transform.parent.name==OrangeFace[6] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
 				PutStuffInParent(GreenFace);
 				GreenFaceFlagcw=true;
@@ -405,9 +405,18 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(YellowFace);
 				YellowFaceFlagcw=true;
 			}
+			if(lastClicked.transform.parent.name==YellowFace[6] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
+				PutStuffInParent(OrangeFace);
+				OrangeFaceFlagcw=true;
+			}
+			if(lastClicked.transform.parent.name==YellowFace[8] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
+				PutStuffInParent(BlueFace);
+				BlueFaceFlagccw=true;
+			}
+			
             print("up swipe");
         }
-        if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//DownSwipe
+        if(currentSwipe.y < 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//DownSwipe
 			if(lastClicked.transform.parent.name==GreenFace[0] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
 				BlueFaceFlagccw=true;
@@ -431,6 +440,14 @@ public class RubikScene : MonoBehaviour {
 			if(lastClicked.transform.parent.name==OrangeFace[2] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
 				PutStuffInParent(YellowFace);
 				YellowFaceFlagccw=true;
+			}
+			if(lastClicked.transform.parent.name==YellowFace[0] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
+				PutStuffInParent(OrangeFace);
+				OrangeFaceFlagccw=true;
+			}
+			if(lastClicked.transform.parent.name==YellowFace[2] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
+				PutStuffInParent(BlueFace);
+				BlueFaceFlagcw=true;
 			}
             print("down swipe");
         }

@@ -84,16 +84,253 @@ public class RubikScene : MonoBehaviour {
 		 rubix=GameObject.Find("RubiksCube");
      }  
 	
-	int findK(string x){
-		 if(x=="upper")
-			return 0;
-		else if(x=="middle")
-			return 3;
-		else if(x=="down")
-			return 6; 
-		else
-			return -1;
-	 }
+	void AllInOneUpdateCW(string []x){
+		if(x==DownFace){
+			string[] NewString=new string[8];
+			for(int i=7;i>=2;i--)
+				NewString[i-2]=DownFace[i];
+			NewString[6]=DownFace[0];
+			NewString[7]=DownFace[1];
+			for(int i=0;i<8;i++)
+				DownFace[i]=NewString[i];
+		}
+		else if(x==UpperFace){
+			string[] NewString=new string[8];
+			for(int i=0;i<8;i++)
+				NewString[(i+2)%8]=UpperFace[i];
+			for(int i=0;i<8;i++)
+				UpperFace[i]=NewString[i];
+		}
+		else if(x==OrangeFace){
+			 string[]ForCopy=new string[9];
+			ForCopy[0]=OrangeFace[2];
+			ForCopy[1]=OrangeFace[5];
+			ForCopy[2]=OrangeFace[8];
+			ForCopy[3]=OrangeFace[1];
+			ForCopy[4]=OrangeFace[4];
+			ForCopy[5]=OrangeFace[7];
+			ForCopy[6]=OrangeFace[0];
+			ForCopy[7]=OrangeFace[3];
+			ForCopy[8]=OrangeFace[6];
+			for(int i=0;i<9;i++)
+				OrangeFace[i]=ForCopy[i];
+		}
+		else if(x==BlueFace){
+			 string[]ForCopy=new string[9];
+		 ForCopy[0]=BlueFace[2];
+		ForCopy[1]=BlueFace[5];
+		ForCopy[2]=BlueFace[8];
+		ForCopy[3]=BlueFace[1];
+		ForCopy[4]=BlueFace[4];
+		ForCopy[5]=BlueFace[7];
+		ForCopy[6]=BlueFace[0];
+		ForCopy[7]=BlueFace[3];
+		ForCopy[8]=BlueFace[6];
+		for(int i=0;i<9;i++)
+			BlueFace[i]=ForCopy[i];
+		}
+		else if(x==GreenFace){
+			 string[]ForCopy=new string[9];
+			ForCopy[0]=GreenFace[2];
+			ForCopy[1]=GreenFace[5];
+			ForCopy[2]=GreenFace[8];
+			ForCopy[3]=GreenFace[1];
+			ForCopy[4]=GreenFace[4];
+			ForCopy[5]=GreenFace[7];
+			ForCopy[6]=GreenFace[0];
+			ForCopy[7]=GreenFace[3];
+			ForCopy[8]=GreenFace[6];
+			for(int i=0;i<9;i++)
+				GreenFace[i]=ForCopy[i];
+		}
+		else if(x==YellowFace){
+			string[]ForCopy=new string[9];
+		ForCopy[0]=YellowFace[6];
+		ForCopy[1]=YellowFace[3];
+		ForCopy[2]=YellowFace[0];
+		ForCopy[3]=YellowFace[7];
+		ForCopy[4]=YellowFace[4];
+		ForCopy[5]=YellowFace[1];
+		ForCopy[6]=YellowFace[8];
+		ForCopy[7]=YellowFace[5];
+		ForCopy[8]=YellowFace[2];
+		for(int i=0;i<9;i++)
+			YellowFace[i]=ForCopy[i];
+		}
+			
+	}
+	void AllInOneUpdateCCW(string []x){
+		if(x==DownFace){
+			string[] NewString=new string[8];
+			for(int i=0;i<8;i++)
+				NewString[(i+2)%8]=DownFace[i];
+			for(int i=0;i<8;i++)
+				DownFace[i]=NewString[i];
+		}
+		else if(x==UpperFace){
+			string[] NewString=new string[8];
+			for(int i=7;i>=2;i--)
+				NewString[i-2]=UpperFace[i];
+			NewString[6]=UpperFace[0];
+			NewString[7]=UpperFace[1];
+			for(int i=0;i<8;i++)
+				UpperFace[i]=NewString[i];
+		}
+		else if(x==OrangeFace){
+			string[]ForCopy=new string[9];
+			ForCopy[0]=OrangeFace[6];
+			ForCopy[1]=OrangeFace[3];
+			ForCopy[2]=OrangeFace[0];
+			ForCopy[3]=OrangeFace[7];
+			ForCopy[4]=OrangeFace[4];
+			ForCopy[5]=OrangeFace[1];
+			ForCopy[6]=OrangeFace[8];
+			ForCopy[7]=OrangeFace[5];
+			ForCopy[8]=OrangeFace[2];
+			for(int i=0;i<9;i++)
+				OrangeFace[i]=ForCopy[i];
+		}
+		else if(x==BlueFace){
+			 string[]ForCopy=new string[9];
+		ForCopy[0]=BlueFace[6];
+		ForCopy[1]=BlueFace[3];
+		ForCopy[2]=BlueFace[0];
+		ForCopy[3]=BlueFace[7];
+		ForCopy[4]=BlueFace[4];
+		ForCopy[5]=BlueFace[1];
+		ForCopy[6]=BlueFace[8];
+		ForCopy[7]=BlueFace[5];
+		ForCopy[8]=BlueFace[2];
+		for(int i=0;i<9;i++)
+			BlueFace[i]=ForCopy[i];
+		}
+		else if(x==GreenFace){
+			 string[]ForCopy=new string[9];
+		ForCopy[0]=GreenFace[6];
+		ForCopy[1]=GreenFace[3];
+		ForCopy[2]=GreenFace[0];
+		ForCopy[3]=GreenFace[7];
+		ForCopy[4]=GreenFace[4];
+		ForCopy[5]=GreenFace[1];
+		ForCopy[6]=GreenFace[8];
+		ForCopy[7]=GreenFace[5];
+		ForCopy[8]=GreenFace[2];
+		for(int i=0;i<9;i++)
+			GreenFace[i]=ForCopy[i];
+		}
+		else if(x==YellowFace){
+			string[]ForCopy=new string[9];
+		ForCopy[0]=YellowFace[2];
+		ForCopy[1]=YellowFace[5];
+		ForCopy[2]=YellowFace[8];
+		ForCopy[3]=YellowFace[1];
+		ForCopy[4]=YellowFace[4];
+		ForCopy[5]=YellowFace[7];
+		ForCopy[6]=YellowFace[0];
+		ForCopy[7]=YellowFace[3];
+		ForCopy[8]=YellowFace[6];
+		for(int i=0;i<9;i++)
+			YellowFace[i]=ForCopy[i];
+		}
+	}
+	void AllInOneUpdateFace(string []x){
+		if(x==DownFace){
+			k=6;
+		for(int i=0;i<3;i++)
+			GreenFace[k++]=DownFace[i];
+		k=6;
+		for(int i=2;i<5;i++)
+			OrangeFace[k++]=DownFace[i];
+		k=6;
+		for(int i=4;i<7;i++)
+			YellowFace[k++]=DownFace[i];		
+		k=6;
+		for(int i=6;i<9;i++)
+			BlueFace[k++]=DownFace[i%8];
+		}
+		else if(x==UpperFace){
+			k=0;
+		for(int i=0;i<3;i++)
+			GreenFace[k++]=UpperFace[i];
+		k=0;
+		for(int i=2;i<5;i++)
+			OrangeFace[k++]=UpperFace[i];
+		k=0;
+		for(int i=4;i<7;i++)
+			YellowFace[k++]=UpperFace[i];		
+		k=0;
+		for(int i=6;i<9;i++)
+			BlueFace[k++]=UpperFace[i%8];
+		}
+		else if(x==OrangeFace){
+		YellowFace[0]=OrangeFace[2];
+		YellowFace[3]=OrangeFace[5];
+		YellowFace[6]=OrangeFace[8];
+		
+		GreenFace[2]=OrangeFace[0];
+		GreenFace[5]=OrangeFace[3];
+		GreenFace[8]=OrangeFace[6];
+		
+		DownFace[2]=OrangeFace[6];
+		DownFace[3]=OrangeFace[7];
+		DownFace[4]=OrangeFace[8];
+		
+		UpperFace[2]=OrangeFace[0];
+		UpperFace[3]=OrangeFace[1];
+		UpperFace[4]=OrangeFace[2];
+		}
+		else if(x==BlueFace){
+		YellowFace[2]=BlueFace[0];
+		YellowFace[5]=BlueFace[3];
+		YellowFace[8]=BlueFace[6];
+		
+		GreenFace[0]=BlueFace[2];
+		GreenFace[3]=BlueFace[5];
+		GreenFace[6]=BlueFace[8];
+		
+		DownFace[0]=BlueFace[8];
+		DownFace[6]=BlueFace[6];
+		DownFace[7]=BlueFace[7];
+		
+		UpperFace[0]=BlueFace[2];
+		UpperFace[6]=BlueFace[0];
+		UpperFace[7]=BlueFace[1];
+		}
+		else if(x==GreenFace){
+			DownFace[0]=GreenFace[6];
+		DownFace[1]=GreenFace[7];
+		DownFace[2]=GreenFace[8];
+		
+		UpperFace[0]=GreenFace[0];
+		UpperFace[1]=GreenFace[1];
+		UpperFace[2]=GreenFace[2];
+		
+		BlueFace[2]=GreenFace[0];
+		BlueFace[5]=GreenFace[3];
+		BlueFace[8]=GreenFace[6];
+		
+		OrangeFace[0]=GreenFace[2];
+		OrangeFace[3]=GreenFace[5];
+		OrangeFace[6]=GreenFace[8];
+		}
+		else if(x==YellowFace){
+			 DownFace[4]=YellowFace[6];
+		DownFace[5]=YellowFace[7];
+		DownFace[6]=YellowFace[8];
+		
+		UpperFace[4]=YellowFace[0];
+		UpperFace[5]=YellowFace[1];
+		UpperFace[6]=YellowFace[2];
+		
+		BlueFace[0]=YellowFace[2];
+		BlueFace[3]=YellowFace[5];
+		BlueFace[6]=YellowFace[8];
+		
+		OrangeFace[2]=YellowFace[0];
+		OrangeFace[5]=YellowFace[3];
+		OrangeFace[8]=YellowFace[6];
+		}
+	}
 	 void PutStuffInParent(string[] face){
 		 int until;
 		 if(face==UpperFace || face==DownFace)
@@ -142,24 +379,92 @@ public class RubikScene : MonoBehaviour {
             print("down swipe");
         }
         if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //leftSwipe
+			if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // up face clock wise
+				PutStuffInParent(UpperFace);
+				UpFaceFlagcw=true;
+				print("left swipe of up face");
+			}
+			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // down face clock wise
+				PutStuffInParent(DownFace);
+				DownFaceFlagccw=true;
+				print("left swipe of down face");
+				return;
+			}
         }
         if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //rightSwipe
+			 if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // up face counter clock wise
+				PutStuffInParent(UpperFace);
+				UpFaceFlagccw=true;
+				print("right swipe of up face");
+				return;
+			}
+			
+			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
+			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // down face counter clock wise
+				PutStuffInParent(DownFace);
+				DownFaceFlagcw=true;
+				print("right swipe of down face");
+				return;
+			}
         }
 	}
 }
 
 void Update(){
 	if(UpFaceFlagcw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			totalRotation=0;
+			PutStuffInRubix(UpperFace);
+			AllInOneUpdateCW(UpperFace);
+			AllInOneUpdateFace(UpperFace);
+			UpFaceFlagcw=false;
+		}
 	 } 
 	 if(UpFaceFlagccw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			totalRotation=0;
+			PutStuffInRubix(UpperFace);
+			AllInOneUpdateCCW(UpperFace);
+			AllInOneUpdateFace(UpperFace);
+			UpFaceFlagccw=false;
+		}
 	 }
 	 if(DownFaceFlagcw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(DownFace);
+			AllInOneUpdateCW(DownFace);
+			AllInOneUpdateFace(DownFace);
+			DownFaceFlagcw=false;
+			totalRotation=0;
+		}
 	 } 
 	 if(DownFaceFlagccw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(DownFace);
+			AllInOneUpdateCCW(DownFace);
+			AllInOneUpdateFace(DownFace);
+			DownFaceFlagccw=false;
+			totalRotation=0;
+		}
 	 }
 	 if(BlueFaceFlagcw){
 		

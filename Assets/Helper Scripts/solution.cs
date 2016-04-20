@@ -15,7 +15,7 @@ public class solution : MonoBehaviour {
 	string solMsgs;
 	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix;
 	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
-	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw,L180,R180,U180,D180,F180,B180;
+	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw,L180,R180,U180,D180,F180,B180,Uagain,Dagain,Lagain,Ragain,Fagain,Bagain;
 	string[]UpperFaceSol={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	string[]DownFaceSol={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
 	string[]GreenFaceSol={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
@@ -31,7 +31,7 @@ public class solution : MonoBehaviour {
 		 yellow=GameObject.Find("YELLOW");
 		 green=GameObject.Find("GREEN");
 		GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
-		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=L180=R180=F180=B180=U180=D180=false;
+		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=L180=R180=F180=B180=U180=D180=Uagain=Dagain=Lagain=Ragain=Fagain=Bagain=false;
 		Parent=GameObject.Find("Parent");
 		for(int i=0;i<8;i++){
 			UpperFaceSol[i]=RubikScene.UpperFace[i];
@@ -429,8 +429,8 @@ public class solution : MonoBehaviour {
 	void Update(){
 	if(UpFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(red.transform.position,Vector3.up,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
@@ -442,8 +442,8 @@ public class solution : MonoBehaviour {
 	 }
 	 if(UpFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
@@ -455,47 +455,50 @@ public class solution : MonoBehaviour {
 	 }
 	 if(U180){
 		PutStuffInParent(UpperFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(UpperFaceSol);
-			AllInOneUpdateCCW(UpperFaceSol);
-			AllInOneUpdateFace(UpperFaceSol);
-			}
-		PutStuffInParent(UpperFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,100*Time.deltaTime);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(UpperFaceSol);
 			AllInOneUpdateCCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);
 			totalRotation=0;
 			U180=false;
-			}
-			
+			Uagain=true;
+		}
+	 }
+	 if(Uagain){
+		 PutStuffInParent(UpperFaceSol);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(UpperFaceSol);
+			AllInOneUpdateCCW(UpperFaceSol);
+			AllInOneUpdateFace(UpperFaceSol);
+			totalRotation=0;
+			Uagain=false;
+		}
 	 }
 	 if(OrangeFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(orange.transform.position,-1*orange.transform.right,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,-1*orange.transform.right,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			OrangeFaceFlagcw=false;
-			totalRotation=0;
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
 			AllInOneUpdateCW(OrangeFaceSol);
 			AllInOneUpdateFace(OrangeFaceSol);
+			OrangeFaceFlagcw=false;
+			totalRotation=0;
 		}
 	 }
 	 if(OrangeFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(OrangeFaceSol);
@@ -507,35 +510,37 @@ public class solution : MonoBehaviour {
 	 }
 	 if(L180){
 		PutStuffInParent(OrangeFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(OrangeFaceSol);
-			AllInOneUpdateCCW(OrangeFaceSol);
-			AllInOneUpdateFace(OrangeFaceSol);
-				
-			}
-		PutStuffInParent(OrangeFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,100*Time.deltaTime);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
 			AllInOneUpdateCCW(OrangeFaceSol);
 			AllInOneUpdateFace(OrangeFaceSol);
 			totalRotation=0;
-			L180=false;	
+			L180=false;
+			Lagain=true;
 			}
-			
 	 }
+	 if(Lagain){
+		 PutStuffInParent(OrangeFaceSol);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(OrangeFaceSol);
+			AllInOneUpdateCCW(OrangeFaceSol);
+			AllInOneUpdateFace(OrangeFaceSol);
+			totalRotation=0;
+			Lagain=false;	
+		}
+	 }	
 	 if(BlueFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(blue.transform.position,blue.transform.right,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,blue.transform.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFaceSol);
@@ -547,8 +552,8 @@ public class solution : MonoBehaviour {
 	 } 
 	 if(BlueFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFaceSol);
@@ -560,33 +565,37 @@ public class solution : MonoBehaviour {
 	 }
 	 if(R180){
 		PutStuffInParent(BlueFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,10);
 			}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(BlueFaceSol);
-			AllInOneUpdateCCW(BlueFaceSol);
-			AllInOneUpdateFace(BlueFaceSol);
-			}
-			PutStuffInParent(BlueFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,100*Time.deltaTime);
-			}
-		if(Mathf.Abs(totalRotation)>=90f){
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(BlueFaceSol);
 			AllInOneUpdateCCW(BlueFaceSol);
 			AllInOneUpdateFace(BlueFaceSol);
 			totalRotation=0;
 			R180=false;
-			}
+			Ragain=true;
+		}
+	 }
+	 if(Ragain){
+		PutStuffInParent(BlueFaceSol);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(BlueFaceSol);
+			AllInOneUpdateCCW(BlueFaceSol);
+			AllInOneUpdateFace(BlueFaceSol);
+			totalRotation=0;
+			Ragain=false;
+		}
 	 }
 	 if(DownFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(white.transform.position,-1*white.transform.up,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,-1*white.transform.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFaceSol);
@@ -598,8 +607,8 @@ public class solution : MonoBehaviour {
 	 } 
 	 if(DownFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(white.transform.position,white.transform.up,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,white.transform.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFaceSol);
@@ -611,33 +620,38 @@ public class solution : MonoBehaviour {
 	 }
 	if(D180){
 		PutStuffInParent(DownFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(white.transform.position,white.transform.right,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,white.transform.up,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(DownFaceSol);
 			AllInOneUpdateCCW(DownFaceSol);
 			AllInOneUpdateFace(DownFaceSol);
-			}
-			PutStuffInParent(DownFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(white.transform.position,white.transform.right,100*Time.deltaTime);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
-			PutStuffInRubix(DownFaceSol);
-			AllInOneUpdateCCW(DownFaceSol);
-			AllInOneUpdateFace(DownFaceSol);
 			D180=false;
+			Dagain=true;
 			}
 	}
+	if(Dagain){
+		PutStuffInParent(DownFaceSol);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,white.transform.up,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(DownFaceSol);
+			AllInOneUpdateCCW(DownFaceSol);
+			AllInOneUpdateFace(DownFaceSol);
+			totalRotation=0;
+			Dagain=false;
+		}
+	}
+		
 	 if(GreenFaceFlagcw){
 		 if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(green.transform.position,-1*green.transform.forward,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,-1*green.transform.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(GreenFaceSol);
@@ -649,8 +663,8 @@ public class solution : MonoBehaviour {
 	 }
 	 if(GreenFaceFlagccw){
 		 if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(green.transform.position,green.transform.forward,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,green.transform.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(GreenFaceSol);
@@ -662,8 +676,8 @@ public class solution : MonoBehaviour {
 	 } 
 	 if(YellowFaceFlagcw){
 		 if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(yellow.transform.position,-1*yellow.transform.forward,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,-1*yellow.transform.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(YellowFaceSol);
@@ -675,8 +689,8 @@ public class solution : MonoBehaviour {
 	 }
 	 if(YellowFaceFlagccw){
 		 if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,100*Time.deltaTime);
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(YellowFaceSol);
@@ -688,53 +702,60 @@ public class solution : MonoBehaviour {
 	 }
 	 if(B180){
 		PutStuffInParent(YellowFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(yellow.transform.position,-1*yellow.transform.forward,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
 			AllInOneUpdateCCW(YellowFaceSol);
 			AllInOneUpdateFace(YellowFaceSol);
-			}
-		PutStuffInParent(YellowFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(yellow.transform.position,-1*yellow.transform.forward,100*Time.deltaTime);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
-			PutStuffInRubix(YellowFaceSol);
-			AllInOneUpdateCCW(YellowFaceSol);
-			AllInOneUpdateFace(YellowFaceSol);
 			B180=false;
+			Bagain=true;
+			}
+	 }
+	 if(Bagain){
+		 PutStuffInParent(YellowFaceSol);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,10);
 		}
-			
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFaceSol);
+			AllInOneUpdateCCW(YellowFaceSol);
+			AllInOneUpdateFace(YellowFaceSol);
+			totalRotation=0;
+			Bagain=false;
+		}
 	 }
 	 if(F180){
 		PutStuffInParent(GreenFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(green.transform.position,green.transform.forward,100*Time.deltaTime);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,green.transform.forward,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
 			AllInOneUpdateCCW(GreenFaceSol);
 			AllInOneUpdateFace(GreenFaceSol);	
-		 }
-		 PutStuffInParent(GreenFaceSol);
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 100*Time.deltaTime;
-			Parent.transform.RotateAround(green.transform.position,green.transform.forward,100*Time.deltaTime);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
-			PutStuffInRubix(GreenFaceSol);
-			AllInOneUpdateCCW(GreenFaceSol);
-			AllInOneUpdateFace(GreenFaceSol);	
 			F180=false;
+			Fagain=true;
+		 }
+	 }
+	 if(Fagain){
+		 PutStuffInParent(GreenFaceSol);
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,green.transform.forward,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(GreenFaceSol);
+			AllInOneUpdateCCW(GreenFaceSol);
+			AllInOneUpdateFace(GreenFaceSol);	
+			totalRotation=0;
+			Fagain=false;
 		 }
 	 }
 	 

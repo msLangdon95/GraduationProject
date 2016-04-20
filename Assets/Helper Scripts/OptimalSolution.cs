@@ -313,7 +313,7 @@ public class OptimalSolution : MonoBehaviour {
          } catch (Exception e){
              print(e);        
          }
-		 myProcess.WaitForExit();
+		 myProcess.WaitForExit(1000 * 60 * 5); //waits for 5 minutes
 		 Application.LoadLevel("solution");
 	}
 }	

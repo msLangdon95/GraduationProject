@@ -35,18 +35,6 @@ public class solution : MonoBehaviour {
 		GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
 		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=L180=R180=F180=B180=U180=D180=Uagain=Dagain=Lagain=Ragain=Fagain=Bagain=false;
 		Parent=GameObject.Find("Parent");
-		for(int i=0;i<8;i++){
-			UpperFaceSol[i]=RubikScene.UpperFace[i];
-			DownFaceSol[i]=RubikScene.DownFace[i];
-			//print(UpperFaceSol[0]+" "+UpperFaceSol[1]+" "+UpperFaceSol[2]+" "+UpperFaceSol[3]+" "+UpperFaceSol[4]+" "+UpperFaceSol[5]+" "+UpperFaceSol[6]+" "+UpperFaceSol[7]);
-		}
-		for(int i=0;i<9;i++){
-			GreenFaceSol[i]=RubikScene.GreenFace[i];
-			BlueFaceSol[i]=RubikScene.BlueFace[i];
-			OrangeFaceSol[i]=RubikScene.OrangeFace[i];
-			YellowFaceSol[i]=RubikScene.YellowFace[i];
-		}
-		
 		//Color it
 		for(int i=0;i<48;i++){
 			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i];
@@ -55,6 +43,9 @@ public class solution : MonoBehaviour {
 		EndOfSolution = GameObject.Find ("EndOfSolution");
 		EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
+		print("up Face "+UpperFaceSol[0]+" "+UpperFaceSol[1]+" "+UpperFaceSol[2]+" "+UpperFaceSol[3]+" "+UpperFaceSol[4]+" "+UpperFaceSol[5]+" "+UpperFaceSol[6]+" "+UpperFaceSol[7]);
+		print("right Face blue "+BlueFaceSol[0]+" "+BlueFaceSol[1]+" "+BlueFaceSol[2]+" "+BlueFaceSol[3]+" "+BlueFaceSol[4]+" "+BlueFaceSol[5]+" "+BlueFaceSol[6]+" "+BlueFaceSol[7]);
+	
 	}
 	 void PutStuffInParent(string[] face){
 		 int until;

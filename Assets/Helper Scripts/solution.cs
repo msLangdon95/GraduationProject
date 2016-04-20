@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 public class solution : MonoBehaviour {
+	public Transform camera;
+	GameObject look;
 	public static List<string> output=new List<string>();
 	float totalRotation=0;
 	int i=0,k; 
@@ -323,13 +325,13 @@ public class solution : MonoBehaviour {
 		OrangeFaceSol[8]=YellowFaceSol[6];
 		}
 	}	
-	
 	public void nextStep() {
 		if(i<output.Count){
 		if (output[i]=="UCW"){
 				solMsgs="Rotate upper face clock wise";
 				PutStuffInParent(UpperFaceSol);
 				UpFaceFlagcw=true;
+				print("in UCW "+Parent.transform.position);
 			}
 			if (output[i]=="UCCW"){
 				solMsgs="Rotate upper face counter clock wise";
@@ -434,6 +436,7 @@ public class solution : MonoBehaviour {
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
+			print("in update "+Parent.transform.position);
 			PutStuffInRubix(UpperFaceSol);
 			AllInOneUpdateCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);
@@ -485,7 +488,7 @@ public class solution : MonoBehaviour {
 	 if(OrangeFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,-1*orange.transform.right,10);
+			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
@@ -498,7 +501,7 @@ public class solution : MonoBehaviour {
 	 if(OrangeFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,10);
+			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(OrangeFaceSol);
@@ -512,7 +515,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(OrangeFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,10);
+			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
@@ -527,7 +530,7 @@ public class solution : MonoBehaviour {
 		 PutStuffInParent(OrangeFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,orange.transform.right,10);
+			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
@@ -540,7 +543,7 @@ public class solution : MonoBehaviour {
 	 if(BlueFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,blue.transform.right,10);
+			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFaceSol);
@@ -553,7 +556,7 @@ public class solution : MonoBehaviour {
 	 if(BlueFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,10);
+			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFaceSol);
@@ -567,7 +570,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(BlueFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,10);
+			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
 			}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(BlueFaceSol);
@@ -582,7 +585,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(BlueFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*blue.transform.right,10);
+			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(BlueFaceSol);
@@ -595,7 +598,7 @@ public class solution : MonoBehaviour {
 	 if(DownFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,-1*white.transform.up,10);
+			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFaceSol);
@@ -608,7 +611,7 @@ public class solution : MonoBehaviour {
 	 if(DownFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,white.transform.up,10);
+			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFaceSol);
@@ -622,7 +625,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(DownFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,white.transform.up,10);
+			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(DownFaceSol);
@@ -637,7 +640,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(DownFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,white.transform.up,10);
+			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(DownFaceSol);
@@ -651,7 +654,7 @@ public class solution : MonoBehaviour {
 	 if(GreenFaceFlagcw){
 		 if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,-1*green.transform.forward,10);
+			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(GreenFaceSol);
@@ -662,11 +665,11 @@ public class solution : MonoBehaviour {
 		}
 	 }
 	 if(GreenFaceFlagccw){
-		 if(Mathf.Abs(totalRotation) < 90f){
+		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,green.transform.forward,10);
+			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
 			AllInOneUpdateCCW(GreenFaceSol);
 			AllInOneUpdateFace(GreenFaceSol);
@@ -675,11 +678,11 @@ public class solution : MonoBehaviour {
 		}
 	 } 
 	 if(YellowFaceFlagcw){
-		 if(Mathf.Abs(totalRotation) < 90f){
+		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,-1*yellow.transform.forward,10);
+			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
 			AllInOneUpdateCW(YellowFaceSol);
 			AllInOneUpdateFace(YellowFaceSol);
@@ -688,11 +691,11 @@ public class solution : MonoBehaviour {
 		}
 	 }
 	 if(YellowFaceFlagccw){
-		 if(Mathf.Abs(totalRotation) < 90f){
+		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,10);
+			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
 		}
-		if(Mathf.Abs(totalRotation)>=90f){
+		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
 			AllInOneUpdateCCW(YellowFaceSol);
 			AllInOneUpdateFace(YellowFaceSol);
@@ -704,7 +707,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(YellowFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,10);
+			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
@@ -719,7 +722,7 @@ public class solution : MonoBehaviour {
 		 PutStuffInParent(YellowFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,yellow.transform.forward,10);
+			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
@@ -733,7 +736,7 @@ public class solution : MonoBehaviour {
 		PutStuffInParent(GreenFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,green.transform.forward,10);
+			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
@@ -748,7 +751,7 @@ public class solution : MonoBehaviour {
 		 PutStuffInParent(GreenFaceSol);
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,green.transform.forward,10);
+			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
@@ -758,6 +761,5 @@ public class solution : MonoBehaviour {
 			Fagain=false;
 		 }
 	 }
-	 
 	}
 }

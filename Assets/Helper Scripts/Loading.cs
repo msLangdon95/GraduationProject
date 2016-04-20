@@ -10,12 +10,11 @@ public class Loading : MonoBehaviour {
 	public string[]words;
 	string path = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar +"myCubeColor.txt";
 	GameObject w;
-	int i,j;
+	int i;
 	public static string[]m;
 	string word;
 	void Start () {
 		 i=0;
-		j = 0;
 		m = new string[48];
 		Globals.LoadingMessagePanel=GameObject.Find("LoadingMessagePanel");
 		Globals.LoadingMessagePanel.SetActive(false);

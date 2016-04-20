@@ -366,19 +366,17 @@ public class RubikScene : MonoBehaviour {
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked==null )
 					return;
-				//print(lastClicked.transform.parent.name);
-				//print(lastClicked.transform.parent.GetChild(0).name+" "+(int)lastClicked.transform.parent.GetChild(0).position.x+" "+(int)lastClicked.transform.parent.GetChild(0).position.y+" "+(int)lastClicked.transform.parent.GetChild(0).position.z);
-				//print(lastClicked.transform.parent.GetChild(1).name+" "+(int)lastClicked.transform.parent.GetChild(1).position.x+" "+(int)lastClicked.transform.parent.GetChild(1).position.y+" "+(int)lastClicked.transform.parent.GetChild(1).position.z);
-				//print(lastClicked.transform.parent.GetChild(2).name+" "+(int)lastClicked.transform.parent.GetChild(2).position.x+" "+(int)lastClicked.transform.parent.GetChild(2).position.y+" "+(int)lastClicked.transform.parent.GetChild(2).position.z);
 			}
 			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 		}
 		if(Input.GetMouseButtonUp(0)){
+			if(lastClicked==null )
+					return;
 			secondPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 			currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 			currentSwipe.Normalize();
 
-        if(currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
+        if( currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
 			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
 				BlueFaceFlagcw=true;
@@ -535,7 +533,7 @@ void Update(){
 			AllInOneUpdateCW(UpperFace);
 			AllInOneUpdateFace(UpperFace);
 			UpFaceFlagcw=false;
-			lastClicked=null;
+			//lastClicked=null;
 			print(UpperFace[0]+" "+UpperFace[1]+" "+UpperFace[2]+" "+UpperFace[3]+" "+UpperFace[4]+" "+UpperFace[5]+" "+UpperFace[6]+" "+UpperFace[7]);
 		}
 	 } 
@@ -550,7 +548,7 @@ void Update(){
 			AllInOneUpdateCCW(UpperFace);
 			AllInOneUpdateFace(UpperFace);
 			UpFaceFlagccw=false;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(DownFaceFlagcw){
@@ -564,7 +562,7 @@ void Update(){
 			AllInOneUpdateFace(DownFace);
 			DownFaceFlagcw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 } 
 	 if(DownFaceFlagccw){
@@ -578,7 +576,7 @@ void Update(){
 			AllInOneUpdateFace(DownFace);
 			DownFaceFlagccw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(BlueFaceFlagcw){
@@ -592,7 +590,7 @@ void Update(){
 			AllInOneUpdateFace(BlueFace);
 			BlueFaceFlagcw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 } 
 	 if(BlueFaceFlagccw){
@@ -606,7 +604,7 @@ void Update(){
 			AllInOneUpdateFace(BlueFace);
 			BlueFaceFlagccw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(OrangeFaceFlagcw){
@@ -620,7 +618,7 @@ void Update(){
 			AllInOneUpdateFace(OrangeFace);
 			OrangeFaceFlagcw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(OrangeFaceFlagccw){
@@ -634,7 +632,7 @@ void Update(){
 			AllInOneUpdateFace(OrangeFace);
 			OrangeFaceFlagccw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }	
 	 if(GreenFaceFlagcw){
@@ -648,7 +646,7 @@ void Update(){
 			AllInOneUpdateFace(GreenFace);
 			GreenFaceFlagcw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(GreenFaceFlagccw){
@@ -662,7 +660,7 @@ void Update(){
 			AllInOneUpdateFace(GreenFace);
 			GreenFaceFlagccw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(YellowFaceFlagcw){
@@ -676,7 +674,7 @@ void Update(){
 			AllInOneUpdateFace(YellowFace);
 			YellowFaceFlagcw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	 if(YellowFaceFlagccw){
@@ -690,7 +688,7 @@ void Update(){
 			AllInOneUpdateFace(YellowFace);
 			YellowFaceFlagccw=false;
 			totalRotation=0;
-			lastClicked=null;
+			//lastClicked=null;
 		}
 	 }
 	}

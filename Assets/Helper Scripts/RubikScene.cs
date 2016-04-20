@@ -11,6 +11,7 @@ public class RubikScene : MonoBehaviour {
 	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps;
 	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
 	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw;
+	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ;
 	Ray ray;
 	RaycastHit rayHit;
 	 Vector2 firstPressPos;
@@ -41,6 +42,9 @@ public class RubikScene : MonoBehaviour {
 			 return Globals.Orange;
 	 }
 	 void Start (){
+		 GreenFaceZ=GameObject.Find("Line084");
+		 BlueFaceZ=GameObject.Find("Line026");
+		 OrangeFaceZ=GameObject.Find("Line128");
 		 steps=GameObject.Find("steps");
 		 GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
 		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=false;
@@ -359,8 +363,9 @@ public class RubikScene : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				if(lastClicked==null)
+				if(lastClicked==null )
 					return;
+				//print(lastClicked.transform.parent.name);
 				//print(lastClicked.transform.parent.GetChild(0).name+" "+(int)lastClicked.transform.parent.GetChild(0).position.x+" "+(int)lastClicked.transform.parent.GetChild(0).position.y+" "+(int)lastClicked.transform.parent.GetChild(0).position.z);
 				//print(lastClicked.transform.parent.GetChild(1).name+" "+(int)lastClicked.transform.parent.GetChild(1).position.x+" "+(int)lastClicked.transform.parent.GetChild(1).position.y+" "+(int)lastClicked.transform.parent.GetChild(1).position.z);
 				//print(lastClicked.transform.parent.GetChild(2).name+" "+(int)lastClicked.transform.parent.GetChild(2).position.x+" "+(int)lastClicked.transform.parent.GetChild(2).position.y+" "+(int)lastClicked.transform.parent.GetChild(2).position.z);
@@ -373,9 +378,60 @@ public class RubikScene : MonoBehaviour {
 			currentSwipe.Normalize();
 
         if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//UP
+		print(lastClicked.transform.parent.name+" "+(int)lastClicked.transform.position.x);
+		print(BlueFace[6]+" "+(int)BlueFaceZ.transform.position.x);
+			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
+				PutStuffInParent(BlueFace);
+				BlueFaceFlagcw=true;
+			}
+			if(lastClicked.transform.parent.name==GreenFace[8] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
+				PutStuffInParent(OrangeFace);
+				OrangeFaceFlagccw=true;
+			}
+			if(lastClicked.transform.parent.name==BlueFace[6] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
+				PutStuffInParent(YellowFace);
+				YellowFaceFlagccw=true;
+			}
+			if(lastClicked.transform.parent.name==BlueFace[8] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
+				PutStuffInParent(GreenFace);
+				GreenFaceFlagccw=true;
+			}
+			
+			if(lastClicked.transform.parent.name==OrangeFace[6] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
+				PutStuffInParent(GreenFace);
+				GreenFaceFlagcw=true;
+			}
+			if(lastClicked.transform.parent.name==OrangeFace[8] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
+				PutStuffInParent(YellowFace);
+				YellowFaceFlagcw=true;
+			}
             print("up swipe");
         }
         if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f){//DownSwipe
+			if(lastClicked.transform.parent.name==GreenFace[0] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
+				PutStuffInParent(BlueFace);
+				BlueFaceFlagccw=true;
+			}
+			else if(lastClicked.transform.parent.name==GreenFace[2] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
+				PutStuffInParent(OrangeFace);
+				OrangeFaceFlagcw=true;
+			}
+			if(lastClicked.transform.parent.name==BlueFace[0] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
+				PutStuffInParent(YellowFace);
+				YellowFaceFlagcw=true;
+			}
+			if(lastClicked.transform.parent.name==BlueFace[2] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
+				PutStuffInParent(GreenFace);
+				GreenFaceFlagcw=true;
+			}
+			if(lastClicked.transform.parent.name==OrangeFace[0] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
+				PutStuffInParent(GreenFace);
+				GreenFaceFlagccw=true;
+			}
+			if(lastClicked.transform.parent.name==OrangeFace[2] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
+				PutStuffInParent(YellowFace);
+				YellowFaceFlagccw=true;
+			}
             print("down swipe");
         }
         if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //leftSwipe
@@ -467,27 +523,108 @@ void Update(){
 		}
 	 }
 	 if(BlueFaceFlagcw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(BlueFace);
+			AllInOneUpdateCW(BlueFace);
+			AllInOneUpdateFace(BlueFace);
+			BlueFaceFlagcw=false;
+			totalRotation=0;
+		}
 	 } 
 	 if(BlueFaceFlagccw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(BlueFace);
+			AllInOneUpdateCCW(BlueFace);
+			AllInOneUpdateFace(BlueFace);
+			BlueFaceFlagccw=false;
+			totalRotation=0;
+		}
 	 }
 	 if(OrangeFaceFlagcw){
-		
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(OrangeFace);
+			AllInOneUpdateCW(OrangeFace);
+			AllInOneUpdateFace(OrangeFace);
+			OrangeFaceFlagcw=false;
+			totalRotation=0;
+		}
 	 }
 	 if(OrangeFaceFlagccw){
-		
+		if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(OrangeFace);
+			AllInOneUpdateCCW(OrangeFace);
+			AllInOneUpdateFace(OrangeFace);
+			OrangeFaceFlagccw=false;
+			totalRotation=0;
+		}
 	 }	
 	 if(GreenFaceFlagcw){
-		
+		 if(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(GreenFace);
+			AllInOneUpdateCW(GreenFace);
+			AllInOneUpdateFace(GreenFace);
+			GreenFaceFlagcw=false;
+			totalRotation=0;
+		}
 	 }
 	 if(GreenFaceFlagccw){
-		 
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(GreenFace);
+			AllInOneUpdateCCW(GreenFace);
+			AllInOneUpdateFace(GreenFace);
+			GreenFaceFlagccw=false;
+			totalRotation=0;
+		}
 	 }
 	 if(YellowFaceFlagcw){
-		
+		 if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFace);
+			AllInOneUpdateCW(YellowFace);
+			AllInOneUpdateFace(YellowFace);
+			YellowFaceFlagcw=false;
+			totalRotation=0;
+		}
 	 }
 	 if(YellowFaceFlagccw){
+		if(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFace);
+			AllInOneUpdateCCW(YellowFace);
+			AllInOneUpdateFace(YellowFace);
+			YellowFaceFlagccw=false;
+			totalRotation=0;
+		}
 	 }
 	}
 }

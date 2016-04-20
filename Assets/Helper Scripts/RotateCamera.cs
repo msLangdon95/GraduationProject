@@ -38,12 +38,10 @@ using UnityEngine;
    void LateUpdate(){
          if (target != null && Input.GetMouseButton(0))
          {
-			 print("!");
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
 				if(lastClicked.transform.parent.parent.name=="RubiksCube"){
-					print("return");
 					return;
 				}
 			}

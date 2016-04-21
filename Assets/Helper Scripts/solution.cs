@@ -12,10 +12,11 @@ public class solution : MonoBehaviour {
 	public Transform camera;
 	GameObject look;
 	public static List<string> output=new List<string>();
+	List<Color> doItAgain=new List<Color>();
 	float totalRotation=0;
-	int i=0,k; 
+	int i,k,NextStepCounter=0; 
 	string solMsgs;
-	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton;
+	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton,Moves;
 	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
 	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw,L180,R180,U180,D180,F180,B180,Uagain,Dagain,Lagain,Ragain,Fagain,Bagain;
 	string[]UpperFaceSol={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
@@ -24,8 +25,21 @@ public class solution : MonoBehaviour {
 	string[]BlueFaceSol={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
 	string[]OrangeFaceSol={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	string[]YellowFaceSol={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
+	string []preUp;
+	string []preDown;
+	string []preGreen;
+	string []preBlue;
+	string []preOrange;
+	string []preYellow;
 	void Start () {
-		nextButton=GameObject.Find("Button");
+		preUp=UpperFaceSol;
+		preDown=DownFaceSol;
+		preGreen=GreenFaceSol;
+		preBlue=BlueFaceSol;
+		preOrange=OrangeFaceSol;
+		preYellow=YellowFaceSol;
+		nextButton=GameObject.Find("NextStepButton");
+		Moves=GameObject.Find("Moves");
 		rubix=GameObject.Find("RubiksCube");
 		 blue=GameObject.Find("BLUE");
 		 red=GameObject.Find("RED");
@@ -39,14 +53,12 @@ public class solution : MonoBehaviour {
 		//Color it
 		for(int i=0;i<48;i++){
 			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i];
+			doItAgain.Add(OptimalSolution.GoToSolve[i]);
 		}
-
 		EndOfSolution = GameObject.Find ("EndOfSolution");
 		EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
-		print("up Face "+UpperFaceSol[0]+" "+UpperFaceSol[1]+" "+UpperFaceSol[2]+" "+UpperFaceSol[3]+" "+UpperFaceSol[4]+" "+UpperFaceSol[5]+" "+UpperFaceSol[6]+" "+UpperFaceSol[7]);
-		print("right Face blue "+BlueFaceSol[0]+" "+BlueFaceSol[1]+" "+BlueFaceSol[2]+" "+BlueFaceSol[3]+" "+BlueFaceSol[4]+" "+BlueFaceSol[5]+" "+BlueFaceSol[6]+" "+BlueFaceSol[7]);
-	
+		Moves.transform.GetComponent<Text>().text=OptimalSolution.StepsOfSolution.ToString()+" Steps ";
 	}
 	 void PutStuffInParent(string[] face){
 		 int until;
@@ -318,107 +330,196 @@ public class solution : MonoBehaviour {
 		}
 	}	
 	public void nextStep() {
-		if(i<output.Count){
-		if (output[i]=="UCW"){
+		if(NextStepCounter<output.Count){
+			nextButton.GetComponentInChildren<Text>().text="Next Step";
+		if (output[NextStepCounter]=="UCW"){
 				solMsgs="Rotate upper face clock wise";
 				PutStuffInParent(UpperFaceSol);
 				UpFaceFlagcw=true;
-				print("in UCW "+Parent.transform.position);
 			}
-			if (output[i]=="UCCW"){
+			if (output[NextStepCounter]=="UCCW"){
 				solMsgs="Rotate upper face counter clock wise";
 				PutStuffInParent(UpperFaceSol);
 				UpFaceFlagccw=true;
 			}
-			if (output[i]=="U180"){
+			if (output[NextStepCounter]=="U180"){
 				solMsgs="Rotate upper face 180 degree";
 				U180=true;
 			}
-			if (output[i]=="BCW"){
+			if (output[NextStepCounter]=="BCW"){
 				solMsgs="Rotate back face clock wise";
 				YellowFaceFlagcw=true;
 				PutStuffInParent(YellowFaceSol);
 			}
-			if (output[i]=="BCCW"){
+			if (output[NextStepCounter]=="BCCW"){
 				solMsgs="Rotate back face counter clock wise";
 				YellowFaceFlagccw=true;
 				PutStuffInParent(YellowFaceSol);
 			}
-			if (output[i]=="B180"){
+			if (output[NextStepCounter]=="B180"){
 				solMsgs="Rotate back face 180 degree";
 				B180=true;
 			}
-			if (output[i]=="FCW"){
+			if (output[NextStepCounter]=="FCW"){
 				solMsgs="Rotate front face clock wise";
 				GreenFaceFlagcw=true;
 				PutStuffInParent(GreenFaceSol);
 			}
-			if (output[i]=="FCCW"){
+			if (output[NextStepCounter]=="FCCW"){
 				solMsgs="Rotate front face counter  clock wise";
 				GreenFaceFlagccw=true;
 				PutStuffInParent(GreenFaceSol);
 			}
-			if (output[i]=="F180"){
+			if (output[NextStepCounter]=="F180"){
 				solMsgs="Rotate front face 180 degree";
 				F180=true;
 			}
-			if (output[i]=="RCW"){
+			if (output[NextStepCounter]=="RCW"){
 				solMsgs="Rotate right face clock wise";
 				PutStuffInParent(BlueFaceSol);
 				BlueFaceFlagcw=true;
 			}
-			if (output[i]=="RCCW"){
+			if (output[NextStepCounter]=="RCCW"){
 				solMsgs="Rotate right face counter clock wise";
 				PutStuffInParent(BlueFaceSol);
 				BlueFaceFlagccw=true;
 			}
-			if (output[i]=="R180"){
+			if (output[NextStepCounter]=="R180"){
 				solMsgs="Rotate right face counter 180 degree";
 				R180=true;
 			}
-			if (output[i]=="LCW"){
+			if (output[NextStepCounter]=="LCW"){
 				solMsgs="Rotate left face clock wise";
 				PutStuffInParent(OrangeFaceSol);
 				OrangeFaceFlagcw=true;
 			}
-			if (output[i]=="LCCW"){
+			if (output[NextStepCounter]=="LCCW"){
 				solMsgs="Rotate left face counter clock wise";
 				PutStuffInParent(OrangeFaceSol);
 				OrangeFaceFlagccw=true;
 			}
-			if (output[i]=="L180"){
+			if (output[NextStepCounter]=="L180"){
 				solMsgs="Rotate left face 180 degree";
 				L180=true;
 			}
-			if (output[i]=="DCW"){
+			if (output[NextStepCounter]=="DCW"){
 				solMsgs="Rotate down face clock wise";
 				PutStuffInParent(DownFaceSol);
 				DownFaceFlagcw=true;
 			}
-			if (output[i]=="DCCW"){
+			if (output[NextStepCounter]=="DCCW"){
 				solMsgs="Rotate down face counter clock wise";
 				PutStuffInParent(DownFaceSol);
 				DownFaceFlagccw=true;
 			}
-			if (output[i]=="D180"){
+			if (output[NextStepCounter]=="D180"){
 				solMsgs="Rotate down face 180 degree";
 				D180=true;
 			}
 		
 		myMSG.GetComponent<Text> ().text = solMsgs;
-		i++;
+		NextStepCounter++;
 		}
-		if (i == output.Count) {
+		else{
 			EndOfSolution.SetActive (true);
-			i=0;
 			myMSG.GetComponent<Text> ().text = " ";
+			nextButton.GetComponentInChildren<Text>().text="Show Steps";
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 	}
-	
 	public void hideMessage(){
 		EndOfSolution.SetActive(false);
 		myMSG.GetComponent<Text> ().text = " ";
+		nextButton.GetComponent<Button>().interactable = true;
 	}
+	public void ShowStepsAgain(){
+		nextButton.GetComponent<Button>().interactable = true;
+		/*UpperFaceSol=preUp;
+		DownFaceSol=preDown;
+		GreenFaceSol=preGreen;
+		BlueFaceSol=preBlue;
+		OrangeFaceSol=preOrange;
+		YellowFaceSol=preYellow;
+		for(int i=0;i<48;i++){
+			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=doItAgain[i];
+		}*/
+		NextStepCounter=0;
+		EndOfSolution.SetActive(false);
+	}
+	
+	public void ShowWholeSol(){
+		GameObject.Find("ShowAll").GetComponent<Button>().interactable = false;
+		for(i=0;i<output.Count;i++){
+			if(output[i]=="UCW"){
+				PutStuffInParent(UpperFaceSol);
+				UpFaceFlagcw=true;
+			}
+			else if(output[i]=="UCCW"){
+				PutStuffInParent(UpperFaceSol);
+				UpFaceFlagccw=true;
+			}
+			else if(output[i]=="U180"){
+				U180=true;
+			}
+			else if(output[i]=="DCW"){
+				PutStuffInParent(DownFaceSol);
+				DownFaceFlagcw=true;
+			}
+			else if(output[i]=="DCCW"){
+				PutStuffInParent(DownFaceSol);
+				DownFaceFlagccw=true;
+			}
+			else if(output[i]=="D180"){
+				D180=true;
+			}
+			else if(output[i]=="LCW"){
+				PutStuffInParent(OrangeFaceSol);
+				OrangeFaceFlagcw=true;
+			}
+			else if(output[i]=="LCCW"){
+				PutStuffInParent(OrangeFaceSol);
+				OrangeFaceFlagccw=true;
+			}
+			else if(output[i]=="L180"){
+				L180=true;
+			}
+			else if(output[i]=="RCW"){
+				PutStuffInParent(BlueFaceSol);
+				BlueFaceFlagcw=true;
+			}
+			else if(output[i]=="RCCW"){
+				PutStuffInParent(BlueFaceSol);
+				BlueFaceFlagccw=true;
+			}
+			else if(output[i]=="R180"){
+				R180=true;
+			}
+			else if(output[i]=="FCW"){
+				PutStuffInParent(GreenFaceSol);
+				GreenFaceFlagcw=true;
+			}
+			else if(output[i]=="FCCW"){
+				PutStuffInParent(GreenFaceSol);
+				GreenFaceFlagccw=true;
+			}
+			else if(output[i]=="F180"){
+				F180=true;
+			}
+			else if(output[i]=="BCW"){
+				PutStuffInParent(YellowFaceSol);
+				YellowFaceFlagcw=true;
+			}
+			else if(output[i]=="BCCW"){
+				PutStuffInParent(YellowFaceSol);
+				YellowFaceFlagccw=true;
+			}
+			else if(output[i]=="B180"){
+				B180=true;
+			}
+		}
+		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;
+	}
+	
 	
 	void Update(){
 	if(UpFaceFlagcw){
@@ -429,7 +530,6 @@ public class solution : MonoBehaviour {
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
-			print("in update "+Parent.transform.position);
 			PutStuffInRubix(UpperFaceSol);
 			AllInOneUpdateCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);

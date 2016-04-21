@@ -8,6 +8,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class OptimalSolution : MonoBehaviour {
+	public static int StepsOfSolution=0;
 	Process myProcess;
 	string InputToAlgo="";
 	int d1,d2,d3,result;
@@ -19,7 +20,6 @@ public class OptimalSolution : MonoBehaviour {
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				GoToSolve.Add(x.transform.GetChild(1).GetComponent<Renderer>().material.color);
 				InputToAlgo+=" ";
-				
 			}
 			else{
 				InputToAlgo+=Saving.GetColor(x.transform.GetChild(0).GetComponent<Renderer>().material.color);
@@ -304,7 +304,7 @@ public class OptimalSolution : MonoBehaviour {
 			myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
 			{
 				if (!String.IsNullOrEmpty(e.Data)){
-					print(e.Data);
+					StepsOfSolution++;
 					solution.output.Add(e.Data);
 				}
 			});

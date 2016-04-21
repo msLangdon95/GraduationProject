@@ -97,7 +97,7 @@ public class RubikScene : MonoBehaviour {
 			 steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 		 }
 	 }
-	 void Start (){
+	void Start (){
 		 GreenFaceZ=GameObject.Find("Line084");
 		 BlueFaceZ=GameObject.Find("Line026");
 		 OrangeFaceZ=GameObject.Find("Line128");
@@ -391,7 +391,7 @@ public class RubikScene : MonoBehaviour {
 		OrangeFace[8]=YellowFace[6];
 		}
 	}
-	 void PutStuffInParent(string[] face){
+	void PutStuffInParent(string[] face){
 		 int until;
 		 if(face==UpperFace || face==DownFace)
 			 until=8;
@@ -402,7 +402,7 @@ public class RubikScene : MonoBehaviour {
 			 temp.transform.SetParent(Parent.transform);
 		 }
 	 }
-	 void PutStuffInRubix(string[] face){
+	void PutStuffInRubix(string[] face){
 		 int until;
 		 if(face==UpperFace || face==DownFace)
 			 until=8;
@@ -589,7 +589,7 @@ public class RubikScene : MonoBehaviour {
 	}
 }
 
-void SetAllOtherFlagsToFalse(bool x){
+	void SetAllOtherFlagsToFalse(bool x){
 	if(x != GreenFaceFlagcw) GreenFaceFlagcw=false;
 	if(x != GreenFaceFlagccw) GreenFaceFlagccw=false;
 	if(x != BlueFaceFlagcw) BlueFaceFlagcw=false;
@@ -603,7 +603,7 @@ void SetAllOtherFlagsToFalse(bool x){
 	if(x != YellowFaceFlagcw) YellowFaceFlagcw=false;
 	if(x != YellowFaceFlagccw) YellowFaceFlagccw=false;
 }
-void Update(){
+	void Update(){
 	if(lastClicked==null)
 			return;
 	if(UpFaceFlagcw){

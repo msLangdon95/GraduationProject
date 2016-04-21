@@ -9,7 +9,7 @@ public class OnClickChangeColor : MonoBehaviour {
 	}
 	public void NextColor(int PickedColor){
 		flag=1;
-		if(Globals.ColorsArray[PickedColor].ColorFlag==false)
+		if(RayCaster.ColorsArray[PickedColor].ColorFlag==false)
 			Globals.ThePanel.SetActive(true);
 		else{
 			myColor=PickedColor;

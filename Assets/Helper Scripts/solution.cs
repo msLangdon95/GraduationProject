@@ -25,19 +25,7 @@ public class solution : MonoBehaviour {
 	string[]BlueFaceSol={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
 	string[]OrangeFaceSol={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	string[]YellowFaceSol={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
-	string []preUp;
-	string []preDown;
-	string []preGreen;
-	string []preBlue;
-	string []preOrange;
-	string []preYellow;
 	void Start () {
-		preUp=UpperFaceSol;
-		preDown=DownFaceSol;
-		preGreen=GreenFaceSol;
-		preBlue=BlueFaceSol;
-		preOrange=OrangeFaceSol;
-		preYellow=YellowFaceSol;
 		nextButton=GameObject.Find("NextStepButton");
 		Moves=GameObject.Find("Moves");
 		rubix=GameObject.Find("RubiksCube");
@@ -448,8 +436,10 @@ public class solution : MonoBehaviour {
 	}
 	
 	public void ShowWholeSol(){
+	/*	i=0;
 		GameObject.Find("ShowAll").GetComponent<Button>().interactable = false;
-		for(i=0;i<output.Count;i++){
+		//for(i=0;i<output.Count;i++){
+			while(i<output.Count){
 			if(output[i]=="UCW"){
 				PutStuffInParent(UpperFaceSol);
 				UpFaceFlagcw=true;
@@ -516,11 +506,12 @@ public class solution : MonoBehaviour {
 			else if(output[i]=="B180"){
 				B180=true;
 			}
+			if(UpFaceFlagcw==UpFaceFlagccw==U180==DownFaceFlagcw==DownFaceFlagccw==D180==OrangeFaceFlagcw==OrangeFaceFlagccw==L180==
+			BlueFaceFlagcw==BlueFaceFlagccw==B180==GreenFaceFlagcw==GreenFaceFlagccw==F180==YellowFaceFlagcw==YellowFaceFlagccw==B180)
+				i++;
 		}
-		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;
+		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;*/
 	}
-	
-	
 	void Update(){
 	if(UpFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){

@@ -14,14 +14,14 @@ public class ManualInputSceneScripts : MonoBehaviour {
 			x.GetComponent<Renderer>().material.color =Color.gray;
 		}
 		for(int i=0;i<6;i++){
-			Globals.ColorsArray[i].ColorCounter=0;
-			Globals.ColorsArray[i].ColorFlag=true;
-			Globals.ColorsArray[i].GO.GetComponentInChildren<Text>().text="0";
+			RayCaster.ColorsArray[i].ColorCounter=0;
+			RayCaster.ColorsArray[i].ColorFlag=true;
+			RayCaster.ColorsArray[i].GO.GetComponentInChildren<Text>().text="0";
 		}
 	}
 	public void VerifyAndGo(){ // next scene button
 		for(int i=0;i<6;i++){
-			if(Globals.ColorsArray[i].ColorCounter!= 8){ //not all cubies are fully colored
+			if(RayCaster.ColorsArray[i].ColorCounter!= 8){ //not all cubies are fully colored
 				Globals.VerifyPanel.SetActive(true);
 				return;
 			}

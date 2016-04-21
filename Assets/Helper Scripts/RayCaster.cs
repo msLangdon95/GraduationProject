@@ -10,6 +10,19 @@ public class RayCaster : MonoBehaviour {
 		public bool flag;
 		public string name;
 	};
+	public struct COLOR{
+		public GameObject GO;
+		public bool ColorFlag;
+		public Color CurrentColor;
+		public int ColorCounter;
+		public COLOR(GameObject x,bool cf, Color cc, int cCounter){
+			GO=x;
+			ColorFlag=cf;
+			CurrentColor=cc;
+			ColorCounter=cCounter;
+		}
+	};
+	public static COLOR [] ColorsArray=new COLOR[6];
 	int x,PrevColorNumber,forNothing;
 	GameObject lastClicked,PrevGameObj;
 	Ray ray;
@@ -20,12 +33,25 @@ public class RayCaster : MonoBehaviour {
 	string test;
 	char c1,c2,c3;
 	void Start(){
+		/*{
+		new COLOR(GameObject.Find("greenc"),true,Color.green,0),
+		new COLOR(GameObject.Find("redc"),true,Color.red,0),
+		new COLOR(GameObject.Find("bluec"),true,Color.blue,0),
+		new COLOR(GameObject.Find("orangec"),true,new Color(1,0.27058823529f,0,1),0),
+		new COLOR(GameObject.Find("yellowc"),true,Color.yellow,0),
+		new COLOR(GameObject.Find("whitec"),true,Color.white,0),
+	};*/
+	ColorsArray[0]=new COLOR(GameObject.Find("greenc"),true,Color.green,0);
+	ColorsArray[1]=new COLOR(GameObject.Find("redc"),true,Color.red,0);
+	ColorsArray[2]=new COLOR(GameObject.Find("bluec"),true,Color.blue,0);
+	ColorsArray[3]=new COLOR(GameObject.Find("orangec"),true,Globals.Orange,0);
+	ColorsArray[4]=new COLOR(GameObject.Find("yellowc"),true,Color.yellow,0);
+	ColorsArray[5]=new COLOR(GameObject.Find("whitec"),true,Color.white,0);
 		ColorNumber=0;
 		PrevGameObj=null;
 		PrevColorNumber=0;
 		Corners = new Combination[8];
 		Edges = new Combination[12];
-		
 		Corners [0].name = "gow";
 		Corners[0].flag=true;
 		Corners [1].name = "owy";
@@ -42,7 +68,6 @@ public class RayCaster : MonoBehaviour {
 		Corners[6].flag=true;
 		Corners [7].name = "bgr";
 		Corners[7].flag=true;
-		
 		Edges[0].name="gw";
 		Edges[0].flag=true;
 		Edges[1].name="bw";
@@ -78,7 +103,6 @@ public class RayCaster : MonoBehaviour {
 		Globals.VerifyPanel.SetActive(false);
 		
 		Globals.dontShowAgain=false;
-		
 	}
 	
 	int GetColor(GameObject G){
@@ -176,17 +200,17 @@ public class RayCaster : MonoBehaviour {
 				if(lastClicked != null && OnClickChangeColor.flag==1 && lastClicked.GetComponent<Collider>().tag != "1"  && x>-1 && x<6){
 					x=OnClickChangeColor.myColor;// to color with color number x
 					if(x != PrevColorNumber || PrevGameObj != lastClicked){
-						if(Globals.ColorsArray[x].ColorFlag){
-							Globals.ColorsArray[x].ColorCounter ++ ;
-							if(Globals.ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
-								Globals.ColorsArray[x].ColorCounter -- ;
-								Globals.ColorsArray[x].ColorFlag=false;
+						if(ColorsArray[x].ColorFlag){
+							ColorsArray[x].ColorCounter ++ ;
+							if(ColorsArray[x].ColorCounter >8){ // can't color more than 8 times so subtract and activate the panel
+								ColorsArray[x].ColorCounter -- ;
+								ColorsArray[x].ColorFlag=false;
 								Globals.ThePanel.SetActive(true);
 								return;
 							}
 							foreach (Transform child in lastClicked.transform.parent){
 								if(lastClicked != child.gameObject && GetColor(child.gameObject) == x){ // neighbours can't have the same color
-									Globals.ColorsArray[x].ColorCounter -- ;
+									ColorsArray[x].ColorCounter -- ;
 									return;
 								}
 							}
@@ -194,10 +218,10 @@ public class RayCaster : MonoBehaviour {
 							// check the previous color to decrement its counter
 							ColorNumber=GetColor(lastClicked);
 							if(ColorNumber > -1 && ColorNumber < 6){
-								Globals.ColorsArray[ColorNumber].ColorCounter -- ;
-								//Globals.ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[ColorNumber].ColorCounter.ToString();
-								if(Globals.ColorsArray[ColorNumber].ColorFlag == false)
-									Globals.ColorsArray[ColorNumber].ColorFlag=true;
+								ColorsArray[ColorNumber].ColorCounter -- ;
+								ColorsArray[ColorNumber].GO.GetComponentInChildren<Text>().text=ColorsArray[ColorNumber].ColorCounter.ToString();
+								if(ColorsArray[ColorNumber].ColorFlag == false)
+									ColorsArray[ColorNumber].ColorFlag=true;
 							}
 							//if it was a corner + mwjod 2bl+false->true
 							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){
@@ -216,16 +240,16 @@ public class RayCaster : MonoBehaviour {
 								}
 							}
 							
-							lastClicked.GetComponent<Renderer>().material.color =Globals.ColorsArray[x].CurrentColor;
-							//Globals.ColorsArray[x].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[x].ColorCounter.ToString();	
+							lastClicked.GetComponent<Renderer>().material.color =ColorsArray[x].CurrentColor;
+							ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();	
 							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
 								if(!searchInCorners(test)){
 									if(Globals.dontShowAgain==false)
 										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<3;i++){
 										forNothing=GetColor(lastClicked.transform.parent.GetChild(i).gameObject);
-										Globals.ColorsArray[forNothing].ColorCounter--;
-										Globals.ColorsArray[forNothing].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[forNothing].ColorCounter.ToString();
+										ColorsArray[forNothing].ColorCounter--;
+										ColorsArray[forNothing].GO.GetComponentInChildren<Text>().text=ColorsArray[forNothing].ColorCounter.ToString();
 										lastClicked.transform.parent.GetChild(i).gameObject.GetComponent<Renderer>().material.color=Color.gray;
 									}
 								}
@@ -237,8 +261,8 @@ public class RayCaster : MonoBehaviour {
 										Globals.ColoredWronglyPanel.SetActive(true);
 									for(int i=0;i<2;i++){
 										forNothing=GetColor(lastClicked.transform.parent.GetChild(i).gameObject);
-										Globals.ColorsArray[forNothing].ColorCounter--;
-										Globals.ColorsArray[forNothing].GO.GetComponentInChildren<Text>().text=Globals.ColorsArray[forNothing].ColorCounter.ToString();
+										ColorsArray[forNothing].ColorCounter--;
+										ColorsArray[forNothing].GO.GetComponentInChildren<Text>().text=ColorsArray[forNothing].ColorCounter.ToString();
 										lastClicked.transform.parent.GetChild(i).gameObject.GetComponent<Renderer>().material.color=Color.gray;
 									}
 								}

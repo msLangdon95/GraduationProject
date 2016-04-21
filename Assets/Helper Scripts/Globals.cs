@@ -26,14 +26,14 @@ public class Globals : MonoBehaviour {
 		"White1","White2","White3","White4","White5","White6","White7","White8"//down
 	};
 	public static Color [] CurrentCubeColors=new Color[48];
-	public static COLOR [] ColorsArray=new COLOR[]{
+	/*public static COLOR [] ColorsArray=new COLOR[]{
 		new COLOR(GameObject.Find("greenc"),true,Color.green,0),
 		new COLOR(GameObject.Find("redc"),true,Color.red,0),
 		new COLOR(GameObject.Find("bluec"),true,Color.blue,0),
 		new COLOR(GameObject.Find("orangec"),true,new Color(1,0.27058823529f,0,1),0),
 		new COLOR(GameObject.Find("yellowc"),true,Color.yellow,0),
 		new COLOR(GameObject.Find("whitec"),true,Color.white,0),
-	};
+	};*/
 	public static GameObject ThePanel;
 	public static GameObject ColoredWronglyPanel;
 	public static GameObject VerifyPanel;

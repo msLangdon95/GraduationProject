@@ -122,43 +122,9 @@ public class OptimalSolution : MonoBehaviour {
 			}
 		}
 	}
-	void ReadRedFace(){
-		for(int i=5;i<8;i++){
-			blah(GameObject.Find(RubikScene.UpperFace[i]),GameObject.Find(RubikScene.UpperFace[i]).tag);
-		}
-		for(int i=0;i<5;i++){
-			blah(GameObject.Find(RubikScene.UpperFace[i]),GameObject.Find(RubikScene.UpperFace[i]).tag);
-		}
-	}
-	void ReadGreenFace(){
-		// 1 0 3 6 7 8 5 2
-		blahblah(GameObject.Find(RubikScene.GreenFace[1]),GameObject.Find(RubikScene.GreenFace[1]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[0]),GameObject.Find(RubikScene.GreenFace[0]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[3]),GameObject.Find(RubikScene.GreenFace[3]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[6]),GameObject.Find(RubikScene.GreenFace[6]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[7]),GameObject.Find(RubikScene.GreenFace[7]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[8]),GameObject.Find(RubikScene.GreenFace[8]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[5]),GameObject.Find(RubikScene.GreenFace[5]).tag);
-		blahblah(GameObject.Find(RubikScene.GreenFace[2]),GameObject.Find(RubikScene.GreenFace[2]).tag);
-	}
-	void ReadWhiteFace(){
-		for(int i=1;i>=0;i--){
-			blahleasty(GameObject.Find(RubikScene.DownFace[i]),GameObject.Find(RubikScene.DownFace[i]).tag);
-		}
-		for(int i=7;i>=2;i--){
-			blahleasty(GameObject.Find(RubikScene.DownFace[i]),GameObject.Find(RubikScene.DownFace[i]).tag);
-		}
-	}
-	void ReadYellowFace(){
-		blahbigz(GameObject.Find(RubikScene.YellowFace[1]),GameObject.Find(RubikScene.YellowFace[1]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[0]),GameObject.Find(RubikScene.YellowFace[0]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[3]),GameObject.Find(RubikScene.YellowFace[3]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[6]),GameObject.Find(RubikScene.YellowFace[6]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[7]),GameObject.Find(RubikScene.YellowFace[7]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[8]),GameObject.Find(RubikScene.YellowFace[8]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[5]),GameObject.Find(RubikScene.YellowFace[5]).tag);
-		blahbigz(GameObject.Find(RubikScene.YellowFace[2]),GameObject.Find(RubikScene.YellowFace[2]).tag);
-	}
+	
+	
+	
 	void blahbigz(GameObject x,string number){
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.z < x.transform.GetChild(1).position.z){
@@ -278,6 +244,43 @@ public class OptimalSolution : MonoBehaviour {
 		blahsmallx(GameObject.Find(RubikScene.OrangeFace[8]),GameObject.Find(RubikScene.OrangeFace[8]).tag);
 		blahsmallx(GameObject.Find(RubikScene.OrangeFace[5]),GameObject.Find(RubikScene.OrangeFace[5]).tag);
 		blahsmallx(GameObject.Find(RubikScene.OrangeFace[2]),GameObject.Find(RubikScene.OrangeFace[2]).tag);
+	}
+	void ReadWhiteFace(){
+		for(int i=1;i>=0;i--){
+			blahleasty(GameObject.Find(RubikScene.DownFace[i]),GameObject.Find(RubikScene.DownFace[i]).tag);
+		}
+		for(int i=7;i>=2;i--){
+			blahleasty(GameObject.Find(RubikScene.DownFace[i]),GameObject.Find(RubikScene.DownFace[i]).tag);
+		}
+	}
+	void ReadRedFace(){
+		for(int i=5;i<8;i++){
+			blah(GameObject.Find(RubikScene.UpperFace[i]),GameObject.Find(RubikScene.UpperFace[i]).tag);
+		}
+		for(int i=0;i<5;i++){
+			blah(GameObject.Find(RubikScene.UpperFace[i]),GameObject.Find(RubikScene.UpperFace[i]).tag);
+		}
+	}
+	void ReadGreenFace(){
+		// 1 0 3 6 7 8 5 2
+		blahblah(GameObject.Find(RubikScene.GreenFace[1]),GameObject.Find(RubikScene.GreenFace[1]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[0]),GameObject.Find(RubikScene.GreenFace[0]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[3]),GameObject.Find(RubikScene.GreenFace[3]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[6]),GameObject.Find(RubikScene.GreenFace[6]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[7]),GameObject.Find(RubikScene.GreenFace[7]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[8]),GameObject.Find(RubikScene.GreenFace[8]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[5]),GameObject.Find(RubikScene.GreenFace[5]).tag);
+		blahblah(GameObject.Find(RubikScene.GreenFace[2]),GameObject.Find(RubikScene.GreenFace[2]).tag);
+	}
+	void ReadYellowFace(){
+		blahbigz(GameObject.Find(RubikScene.YellowFace[1]),GameObject.Find(RubikScene.YellowFace[1]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[0]),GameObject.Find(RubikScene.YellowFace[0]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[3]),GameObject.Find(RubikScene.YellowFace[3]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[6]),GameObject.Find(RubikScene.YellowFace[6]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[7]),GameObject.Find(RubikScene.YellowFace[7]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[8]),GameObject.Find(RubikScene.YellowFace[8]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[5]),GameObject.Find(RubikScene.YellowFace[5]).tag);
+		blahbigz(GameObject.Find(RubikScene.YellowFace[2]),GameObject.Find(RubikScene.YellowFace[2]).tag);
 	}
 	public void onClickFindSol(){
 		//put in right position//add menu

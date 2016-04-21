@@ -21,6 +21,7 @@ public class RubikScene : MonoBehaviour {
 	 string[]rightFace;
 	 string[]leftFace;
 	 float totalRotation = 0;
+	 List<string>Moves=new List<string>();
 	 public static string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	 public static string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
 	 public static string[]GreenFace={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
@@ -40,6 +41,61 @@ public class RubikScene : MonoBehaviour {
 			 return Color.yellow;
 		 else
 			 return Globals.Orange;
+	 }
+	 public void Undo(){
+		 if(Moves.Count>0){
+			 if(Moves[Moves.Count-1] == "UCW"){
+				 PutStuffInParent(UpperFace);
+				 UpFaceFlagccw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="UCCW"){
+				 PutStuffInParent(UpperFace);
+				 UpFaceFlagcw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="DCW"){
+				 PutStuffInParent(DownFace);
+				 DownFaceFlagccw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="DCCW"){
+				 PutStuffInParent(DownFace);
+				 DownFaceFlagcw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="RCW"){
+				 PutStuffInParent(BlueFace);
+				 BlueFaceFlagccw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="RCCW"){
+				 PutStuffInParent(BlueFace);
+				 BlueFaceFlagcw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="LCW"){
+				 PutStuffInParent(OrangeFace);
+				 OrangeFaceFlagccw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="LCCW"){
+				 PutStuffInParent(OrangeFace);
+				 OrangeFaceFlagcw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="BCW"){
+				 PutStuffInParent(YellowFace);
+				 YellowFaceFlagccw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="BCCW"){
+				 PutStuffInParent(YellowFace);
+				 YellowFaceFlagcw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="FCW"){
+				 PutStuffInParent(GreenFace);
+				 GreenFaceFlagccw=true;
+			 }
+			 else if(Moves[Moves.Count-1] =="FCCW"){
+				 PutStuffInParent(GreenFace);
+				 GreenFaceFlagcw=true;
+			 }
+			 Moves.RemoveAt(Moves.Count-1);
+			 NoOfSteps--;
+			 steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
+		 }
 	 }
 	 void Start (){
 		 GreenFaceZ=GameObject.Find("Line084");
@@ -379,12 +435,14 @@ public class RubikScene : MonoBehaviour {
         if( currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
 			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
+				Moves.Add("RCW");
 				BlueFaceFlagcw=true;
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==GreenFace[8] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(OrangeFace);
+				Moves.Add("LCCW");
 				OrangeFaceFlagccw=true;
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
@@ -392,36 +450,42 @@ public class RubikScene : MonoBehaviour {
 			if(lastClicked.transform.parent.name==BlueFace[6] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
 				PutStuffInParent(YellowFace);
 				YellowFaceFlagccw=true;
+				Moves.Add("BCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[8] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
 				PutStuffInParent(GreenFace);
 				GreenFaceFlagccw=true;
+				Moves.Add("FCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[6] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
 				PutStuffInParent(GreenFace);
 				GreenFaceFlagcw=true;
+				Moves.Add("FCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[8] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
 				PutStuffInParent(YellowFace);
 				YellowFaceFlagcw=true;
+				Moves.Add("BCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[6] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
 				PutStuffInParent(OrangeFace);
 				OrangeFaceFlagcw=true;
+				Moves.Add("LCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[8] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
 				BlueFaceFlagccw=true;
+				Moves.Add("RCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -432,48 +496,56 @@ public class RubikScene : MonoBehaviour {
 			if(lastClicked.transform.parent.name==GreenFace[0] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
 				BlueFaceFlagccw=true;
+				Moves.Add("RCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			else if(lastClicked.transform.parent.name==GreenFace[2] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(OrangeFace);
 				OrangeFaceFlagcw=true;
+				Moves.Add("LCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[0] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
 				PutStuffInParent(YellowFace);
 				YellowFaceFlagcw=true;
+				Moves.Add("BCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[2] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
 				PutStuffInParent(GreenFace);
 				GreenFaceFlagcw=true;
+				Moves.Add("FCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[0] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
 				PutStuffInParent(GreenFace);
 				GreenFaceFlagccw=true;
+				Moves.Add("FCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[2] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
 				PutStuffInParent(YellowFace);
 				YellowFaceFlagccw=true;
+				Moves.Add("BCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[0] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
 				PutStuffInParent(OrangeFace);
 				OrangeFaceFlagccw=true;
+				Moves.Add("LCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[2] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
 				BlueFaceFlagcw=true;
+				Moves.Add("FCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -484,6 +556,7 @@ public class RubikScene : MonoBehaviour {
 			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // up face clock wise
 				PutStuffInParent(UpperFace);
 				UpFaceFlagcw=true;
+				Moves.Add("UCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -491,6 +564,7 @@ public class RubikScene : MonoBehaviour {
 			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // down face clock wise
 				PutStuffInParent(DownFace);
 				DownFaceFlagccw=true;
+				Moves.Add("DCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -501,6 +575,7 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(UpperFace);
 				UpFaceFlagccw=true;
 				NoOfSteps++;
+				Moves.Add("UCCW");
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			
@@ -509,6 +584,7 @@ public class RubikScene : MonoBehaviour {
 				PutStuffInParent(DownFace);
 				DownFaceFlagcw=true;
 				NoOfSteps++;
+				Moves.Add("DCW");
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
         }
@@ -533,8 +609,6 @@ void Update(){
 			AllInOneUpdateCW(UpperFace);
 			AllInOneUpdateFace(UpperFace);
 			UpFaceFlagcw=false;
-			//lastClicked=null;
-			print(UpperFace[0]+" "+UpperFace[1]+" "+UpperFace[2]+" "+UpperFace[3]+" "+UpperFace[4]+" "+UpperFace[5]+" "+UpperFace[6]+" "+UpperFace[7]);
 		}
 	 } 
 	 if(UpFaceFlagccw){
@@ -548,7 +622,6 @@ void Update(){
 			AllInOneUpdateCCW(UpperFace);
 			AllInOneUpdateFace(UpperFace);
 			UpFaceFlagccw=false;
-			//lastClicked=null;
 		}
 	 }
 	 if(DownFaceFlagcw){
@@ -562,7 +635,6 @@ void Update(){
 			AllInOneUpdateFace(DownFace);
 			DownFaceFlagcw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 } 
 	 if(DownFaceFlagccw){
@@ -576,7 +648,6 @@ void Update(){
 			AllInOneUpdateFace(DownFace);
 			DownFaceFlagccw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	 if(BlueFaceFlagcw){
@@ -590,7 +661,6 @@ void Update(){
 			AllInOneUpdateFace(BlueFace);
 			BlueFaceFlagcw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 } 
 	 if(BlueFaceFlagccw){
@@ -604,7 +674,6 @@ void Update(){
 			AllInOneUpdateFace(BlueFace);
 			BlueFaceFlagccw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	 if(OrangeFaceFlagcw){
@@ -618,7 +687,6 @@ void Update(){
 			AllInOneUpdateFace(OrangeFace);
 			OrangeFaceFlagcw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	 if(OrangeFaceFlagccw){
@@ -632,7 +700,6 @@ void Update(){
 			AllInOneUpdateFace(OrangeFace);
 			OrangeFaceFlagccw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }	
 	 if(GreenFaceFlagcw){
@@ -646,7 +713,6 @@ void Update(){
 			AllInOneUpdateFace(GreenFace);
 			GreenFaceFlagcw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	 if(GreenFaceFlagccw){
@@ -660,7 +726,6 @@ void Update(){
 			AllInOneUpdateFace(GreenFace);
 			GreenFaceFlagccw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	 if(YellowFaceFlagcw){
@@ -674,7 +739,6 @@ void Update(){
 			AllInOneUpdateFace(YellowFace);
 			YellowFaceFlagcw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	 if(YellowFaceFlagccw){
@@ -688,7 +752,6 @@ void Update(){
 			AllInOneUpdateFace(YellowFace);
 			YellowFaceFlagccw=false;
 			totalRotation=0;
-			//lastClicked=null;
 		}
 	 }
 	}

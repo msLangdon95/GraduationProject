@@ -15,7 +15,7 @@ public class solution : MonoBehaviour {
 	float totalRotation=0;
 	int i=0,k; 
 	string solMsgs;
-	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix;
+	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton;
 	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
 	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw,L180,R180,U180,D180,F180,B180,Uagain,Dagain,Lagain,Ragain,Fagain,Bagain;
 	string[]UpperFaceSol={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
@@ -25,6 +25,7 @@ public class solution : MonoBehaviour {
 	string[]OrangeFaceSol={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	string[]YellowFaceSol={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
 	void Start () {
+		nextButton=GameObject.Find("Button");
 		rubix=GameObject.Find("RubiksCube");
 		 blue=GameObject.Find("BLUE");
 		 red=GameObject.Find("RED");
@@ -424,6 +425,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
@@ -432,12 +434,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);
 			UpFaceFlagcw=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(UpFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
@@ -445,6 +449,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);
 			UpFaceFlagccw=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(U180){
@@ -452,6 +457,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(UpperFaceSol);
@@ -467,6 +473,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(UpperFaceSol);
@@ -474,12 +481,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(UpperFaceSol);
 			totalRotation=0;
 			Uagain=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(OrangeFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
@@ -487,12 +496,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(OrangeFaceSol);
 			OrangeFaceFlagcw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(OrangeFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(OrangeFaceSol);
@@ -500,6 +511,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(OrangeFaceSol);
 			OrangeFaceFlagccw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(L180){
@@ -507,6 +519,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
@@ -522,6 +535,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFaceSol);
@@ -529,12 +543,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(OrangeFaceSol);
 			totalRotation=0;
 			Lagain=false;	
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }	
 	 if(BlueFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFaceSol);
@@ -542,12 +558,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(BlueFaceSol);
 			BlueFaceFlagcw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 } 
 	 if(BlueFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFaceSol);
@@ -555,6 +573,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(BlueFaceSol);
 			BlueFaceFlagccw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(R180){
@@ -562,6 +581,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 			}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(BlueFaceSol);
@@ -577,6 +597,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(BlueFaceSol);
@@ -584,12 +605,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(BlueFaceSol);
 			totalRotation=0;
 			Ragain=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(DownFaceFlagcw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFaceSol);
@@ -597,12 +620,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(DownFaceSol);
 			DownFaceFlagcw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 } 
 	 if(DownFaceFlagccw){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFaceSol);
@@ -610,6 +635,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(DownFaceSol);
 			DownFaceFlagccw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	if(D180){
@@ -617,6 +643,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(DownFaceSol);
@@ -632,6 +659,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(DownFaceSol);
@@ -639,6 +667,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(DownFaceSol);
 			totalRotation=0;
 			Dagain=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	}
 		
@@ -646,6 +675,7 @@ public class solution : MonoBehaviour {
 		 if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(GreenFaceSol);
@@ -653,12 +683,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(GreenFaceSol);
 			GreenFaceFlagcw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(GreenFaceFlagccw){
 		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
@@ -666,12 +698,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(GreenFaceSol);
 			GreenFaceFlagccw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 } 
 	 if(YellowFaceFlagcw){
 		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
@@ -679,12 +713,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(YellowFaceSol);
 			YellowFaceFlagcw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(YellowFaceFlagccw){
 		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
@@ -692,6 +728,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(YellowFaceSol);
 			YellowFaceFlagccw=false;
 			totalRotation=0;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(B180){
@@ -699,6 +736,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
@@ -714,6 +752,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFaceSol);
@@ -721,6 +760,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(YellowFaceSol);
 			totalRotation=0;
 			Bagain=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		}
 	 }
 	 if(F180){
@@ -728,6 +768,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
@@ -743,6 +784,7 @@ public class solution : MonoBehaviour {
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+			nextButton.GetComponent<Button>().interactable = false;
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFaceSol);
@@ -750,6 +792,7 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(GreenFaceSol);	
 			totalRotation=0;
 			Fagain=false;
+			nextButton.GetComponent<Button>().interactable = true;
 		 }
 	 }
 	}

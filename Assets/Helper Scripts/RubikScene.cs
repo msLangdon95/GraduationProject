@@ -144,7 +144,6 @@ public class RubikScene : MonoBehaviour {
 		 Center=GameObject.Find("CENTER");
 		 rubix=GameObject.Find("RubiksCube");
      }  
-	
 	void AllInOneUpdateCW(string []x){
 		if(x==DownFace){
 			string[] NewString=new string[8];
@@ -431,7 +430,6 @@ public class RubikScene : MonoBehaviour {
 			secondPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 			currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 			currentSwipe.Normalize();
-
         if( currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
 			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
 				PutStuffInParent(BlueFace);
@@ -591,10 +589,20 @@ public class RubikScene : MonoBehaviour {
 	}
 }
 
-
-	/*bool ifFoundSolution(){
-		
-	}*/
+void SetAllOtherFlagsToFalse(bool x){
+	if(x != GreenFaceFlagcw) GreenFaceFlagcw=false;
+	if(x != GreenFaceFlagccw) GreenFaceFlagccw=false;
+	if(x != BlueFaceFlagcw) BlueFaceFlagcw=false;
+	if(x != BlueFaceFlagccw) BlueFaceFlagccw=false;
+	if(x != OrangeFaceFlagcw) OrangeFaceFlagcw=false;
+	if(x != OrangeFaceFlagccw) OrangeFaceFlagccw=false;
+	if(x != UpFaceFlagcw) UpFaceFlagcw=false;
+	if(x != UpFaceFlagccw) UpFaceFlagccw=false;
+	if(x != DownFaceFlagcw) DownFaceFlagcw=false;
+	if(x != DownFaceFlagccw) DownFaceFlagccw=false;
+	if(x != YellowFaceFlagcw) YellowFaceFlagcw=false;
+	if(x != YellowFaceFlagccw) YellowFaceFlagccw=false;
+}
 void Update(){
 	if(lastClicked==null)
 			return;
@@ -602,6 +610,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
+			SetAllOtherFlagsToFalse(UpFaceFlagcw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
@@ -615,6 +624,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+			SetAllOtherFlagsToFalse(UpFaceFlagccw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			totalRotation=0;
@@ -628,6 +638,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
+			SetAllOtherFlagsToFalse(DownFaceFlagcw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFace);
@@ -641,6 +652,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+			SetAllOtherFlagsToFalse(DownFaceFlagccw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(DownFace);
@@ -654,6 +666,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
+			SetAllOtherFlagsToFalse(BlueFaceFlagcw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFace);
@@ -667,6 +680,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+			SetAllOtherFlagsToFalse(BlueFaceFlagccw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(BlueFace);
@@ -680,6 +694,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
+			SetAllOtherFlagsToFalse(OrangeFaceFlagcw);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(OrangeFace);
@@ -693,6 +708,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+			SetAllOtherFlagsToFalse(OrangeFaceFlagccw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(OrangeFace);
@@ -706,6 +722,7 @@ void Update(){
 		 if(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
 			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
+			SetAllOtherFlagsToFalse(GreenFaceFlagcw);
 		}
 		if(Mathf.Abs(totalRotation)>=90f){
 			PutStuffInRubix(GreenFace);
@@ -719,6 +736,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+			SetAllOtherFlagsToFalse(GreenFaceFlagccw);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(GreenFace);
@@ -732,6 +750,7 @@ void Update(){
 		 if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
+			SetAllOtherFlagsToFalse(YellowFaceFlagcw);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFace);
@@ -745,6 +764,7 @@ void Update(){
 		if(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
 			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+			SetAllOtherFlagsToFalse(YellowFaceFlagccw);
 		}
 		if(Mathf.Abs(totalRotation)>=90){
 			PutStuffInRubix(YellowFace);
@@ -756,3 +776,5 @@ void Update(){
 	 }
 	}
 }
+
+

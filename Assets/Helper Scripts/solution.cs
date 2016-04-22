@@ -23,6 +23,7 @@ public class solution : MonoBehaviour {
 	string[]BlueFaceSol={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
 	string[]OrangeFaceSol={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	string[]YellowFaceSol={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
+	bool inFirst=false;
 	void Start () {
 		nextButton=GameObject.Find("NextStepButton");
 		Moves=GameObject.Find("Moves");
@@ -315,6 +316,8 @@ public class solution : MonoBehaviour {
 	}	
 	
 	IEnumerator RotateUpperFacecw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(UpperFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -327,8 +330,12 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);
 		}
+		 inFirst = false;
+		 nextButton.GetComponent<Button>().interactable = true;
 	 }	 
 	 IEnumerator RotateUpperFaceccw(){
+		  inFirst = true;
+		  nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(UpperFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -341,9 +348,13 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCCW(UpperFaceSol);
 			AllInOneUpdateFace(UpperFaceSol);
 		}
+		 inFirst = false;
+		 nextButton.GetComponent<Button>().interactable = true;
 	 }
 	
 	IEnumerator RotateDownFacecw(){
+		inFirst = true;
+		nextButton.GetComponent<Button>().interactable = false;
 		PutStuffInParent(DownFaceSol);
 		while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -355,9 +366,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCW(DownFaceSol);
 			AllInOneUpdateFace(DownFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateDownFaceccw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(DownFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -369,10 +385,15 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCCW(DownFaceSol);
 			AllInOneUpdateFace(DownFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	
 	IEnumerator RotateLeftFacecw(){
+		inFirst = true;
+		nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(OrangeFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -384,9 +405,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCW(OrangeFaceSol);
 			AllInOneUpdateFace(OrangeFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateLeftFaceccw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(OrangeFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -398,9 +424,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCCW(OrangeFaceSol);
 			AllInOneUpdateFace(OrangeFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	IEnumerator RotateRightFacecw(){
+		inFirst = true;
+		nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(BlueFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -412,9 +443,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCW(BlueFaceSol);
 			AllInOneUpdateFace(BlueFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateRightFaceccw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(BlueFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -426,9 +462,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCCW(BlueFaceSol);
 			AllInOneUpdateFace(BlueFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateFrontFacecw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(GreenFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -441,8 +482,12 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(GreenFaceSol);
 			totalRotation=0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateFrontFaceccw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(GreenFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -455,8 +500,12 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(GreenFaceSol);
 			totalRotation=0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateBackFacecw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		  PutStuffInParent(YellowFaceSol);
 		   while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -468,9 +517,14 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCW(YellowFaceSol);
 			AllInOneUpdateFace(YellowFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateBackFaceccw(){
+		 inFirst = true;
+		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(YellowFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -482,93 +536,142 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateCCW(YellowFaceSol);
 			AllInOneUpdateFace(YellowFaceSol);
 			totalRotation=0;
+			yield return 0;
 		}
+		inFirst = false;
+		nextButton.GetComponent<Button>().interactable = true;
 	 }
-	
-	public void nextStep() {
-		if(NextStepCounter<output.Count){
+	IEnumerator nextStep(int index) {
+		if(index<output.Count){
 			nextButton.GetComponentInChildren<Text>().text="Next Step";
-		if (output[NextStepCounter]=="UCW"){
+		if (output[index]=="UCW"){
 				solMsgs="Rotate upper face clock wise";
 				StartCoroutine(RotateUpperFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="UCCW"){
+			if (output[index]=="UCCW"){
 				solMsgs="Rotate upper face counter clock wise";
 				StartCoroutine(RotateUpperFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="U180"){
+			if (output[index]=="U180"){
 				solMsgs="Rotate upper face 180 degree";
-				//StartCoroutine(RotateUpperFacecw());
-				//StartCoroutine(RotateUpperFacecw());
+				StartCoroutine(RotateUpperFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
+				StartCoroutine(RotateUpperFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="BCW"){
+			if (output[index]=="BCW"){
 				solMsgs="Rotate back face clock wise";
 				StartCoroutine(RotateBackFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="BCCW"){
+			if (output[index]=="BCCW"){
 				solMsgs="Rotate back face counter clock wise";
 				StartCoroutine(RotateBackFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="B180"){
+			if (output[index]=="B180"){
 				solMsgs="Rotate back face 180 degree";
-				//StartCoroutine(RotateBackFacecw());
-				//StartCoroutine(RotateBackFacecw());
+				StartCoroutine(RotateBackFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
+				StartCoroutine(RotateBackFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="FCW"){
+			if (output[index]=="FCW"){
 				solMsgs="Rotate front face clock wise";
 				StartCoroutine(RotateFrontFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="FCCW"){
+			if (output[index]=="FCCW"){
 				solMsgs="Rotate front face counter  clock wise";
 				StartCoroutine(RotateFrontFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="F180"){
+			if (output[index]=="F180"){
 				solMsgs="Rotate front face 180 degree";
-				//StartCoroutine(RotateFrontFacecw());
-				//StartCoroutine(RotateFrontFacecw());
+				StartCoroutine(RotateFrontFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
+				StartCoroutine(RotateFrontFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="RCW"){
+			if (output[index]=="RCW"){
 				solMsgs="Rotate right face clock wise";
 				StartCoroutine(RotateRightFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="RCCW"){
+			if (output[index]=="RCCW"){
 				solMsgs="Rotate right face counter clock wise";
 				StartCoroutine(RotateRightFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="R180"){
+			if (output[index]=="R180"){
 				solMsgs="Rotate right face counter 180 degree";
-			//	StartCoroutine(RotateRightFacecw());
-			//	StartCoroutine(RotateRightFacecw());
+				StartCoroutine(RotateRightFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
+				StartCoroutine(RotateRightFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="LCW"){
+			if (output[index]=="LCW"){
 				solMsgs="Rotate left face clock wise";
 				StartCoroutine(RotateLeftFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="LCCW"){
+			if (output[index]=="LCCW"){
 				solMsgs="Rotate left face counter clock wise";
 				StartCoroutine(RotateLeftFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="L180"){
+			if (output[index]=="L180"){
 				solMsgs="Rotate left face 180 degree";
-				//StartCoroutine(RotateLeftFacecw());
-				//StartCoroutine(RotateLeftFacecw());
+				StartCoroutine(RotateLeftFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
+				StartCoroutine(RotateLeftFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="DCW"){
+			if (output[index]=="DCW"){
 				solMsgs="Rotate down face clock wise";
 				StartCoroutine(RotateDownFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="DCCW"){
+			if (output[index]=="DCCW"){
 				solMsgs="Rotate down face counter clock wise";
 				StartCoroutine(RotateDownFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
-			if (output[NextStepCounter]=="D180"){
+			if (output[index]=="D180"){
 				solMsgs="Rotate down face 180 degree";
-				//StartCoroutine(RotateDownFacecw());
-				//StartCoroutine(RotateDownFacecw());
+				StartCoroutine(RotateDownFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
+				StartCoroutine(RotateDownFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			}
 		
 		myMSG.GetComponent<Text> ().text = solMsgs;
-		NextStepCounter++;
 		}
 		else{
 			EndOfSolution.SetActive (true);
@@ -576,6 +679,10 @@ public class solution : MonoBehaviour {
 			nextButton.GetComponentInChildren<Text>().text="Show Steps";
 			nextButton.GetComponent<Button>().interactable = false;
 		}
+	}
+	
+	public void beb(){
+		StartCoroutine(nextStep(NextStepCounter++));
 	}
 	public void hideMessage(){
 		EndOfSolution.SetActive(false);

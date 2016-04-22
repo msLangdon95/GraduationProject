@@ -305,6 +305,7 @@ public class OptimalSolution : MonoBehaviour {
 			{
 				if (!String.IsNullOrEmpty(e.Data)){
 					StepsOfSolution++;
+					print(e.Data);
 					solution.output.Add(e.Data);
 				}
 			});

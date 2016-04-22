@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
 	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps;
-	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
-	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw;
 	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ,YellowFaceZ;
 	Ray ray;
 	RaycastHit rayHit;
@@ -42,55 +40,213 @@ public class RubikScene : MonoBehaviour {
 		 else
 			 return Globals.Orange;
 	 }
+	 
+	 IEnumerator RotateUpperFacecw(){
+		 PutStuffInParent(UpperFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			totalRotation=0;
+			PutStuffInRubix(UpperFace);
+			AllInOneUpdateCW(UpperFace);
+			AllInOneUpdateFace(UpperFace);
+		}
+	 }	 
+	 IEnumerator RotateUpperFaceccw(){
+		 PutStuffInParent(UpperFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			totalRotation=0;
+			PutStuffInRubix(UpperFace);
+			AllInOneUpdateCCW(UpperFace);
+			AllInOneUpdateFace(UpperFace);
+		}
+	 }
+	 IEnumerator RotateDownFacecw(){
+		PutStuffInParent(DownFace);
+		while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(DownFace);
+			AllInOneUpdateCW(DownFace);
+			AllInOneUpdateFace(DownFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateDownFaceccw(){
+		 PutStuffInParent(DownFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(DownFace);
+			AllInOneUpdateCCW(DownFace);
+			AllInOneUpdateFace(DownFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateLeftFacecw(){
+		 PutStuffInParent(OrangeFace);
+		 while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(OrangeFace);
+			AllInOneUpdateCW(OrangeFace);
+			AllInOneUpdateFace(OrangeFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateLeftFaceccw(){
+		 PutStuffInParent(OrangeFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(OrangeFace);
+			AllInOneUpdateCCW(OrangeFace);
+			AllInOneUpdateFace(OrangeFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateRightFacecw(){
+		 PutStuffInParent(BlueFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(BlueFace);
+			AllInOneUpdateCW(BlueFace);
+			AllInOneUpdateFace(BlueFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateRightFaceccw(){
+		 PutStuffInParent(BlueFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(BlueFace);
+			AllInOneUpdateCCW(BlueFace);
+			AllInOneUpdateFace(BlueFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateFrontFacecw(){
+		 PutStuffInParent(GreenFace);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(GreenFace);
+			AllInOneUpdateCW(GreenFace);
+			AllInOneUpdateFace(GreenFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateFrontFaceccw(){
+		 PutStuffInParent(GreenFace);
+		 while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(GreenFace);
+			AllInOneUpdateCCW(GreenFace);
+			AllInOneUpdateFace(GreenFace);
+			totalRotation=0;
+		}
+	 }
+	  IEnumerator RotateBackFacecw(){
+		  PutStuffInParent(YellowFace);
+		   while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFace);
+			AllInOneUpdateCW(YellowFace);
+			AllInOneUpdateFace(YellowFace);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateBackFaceccw(){
+		 PutStuffInParent(YellowFace);
+		 while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFace);
+			AllInOneUpdateCCW(YellowFace);
+			AllInOneUpdateFace(YellowFace);
+			totalRotation=0;
+		}
+	 }
+	 
 	 public void Undo(){
 		 if(Moves.Count>0){
 			 if(Moves[Moves.Count-1] == "UCW"){
-				 PutStuffInParent(UpperFace);
-				 UpFaceFlagccw=true;
+				StartCoroutine(RotateUpperFaceccw());
 			 }
 			 else if(Moves[Moves.Count-1] =="UCCW"){
-				 PutStuffInParent(UpperFace);
-				 UpFaceFlagcw=true;
+				 StartCoroutine(RotateUpperFacecw());
 			 }
 			 else if(Moves[Moves.Count-1] =="DCW"){
-				 PutStuffInParent(DownFace);
-				 DownFaceFlagccw=true;
+				 StartCoroutine(RotateDownFaceccw());
 			 }
 			 else if(Moves[Moves.Count-1] =="DCCW"){
-				 PutStuffInParent(DownFace);
-				 DownFaceFlagcw=true;
+				  StartCoroutine(RotateDownFacecw());
 			 }
 			 else if(Moves[Moves.Count-1] =="RCW"){
-				 PutStuffInParent(BlueFace);
-				 BlueFaceFlagccw=true;
+				 StartCoroutine(RotateRightFaceccw());
 			 }
 			 else if(Moves[Moves.Count-1] =="RCCW"){
-				 PutStuffInParent(BlueFace);
-				 BlueFaceFlagcw=true;
+				 StartCoroutine(RotateRightFacecw());
 			 }
 			 else if(Moves[Moves.Count-1] =="LCW"){
-				 PutStuffInParent(OrangeFace);
-				 OrangeFaceFlagccw=true;
+				StartCoroutine(RotateLeftFaceccw());
 			 }
 			 else if(Moves[Moves.Count-1] =="LCCW"){
-				 PutStuffInParent(OrangeFace);
-				 OrangeFaceFlagcw=true;
+				 StartCoroutine(RotateLeftFacecw());
 			 }
 			 else if(Moves[Moves.Count-1] =="BCW"){
-				 PutStuffInParent(YellowFace);
-				 YellowFaceFlagccw=true;
+				StartCoroutine(RotateBackFaceccw());
 			 }
 			 else if(Moves[Moves.Count-1] =="BCCW"){
-				 PutStuffInParent(YellowFace);
-				 YellowFaceFlagcw=true;
+				StartCoroutine(RotateBackFacecw());
 			 }
 			 else if(Moves[Moves.Count-1] =="FCW"){
-				 PutStuffInParent(GreenFace);
-				 GreenFaceFlagccw=true;
+				 StartCoroutine(RotateFrontFaceccw());
 			 }
 			 else if(Moves[Moves.Count-1] =="FCCW"){
-				 PutStuffInParent(GreenFace);
-				 GreenFaceFlagcw=true;
+				 StartCoroutine(RotateFrontFacecw());
 			 }
 			 Moves.RemoveAt(Moves.Count-1);
 			 NoOfSteps--;
@@ -103,8 +259,6 @@ public class RubikScene : MonoBehaviour {
 		 OrangeFaceZ=GameObject.Find("Line128");
 		 YellowFaceZ=GameObject.Find("Line086");
 		 steps=GameObject.Find("steps");
-		 GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
-		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=false;
 		 i=0;
 		 if(Globals.RandomGeneratedFlag){
 			 if(RandomGeneration.RandomGeneratedColors.Count()==48){
@@ -432,58 +586,50 @@ public class RubikScene : MonoBehaviour {
 			currentSwipe.Normalize();
         if( currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
 			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				PutStuffInParent(BlueFace);
 				Moves.Add("RCW");
-				BlueFaceFlagcw=true;
+				StartCoroutine(RotateRightFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==GreenFace[8] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				PutStuffInParent(OrangeFace);
 				Moves.Add("LCCW");
-				OrangeFaceFlagccw=true;
+				StartCoroutine(RotateLeftFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[6] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				PutStuffInParent(YellowFace);
-				YellowFaceFlagccw=true;
 				Moves.Add("BCCW");
+				StartCoroutine(RotateBackFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[8] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				PutStuffInParent(GreenFace);
-				GreenFaceFlagccw=true;
 				Moves.Add("FCCW");
+				StartCoroutine(RotateFrontFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[6] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				PutStuffInParent(GreenFace);
-				GreenFaceFlagcw=true;
 				Moves.Add("FCW");
+				StartCoroutine(RotateFrontFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[8] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				PutStuffInParent(YellowFace);
-				YellowFaceFlagcw=true;
 				Moves.Add("BCW");
+				StartCoroutine(RotateBackFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[6] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				PutStuffInParent(OrangeFace);
-				OrangeFaceFlagcw=true;
 				Moves.Add("LCW");
+				StartCoroutine(RotateLeftFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[8] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				PutStuffInParent(BlueFace);
-				BlueFaceFlagccw=true;
 				Moves.Add("RCCW");
+				StartCoroutine(RotateRightFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -492,58 +638,50 @@ public class RubikScene : MonoBehaviour {
         }
         if(currentSwipe.y < 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//DownSwipe
 			if(lastClicked.transform.parent.name==GreenFace[0] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				PutStuffInParent(BlueFace);
-				BlueFaceFlagccw=true;
 				Moves.Add("RCCW");
+				StartCoroutine(RotateRightFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			else if(lastClicked.transform.parent.name==GreenFace[2] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				PutStuffInParent(OrangeFace);
-				OrangeFaceFlagcw=true;
 				Moves.Add("LCW");
+				StartCoroutine(RotateLeftFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[0] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				PutStuffInParent(YellowFace);
-				YellowFaceFlagcw=true;
 				Moves.Add("BCW");
+				StartCoroutine(RotateBackFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[2] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				PutStuffInParent(GreenFace);
-				GreenFaceFlagcw=true;
 				Moves.Add("FCW");
+				StartCoroutine(RotateFrontFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[0] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				PutStuffInParent(GreenFace);
-				GreenFaceFlagccw=true;
 				Moves.Add("FCCW");
+				StartCoroutine(RotateFrontFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[2] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				PutStuffInParent(YellowFace);
-				YellowFaceFlagccw=true;
 				Moves.Add("BCCW");
+				StartCoroutine(RotateBackFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[0] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				PutStuffInParent(OrangeFace);
-				OrangeFaceFlagccw=true;
 				Moves.Add("LCCW");
+				StartCoroutine(RotateLeftFaceccw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[2] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				PutStuffInParent(BlueFace);
-				BlueFaceFlagcw=true;
 				Moves.Add("FCW");
+				StartCoroutine(RotateFrontFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -552,16 +690,14 @@ public class RubikScene : MonoBehaviour {
         if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //leftSwipe
 			if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
 			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // up face clock wise
-				PutStuffInParent(UpperFace);
-				UpFaceFlagcw=true;
 				Moves.Add("UCW");
+				StartCoroutine(RotateUpperFacecw());
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
 			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // down face clock wise
-				PutStuffInParent(DownFace);
-				DownFaceFlagccw=true;
+				StartCoroutine(RotateDownFaceccw());
 				Moves.Add("DCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
@@ -570,8 +706,7 @@ public class RubikScene : MonoBehaviour {
         if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //rightSwipe
 			 if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
 			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // up face counter clock wise
-				PutStuffInParent(UpperFace);
-				UpFaceFlagccw=true;
+				StartCoroutine(RotateUpperFaceccw());
 				NoOfSteps++;
 				Moves.Add("UCCW");
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
@@ -579,8 +714,7 @@ public class RubikScene : MonoBehaviour {
 			
 			if(Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
 			&& Mathf.Abs(((int)Center.transform.position.y-(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // down face counter clock wise
-				PutStuffInParent(DownFace);
-				DownFaceFlagcw=true;
+				StartCoroutine(RotateDownFacecw());
 				NoOfSteps++;
 				Moves.Add("DCW");
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
@@ -589,192 +723,7 @@ public class RubikScene : MonoBehaviour {
 	}
 }
 
-	void SetAllOtherFlagsToFalse(bool x){
-	if(x != GreenFaceFlagcw) GreenFaceFlagcw=false;
-	if(x != GreenFaceFlagccw) GreenFaceFlagccw=false;
-	if(x != BlueFaceFlagcw) BlueFaceFlagcw=false;
-	if(x != BlueFaceFlagccw) BlueFaceFlagccw=false;
-	if(x != OrangeFaceFlagcw) OrangeFaceFlagcw=false;
-	if(x != OrangeFaceFlagccw) OrangeFaceFlagccw=false;
-	if(x != UpFaceFlagcw) UpFaceFlagcw=false;
-	if(x != UpFaceFlagccw) UpFaceFlagccw=false;
-	if(x != DownFaceFlagcw) DownFaceFlagcw=false;
-	if(x != DownFaceFlagccw) DownFaceFlagccw=false;
-	if(x != YellowFaceFlagcw) YellowFaceFlagcw=false;
-	if(x != YellowFaceFlagccw) YellowFaceFlagccw=false;
-}
-	void Update(){
-	if(lastClicked==null)
-			return;
-	if(UpFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
-			SetAllOtherFlagsToFalse(UpFaceFlagcw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(UpperFace);
-			AllInOneUpdateCW(UpperFace);
-			AllInOneUpdateFace(UpperFace);
-			UpFaceFlagcw=false;
-		}
-	 } 
-	 if(UpFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
-			SetAllOtherFlagsToFalse(UpFaceFlagccw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(UpperFace);
-			AllInOneUpdateCCW(UpperFace);
-			AllInOneUpdateFace(UpperFace);
-			UpFaceFlagccw=false;
-		}
-	 }
-	 if(DownFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
-			SetAllOtherFlagsToFalse(DownFaceFlagcw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(DownFace);
-			AllInOneUpdateCW(DownFace);
-			AllInOneUpdateFace(DownFace);
-			DownFaceFlagcw=false;
-			totalRotation=0;
-		}
-	 } 
-	 if(DownFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
-			SetAllOtherFlagsToFalse(DownFaceFlagccw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(DownFace);
-			AllInOneUpdateCCW(DownFace);
-			AllInOneUpdateFace(DownFace);
-			DownFaceFlagccw=false;
-			totalRotation=0;
-		}
-	 }
-	 if(BlueFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
-			SetAllOtherFlagsToFalse(BlueFaceFlagcw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(BlueFace);
-			AllInOneUpdateCW(BlueFace);
-			AllInOneUpdateFace(BlueFace);
-			BlueFaceFlagcw=false;
-			totalRotation=0;
-		}
-	 } 
-	 if(BlueFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
-			SetAllOtherFlagsToFalse(BlueFaceFlagccw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(BlueFace);
-			AllInOneUpdateCCW(BlueFace);
-			AllInOneUpdateFace(BlueFace);
-			BlueFaceFlagccw=false;
-			totalRotation=0;
-		}
-	 }
-	 if(OrangeFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
-			SetAllOtherFlagsToFalse(OrangeFaceFlagcw);
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(OrangeFace);
-			AllInOneUpdateCW(OrangeFace);
-			AllInOneUpdateFace(OrangeFace);
-			OrangeFaceFlagcw=false;
-			totalRotation=0;
-		}
-	 }
-	 if(OrangeFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
-			SetAllOtherFlagsToFalse(OrangeFaceFlagccw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(OrangeFace);
-			AllInOneUpdateCCW(OrangeFace);
-			AllInOneUpdateFace(OrangeFace);
-			OrangeFaceFlagccw=false;
-			totalRotation=0;
-		}
-	 }	
-	 if(GreenFaceFlagcw){
-		 if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
-			SetAllOtherFlagsToFalse(GreenFaceFlagcw);
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(GreenFace);
-			AllInOneUpdateCW(GreenFace);
-			AllInOneUpdateFace(GreenFace);
-			GreenFaceFlagcw=false;
-			totalRotation=0;
-		}
-	 }
-	 if(GreenFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
-			SetAllOtherFlagsToFalse(GreenFaceFlagccw);
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(GreenFace);
-			AllInOneUpdateCCW(GreenFace);
-			AllInOneUpdateFace(GreenFace);
-			GreenFaceFlagccw=false;
-			totalRotation=0;
-		}
-	 }
-	 if(YellowFaceFlagcw){
-		 if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
-			SetAllOtherFlagsToFalse(YellowFaceFlagcw);
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(YellowFace);
-			AllInOneUpdateCW(YellowFace);
-			AllInOneUpdateFace(YellowFace);
-			YellowFaceFlagcw=false;
-			totalRotation=0;
-		}
-	 }
-	 if(YellowFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
-			SetAllOtherFlagsToFalse(YellowFaceFlagccw);
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(YellowFace);
-			AllInOneUpdateCCW(YellowFace);
-			AllInOneUpdateFace(YellowFace);
-			YellowFaceFlagccw=false;
-			totalRotation=0;
-		}
-	 }
-	}
+
 }
 
 

@@ -17,8 +17,6 @@ public class solution : MonoBehaviour {
 	int i,k,NextStepCounter=0; 
 	string solMsgs;
 	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton,Moves;
-	bool GreenFaceFlagcw,GreenFaceFlagccw,BlueFaceFlagcw,BlueFaceFlagccw,OrangeFaceFlagcw,OrangeFaceFlagccw,UpFaceFlagcw,
-	UpFaceFlagccw,DownFaceFlagcw,DownFaceFlagccw,YellowFaceFlagcw,YellowFaceFlagccw,L180,R180,U180,D180,F180,B180,Uagain,Dagain,Lagain,Ragain,Fagain,Bagain;
 	string[]UpperFaceSol={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	string[]DownFaceSol={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
 	string[]GreenFaceSol={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
@@ -35,8 +33,6 @@ public class solution : MonoBehaviour {
 		 white=GameObject.Find("WHITE");
 		 yellow=GameObject.Find("YELLOW");
 		 green=GameObject.Find("GREEN");
-		GreenFaceFlagcw=GreenFaceFlagccw=BlueFaceFlagcw=BlueFaceFlagccw=OrangeFaceFlagcw=OrangeFaceFlagccw=UpFaceFlagcw=
-		 UpFaceFlagccw=DownFaceFlagcw=DownFaceFlagccw=YellowFaceFlagcw=YellowFaceFlagccw=L180=R180=F180=B180=U180=D180=Uagain=Dagain=Lagain=Ragain=Fagain=Bagain=false;
 		Parent=GameObject.Find("Parent");
 		//Color it
 		for(int i=0;i<48;i++){
@@ -317,92 +313,258 @@ public class solution : MonoBehaviour {
 		OrangeFaceSol[8]=YellowFaceSol[6];
 		}
 	}	
+	
+	IEnumerator RotateUpperFacecw(){
+		 PutStuffInParent(UpperFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			totalRotation=0;
+			PutStuffInRubix(UpperFaceSol);
+			AllInOneUpdateCW(UpperFaceSol);
+			AllInOneUpdateFace(UpperFaceSol);
+		}
+	 }	 
+	 IEnumerator RotateUpperFaceccw(){
+		 PutStuffInParent(UpperFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			totalRotation=0;
+			PutStuffInRubix(UpperFaceSol);
+			AllInOneUpdateCCW(UpperFaceSol);
+			AllInOneUpdateFace(UpperFaceSol);
+		}
+	 }
+	
+	IEnumerator RotateDownFacecw(){
+		PutStuffInParent(DownFaceSol);
+		while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(DownFaceSol);
+			AllInOneUpdateCW(DownFaceSol);
+			AllInOneUpdateFace(DownFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateDownFaceccw(){
+		 PutStuffInParent(DownFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(DownFaceSol);
+			AllInOneUpdateCCW(DownFaceSol);
+			AllInOneUpdateFace(DownFaceSol);
+			totalRotation=0;
+		}
+	 }
+	
+	IEnumerator RotateLeftFacecw(){
+		 PutStuffInParent(OrangeFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(OrangeFaceSol);
+			AllInOneUpdateCW(OrangeFaceSol);
+			AllInOneUpdateFace(OrangeFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateLeftFaceccw(){
+		 PutStuffInParent(OrangeFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(OrangeFaceSol);
+			AllInOneUpdateCCW(OrangeFaceSol);
+			AllInOneUpdateFace(OrangeFaceSol);
+			totalRotation=0;
+		}
+	 }
+	IEnumerator RotateRightFacecw(){
+		 PutStuffInParent(BlueFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(BlueFaceSol);
+			AllInOneUpdateCW(BlueFaceSol);
+			AllInOneUpdateFace(BlueFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateRightFaceccw(){
+		 PutStuffInParent(BlueFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(BlueFaceSol);
+			AllInOneUpdateCCW(BlueFaceSol);
+			AllInOneUpdateFace(BlueFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateFrontFacecw(){
+		 PutStuffInParent(GreenFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90f){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90f){
+			PutStuffInRubix(GreenFaceSol);
+			AllInOneUpdateCW(GreenFaceSol);
+			AllInOneUpdateFace(GreenFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateFrontFaceccw(){
+		 PutStuffInParent(GreenFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(GreenFaceSol);
+			AllInOneUpdateCCW(GreenFaceSol);
+			AllInOneUpdateFace(GreenFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateBackFacecw(){
+		  PutStuffInParent(YellowFaceSol);
+		   while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFaceSol);
+			AllInOneUpdateCW(YellowFaceSol);
+			AllInOneUpdateFace(YellowFaceSol);
+			totalRotation=0;
+		}
+	 }
+	 IEnumerator RotateBackFaceccw(){
+		 PutStuffInParent(YellowFaceSol);
+		 while(Mathf.Abs(totalRotation) < 90){
+			totalRotation += 10;
+			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
+			yield return 0;
+		}
+		if(Mathf.Abs(totalRotation)>=90){
+			PutStuffInRubix(YellowFaceSol);
+			AllInOneUpdateCCW(YellowFaceSol);
+			AllInOneUpdateFace(YellowFaceSol);
+			totalRotation=0;
+		}
+	 }
+	
 	public void nextStep() {
 		if(NextStepCounter<output.Count){
 			nextButton.GetComponentInChildren<Text>().text="Next Step";
 		if (output[NextStepCounter]=="UCW"){
 				solMsgs="Rotate upper face clock wise";
-				PutStuffInParent(UpperFaceSol);
-				UpFaceFlagcw=true;
+				StartCoroutine(RotateUpperFacecw());
 			}
 			if (output[NextStepCounter]=="UCCW"){
 				solMsgs="Rotate upper face counter clock wise";
-				PutStuffInParent(UpperFaceSol);
-				UpFaceFlagccw=true;
+				StartCoroutine(RotateUpperFaceccw());
 			}
 			if (output[NextStepCounter]=="U180"){
 				solMsgs="Rotate upper face 180 degree";
-				U180=true;
+				//StartCoroutine(RotateUpperFacecw());
+				//StartCoroutine(RotateUpperFacecw());
 			}
 			if (output[NextStepCounter]=="BCW"){
 				solMsgs="Rotate back face clock wise";
-				YellowFaceFlagcw=true;
-				PutStuffInParent(YellowFaceSol);
+				StartCoroutine(RotateBackFacecw());
 			}
 			if (output[NextStepCounter]=="BCCW"){
 				solMsgs="Rotate back face counter clock wise";
-				YellowFaceFlagccw=true;
-				PutStuffInParent(YellowFaceSol);
+				StartCoroutine(RotateBackFaceccw());
 			}
 			if (output[NextStepCounter]=="B180"){
 				solMsgs="Rotate back face 180 degree";
-				B180=true;
+				//StartCoroutine(RotateBackFacecw());
+				//StartCoroutine(RotateBackFacecw());
 			}
 			if (output[NextStepCounter]=="FCW"){
 				solMsgs="Rotate front face clock wise";
-				GreenFaceFlagcw=true;
-				PutStuffInParent(GreenFaceSol);
+				StartCoroutine(RotateFrontFacecw());
 			}
 			if (output[NextStepCounter]=="FCCW"){
 				solMsgs="Rotate front face counter  clock wise";
-				GreenFaceFlagccw=true;
-				PutStuffInParent(GreenFaceSol);
+				StartCoroutine(RotateFrontFaceccw());
 			}
 			if (output[NextStepCounter]=="F180"){
 				solMsgs="Rotate front face 180 degree";
-				F180=true;
+				//StartCoroutine(RotateFrontFacecw());
+				//StartCoroutine(RotateFrontFacecw());
 			}
 			if (output[NextStepCounter]=="RCW"){
 				solMsgs="Rotate right face clock wise";
-				PutStuffInParent(BlueFaceSol);
-				BlueFaceFlagcw=true;
+				StartCoroutine(RotateRightFacecw());
 			}
 			if (output[NextStepCounter]=="RCCW"){
 				solMsgs="Rotate right face counter clock wise";
-				PutStuffInParent(BlueFaceSol);
-				BlueFaceFlagccw=true;
+				StartCoroutine(RotateRightFaceccw());
 			}
 			if (output[NextStepCounter]=="R180"){
 				solMsgs="Rotate right face counter 180 degree";
-				R180=true;
+			//	StartCoroutine(RotateRightFacecw());
+			//	StartCoroutine(RotateRightFacecw());
 			}
 			if (output[NextStepCounter]=="LCW"){
 				solMsgs="Rotate left face clock wise";
-				PutStuffInParent(OrangeFaceSol);
-				OrangeFaceFlagcw=true;
+				StartCoroutine(RotateLeftFacecw());
 			}
 			if (output[NextStepCounter]=="LCCW"){
 				solMsgs="Rotate left face counter clock wise";
-				PutStuffInParent(OrangeFaceSol);
-				OrangeFaceFlagccw=true;
+				StartCoroutine(RotateLeftFaceccw());
 			}
 			if (output[NextStepCounter]=="L180"){
 				solMsgs="Rotate left face 180 degree";
-				L180=true;
+				//StartCoroutine(RotateLeftFacecw());
+				//StartCoroutine(RotateLeftFacecw());
 			}
 			if (output[NextStepCounter]=="DCW"){
 				solMsgs="Rotate down face clock wise";
-				PutStuffInParent(DownFaceSol);
-				DownFaceFlagcw=true;
+				StartCoroutine(RotateDownFacecw());
 			}
 			if (output[NextStepCounter]=="DCCW"){
 				solMsgs="Rotate down face counter clock wise";
-				PutStuffInParent(DownFaceSol);
-				DownFaceFlagccw=true;
+				StartCoroutine(RotateDownFaceccw());
 			}
 			if (output[NextStepCounter]=="D180"){
 				solMsgs="Rotate down face 180 degree";
-				D180=true;
+				//StartCoroutine(RotateDownFacecw());
+				//StartCoroutine(RotateDownFacecw());
 			}
 		
 		myMSG.GetComponent<Text> ().text = solMsgs;
@@ -512,379 +674,5 @@ public class solution : MonoBehaviour {
 		}
 		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;*/
 	}
-	void Update(){
-	if(UpFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(red.transform.position,Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(UpperFaceSol);
-			AllInOneUpdateCW(UpperFaceSol);
-			AllInOneUpdateFace(UpperFaceSol);
-			UpFaceFlagcw=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(UpFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			totalRotation=0;
-			PutStuffInRubix(UpperFaceSol);
-			AllInOneUpdateCCW(UpperFaceSol);
-			AllInOneUpdateFace(UpperFaceSol);
-			UpFaceFlagccw=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(U180){
-		PutStuffInParent(UpperFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(UpperFaceSol);
-			AllInOneUpdateCCW(UpperFaceSol);
-			AllInOneUpdateFace(UpperFaceSol);
-			totalRotation=0;
-			U180=false;
-			Uagain=true;
-		}
-	 }
-	 if(Uagain){
-		 PutStuffInParent(UpperFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(red.transform.position,-1*Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(UpperFaceSol);
-			AllInOneUpdateCCW(UpperFaceSol);
-			AllInOneUpdateFace(UpperFaceSol);
-			totalRotation=0;
-			Uagain=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(OrangeFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,-1*Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(OrangeFaceSol);
-			AllInOneUpdateCW(OrangeFaceSol);
-			AllInOneUpdateFace(OrangeFaceSol);
-			OrangeFaceFlagcw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(OrangeFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(OrangeFaceSol);
-			AllInOneUpdateCCW(OrangeFaceSol);
-			AllInOneUpdateFace(OrangeFaceSol);
-			OrangeFaceFlagccw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(L180){
-		PutStuffInParent(OrangeFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(OrangeFaceSol);
-			AllInOneUpdateCCW(OrangeFaceSol);
-			AllInOneUpdateFace(OrangeFaceSol);
-			totalRotation=0;
-			L180=false;
-			Lagain=true;
-			}
-	 }
-	 if(Lagain){
-		 PutStuffInParent(OrangeFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(orange.transform.position,Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(OrangeFaceSol);
-			AllInOneUpdateCCW(OrangeFaceSol);
-			AllInOneUpdateFace(OrangeFaceSol);
-			totalRotation=0;
-			Lagain=false;	
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }	
-	 if(BlueFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(BlueFaceSol);
-			AllInOneUpdateCW(BlueFaceSol);
-			AllInOneUpdateFace(BlueFaceSol);
-			BlueFaceFlagcw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 } 
-	 if(BlueFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(BlueFaceSol);
-			AllInOneUpdateCCW(BlueFaceSol);
-			AllInOneUpdateFace(BlueFaceSol);
-			BlueFaceFlagccw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(R180){
-		PutStuffInParent(BlueFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-			}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(BlueFaceSol);
-			AllInOneUpdateCCW(BlueFaceSol);
-			AllInOneUpdateFace(BlueFaceSol);
-			totalRotation=0;
-			R180=false;
-			Ragain=true;
-		}
-	 }
-	 if(Ragain){
-		PutStuffInParent(BlueFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(blue.transform.position,-1*Vector3.right,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(BlueFaceSol);
-			AllInOneUpdateCCW(BlueFaceSol);
-			AllInOneUpdateFace(BlueFaceSol);
-			totalRotation=0;
-			Ragain=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(DownFaceFlagcw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,-1*Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(DownFaceSol);
-			AllInOneUpdateCW(DownFaceSol);
-			AllInOneUpdateFace(DownFaceSol);
-			DownFaceFlagcw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 } 
-	 if(DownFaceFlagccw){
-		if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(DownFaceSol);
-			AllInOneUpdateCCW(DownFaceSol);
-			AllInOneUpdateFace(DownFaceSol);
-			DownFaceFlagccw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	if(D180){
-		PutStuffInParent(DownFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(DownFaceSol);
-			AllInOneUpdateCCW(DownFaceSol);
-			AllInOneUpdateFace(DownFaceSol);
-			totalRotation=0;
-			D180=false;
-			Dagain=true;
-			}
-	}
-	if(Dagain){
-		PutStuffInParent(DownFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(white.transform.position,Vector3.up,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(DownFaceSol);
-			AllInOneUpdateCCW(DownFaceSol);
-			AllInOneUpdateFace(DownFaceSol);
-			totalRotation=0;
-			Dagain=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	}
-		
-	 if(GreenFaceFlagcw){
-		 if(Mathf.Abs(totalRotation) < 90f){
-			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,-1*Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90f){
-			PutStuffInRubix(GreenFaceSol);
-			AllInOneUpdateCW(GreenFaceSol);
-			AllInOneUpdateFace(GreenFaceSol);
-			GreenFaceFlagcw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(GreenFaceFlagccw){
-		 if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(GreenFaceSol);
-			AllInOneUpdateCCW(GreenFaceSol);
-			AllInOneUpdateFace(GreenFaceSol);
-			GreenFaceFlagccw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 } 
-	 if(YellowFaceFlagcw){
-		 if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,-1*Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(YellowFaceSol);
-			AllInOneUpdateCW(YellowFaceSol);
-			AllInOneUpdateFace(YellowFaceSol);
-			YellowFaceFlagcw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(YellowFaceFlagccw){
-		 if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(YellowFaceSol);
-			AllInOneUpdateCCW(YellowFaceSol);
-			AllInOneUpdateFace(YellowFaceSol);
-			YellowFaceFlagccw=false;
-			totalRotation=0;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(B180){
-		PutStuffInParent(YellowFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(YellowFaceSol);
-			AllInOneUpdateCCW(YellowFaceSol);
-			AllInOneUpdateFace(YellowFaceSol);
-			totalRotation=0;
-			B180=false;
-			Bagain=true;
-			}
-	 }
-	 if(Bagain){
-		 PutStuffInParent(YellowFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(yellow.transform.position,Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(YellowFaceSol);
-			AllInOneUpdateCCW(YellowFaceSol);
-			AllInOneUpdateFace(YellowFaceSol);
-			totalRotation=0;
-			Bagain=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		}
-	 }
-	 if(F180){
-		PutStuffInParent(GreenFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(GreenFaceSol);
-			AllInOneUpdateCCW(GreenFaceSol);
-			AllInOneUpdateFace(GreenFaceSol);	
-			totalRotation=0;
-			F180=false;
-			Fagain=true;
-		 }
-	 }
-	 if(Fagain){
-		 PutStuffInParent(GreenFaceSol);
-		if(Mathf.Abs(totalRotation) < 90){
-			totalRotation += 10;
-			Parent.transform.RotateAround(green.transform.position,Vector3.forward,10);
-			nextButton.GetComponent<Button>().interactable = false;
-		}
-		if(Mathf.Abs(totalRotation)>=90){
-			PutStuffInRubix(GreenFaceSol);
-			AllInOneUpdateCCW(GreenFaceSol);
-			AllInOneUpdateFace(GreenFaceSol);	
-			totalRotation=0;
-			Fagain=false;
-			nextButton.GetComponent<Button>().interactable = true;
-		 }
-	 }
-	}
+	
 }

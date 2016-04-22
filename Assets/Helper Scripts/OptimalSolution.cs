@@ -14,6 +14,9 @@ public class OptimalSolution : MonoBehaviour {
 	int d1,d2,d3,result;
 	string path=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"input.txt";
 	public static List<Color> GoToSolve=new List<Color>();
+	float timer = 0f;
+	float fiveMinutes = 300; //300 seconds = 5minutes
+	bool badExit = false;
 	void blahleasty(GameObject x,string number){
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.y > x.transform.GetChild(1).position.y){
@@ -280,8 +283,6 @@ public class OptimalSolution : MonoBehaviour {
 		blahbigz(GameObject.Find(RubikScene.YellowFace[2]),GameObject.Find(RubikScene.YellowFace[2]).tag);
 	}
 	public void onClickFindSol(){
-		//put in right position//add menu
-		GameObject.Find("RubiksCube").transform.rotation= Quaternion.Euler(0f, 0f, 0f);
 		ReadRedFace();
 		ReadGreenFace();
 		ReadBlueFace();
@@ -291,31 +292,49 @@ public class OptimalSolution : MonoBehaviour {
 		if (File.Exists (path))
 			File.Delete (path);
 		System.IO.File.WriteAllText(path,InputToAlgo);		
-		try {
-			myProcess = new Process();
-			myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-			myProcess.StartInfo.CreateNoWindow = true;
-			myProcess.StartInfo.UseShellExecute = false;
-			myProcess.StartInfo.RedirectStandardOutput = true;
-			myProcess.StartInfo.FileName = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"rubik3Sticker.ida2";
-			myProcess.EnableRaisingEvents = true;
-			myProcess.StartInfo.WorkingDirectory = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar;
-			myProcess.StartInfo.Arguments = "corner.bin edge1.bin edge2.bin";
-			myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-			{
-				if (!String.IsNullOrEmpty(e.Data)){
-					StepsOfSolution++;
-					print(e.Data);
-					solution.output.Add(e.Data);
-				}
-			});
-			myProcess.Start();
-			myProcess.BeginOutputReadLine();
-         } catch (Exception e){
-             print(e);        
-         }
-		 myProcess.WaitForExit(1000 * 60 * 5); //waits for 5 minutes
-		 Application.LoadLevel("solution");
+		myProcess = new Process();
+		myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+		myProcess.StartInfo.CreateNoWindow = true;
+		myProcess.StartInfo.UseShellExecute = false;
+		myProcess.StartInfo.RedirectStandardOutput = true;
+		myProcess.StartInfo.FileName = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"rubik3Sticker.ida2";
+		myProcess.EnableRaisingEvents = true;
+		myProcess.StartInfo.WorkingDirectory = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar;
+		myProcess.StartInfo.Arguments = "corner.bin edge1.bin edge2.bin";
+		myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+		{
+			if (!String.IsNullOrEmpty(e.Data)){
+				timer = 0f;
+				StepsOfSolution++;
+				print(e.Data);
+				solution.output.Add(e.Data);
+			}
+		});
+		myProcess.Start();
+		myProcess.BeginOutputReadLine();
+		//myProcess.WaitForExit(1000 * 60 * 5); //waits for 5 minutes
+		//Application.LoadLevel("solution");
 	}
-}	
-		
+	void Update(){
+		if (myProcess != null){
+			if(timer>fiveMinutes){
+				myProcess.Kill();
+				myProcess.Close();
+				badExit=true;
+				return;
+			}
+			timer += Time.deltaTime;
+			if (!myProcess.HasExited){
+				//GameObject.Find("PleaseWait").SetActive(true);
+				print("NOT YET");
+			}
+			else{
+				if(badExit){
+					print("TimeOut!");
+				}else{
+					Application.LoadLevel("solution");
+				}
+			}
+		}
+	}
+}

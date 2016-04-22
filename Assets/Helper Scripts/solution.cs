@@ -704,82 +704,17 @@ public class solution : MonoBehaviour {
 		EndOfSolution.SetActive(false);
 	}
 	
-	public void ShowWholeSol(){
-	/*	i=0;
+	IEnumerator ShowWholeSol(){
 		GameObject.Find("ShowAll").GetComponent<Button>().interactable = false;
-		//for(i=0;i<output.Count;i++){
-			while(i<output.Count){
-			if(output[i]=="UCW"){
-				PutStuffInParent(UpperFaceSol);
-				UpFaceFlagcw=true;
-			}
-			else if(output[i]=="UCCW"){
-				PutStuffInParent(UpperFaceSol);
-				UpFaceFlagccw=true;
-			}
-			else if(output[i]=="U180"){
-				U180=true;
-			}
-			else if(output[i]=="DCW"){
-				PutStuffInParent(DownFaceSol);
-				DownFaceFlagcw=true;
-			}
-			else if(output[i]=="DCCW"){
-				PutStuffInParent(DownFaceSol);
-				DownFaceFlagccw=true;
-			}
-			else if(output[i]=="D180"){
-				D180=true;
-			}
-			else if(output[i]=="LCW"){
-				PutStuffInParent(OrangeFaceSol);
-				OrangeFaceFlagcw=true;
-			}
-			else if(output[i]=="LCCW"){
-				PutStuffInParent(OrangeFaceSol);
-				OrangeFaceFlagccw=true;
-			}
-			else if(output[i]=="L180"){
-				L180=true;
-			}
-			else if(output[i]=="RCW"){
-				PutStuffInParent(BlueFaceSol);
-				BlueFaceFlagcw=true;
-			}
-			else if(output[i]=="RCCW"){
-				PutStuffInParent(BlueFaceSol);
-				BlueFaceFlagccw=true;
-			}
-			else if(output[i]=="R180"){
-				R180=true;
-			}
-			else if(output[i]=="FCW"){
-				PutStuffInParent(GreenFaceSol);
-				GreenFaceFlagcw=true;
-			}
-			else if(output[i]=="FCCW"){
-				PutStuffInParent(GreenFaceSol);
-				GreenFaceFlagccw=true;
-			}
-			else if(output[i]=="F180"){
-				F180=true;
-			}
-			else if(output[i]=="BCW"){
-				PutStuffInParent(YellowFaceSol);
-				YellowFaceFlagcw=true;
-			}
-			else if(output[i]=="BCCW"){
-				PutStuffInParent(YellowFaceSol);
-				YellowFaceFlagccw=true;
-			}
-			else if(output[i]=="B180"){
-				B180=true;
-			}
-			if(UpFaceFlagcw==UpFaceFlagccw==U180==DownFaceFlagcw==DownFaceFlagccw==D180==OrangeFaceFlagcw==OrangeFaceFlagccw==L180==
-			BlueFaceFlagcw==BlueFaceFlagccw==B180==GreenFaceFlagcw==GreenFaceFlagccw==F180==YellowFaceFlagcw==YellowFaceFlagccw==B180)
-				i++;
+		for(i=0;i<output.Count;i++){
+			StartCoroutine(nextStep(i));
+			while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 		}
-		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;*/
+		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;
+	}
+	public void shooowwmeee(){
+		StartCoroutine(ShowWholeSol());
 	}
 	
 }

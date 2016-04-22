@@ -12,7 +12,7 @@ public class OptimalSolution : MonoBehaviour {
 	Process myProcess;
 	string InputToAlgo="";
 	int d1,d2,d3,result;
-	string path="C:\\Users\\sam\\Desktop\\Test\\input.txt";
+	string path=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"input.txt";
 	public static List<Color> GoToSolve=new List<Color>();
 	void blahleasty(GameObject x,string number){
 		if(number=="2"){
@@ -122,9 +122,6 @@ public class OptimalSolution : MonoBehaviour {
 			}
 		}
 	}
-	
-	
-	
 	void blahbigz(GameObject x,string number){
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.z < x.transform.GetChild(1).position.z){
@@ -300,9 +297,9 @@ public class OptimalSolution : MonoBehaviour {
 			myProcess.StartInfo.CreateNoWindow = true;
 			myProcess.StartInfo.UseShellExecute = false;
 			myProcess.StartInfo.RedirectStandardOutput = true;
-			myProcess.StartInfo.FileName = "C:\\Users\\sam\\Desktop\\Test\\rubik3Sticker.ida2";
+			myProcess.StartInfo.FileName = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"rubik3Sticker.ida2";
 			myProcess.EnableRaisingEvents = true;
-			myProcess.StartInfo.WorkingDirectory = "C:\\Users\\sam\\Desktop\\Test";
+			myProcess.StartInfo.WorkingDirectory = (System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar;
 			myProcess.StartInfo.Arguments = "corner.bin edge1.bin edge2.bin";
 			myProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
 			{

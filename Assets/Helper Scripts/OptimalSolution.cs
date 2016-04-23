@@ -14,7 +14,7 @@ public class OptimalSolution : MonoBehaviour {
 	int d1,d2,d3,result;
 	string path=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"input.txt";
 	public static List<Color> GoToSolve=new List<Color>();
-	float timer = 0f;
+	public static float timer = 0f;
 	float fiveMinutes = 300; //300 seconds = 5minutes
 	bool badExit = false;
 	public static bool paused=false;
@@ -283,6 +283,7 @@ public class OptimalSolution : MonoBehaviour {
 		blahbigz(GameObject.Find(RubikScene.YellowFace[5]),GameObject.Find(RubikScene.YellowFace[5]).tag);
 		blahbigz(GameObject.Find(RubikScene.YellowFace[2]),GameObject.Find(RubikScene.YellowFace[2]).tag);
 	}
+	
 	public void onClickFindSol(){
 		paused=true;
 		ReadRedFace();
@@ -318,19 +319,17 @@ public class OptimalSolution : MonoBehaviour {
 	void Update(){
 		if (myProcess != null){
 			if(timer>fiveMinutes){
-				myProcess.Kill();
-				myProcess.Close();
 				badExit=true;
-				return;
+				RubikScene.TooLong.SetActive(true);
+				//return;
 			}
 			timer += Time.deltaTime;
 			if (!myProcess.HasExited){
-				//GameObject.Find("PleaseWait").SetActive(true);
-				print("NOT YET");
+				RubikScene.PleaseWait.SetActive(true);
 			}
 			else{
 				if(badExit){
-					print("TimeOut!");
+					RubikScene.PleaseWait.SetActive(false);
 				}else{
 					paused=false;
 					Application.LoadLevel("solution");
@@ -338,4 +337,8 @@ public class OptimalSolution : MonoBehaviour {
 			}
 		}
 	}
+	
+	
+	
+	
 }

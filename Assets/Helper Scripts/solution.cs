@@ -7,16 +7,13 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
-
 public class solution : MonoBehaviour {
-	public Transform camera;
-	GameObject look;
 	public static List<string> output=new List<string>();
-	List<Color> doItAgain=new List<Color>();
 	float totalRotation=0;
 	int i,k,NextStepCounter=0; 
 	string solMsgs;
 	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton,Moves;
+	int d1,d2,d3,d4,result;
 	string[]UpperFaceSol={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	string[]DownFaceSol={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
 	string[]GreenFaceSol={"Corner7","Edge7","Corner3","Edge12","GREEN", "Edge4","Corner8","Edge8","Corner4"};
@@ -24,6 +21,221 @@ public class solution : MonoBehaviour {
 	string[]OrangeFaceSol={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	string[]YellowFaceSol={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
 	bool inFirst=false;
+	//ForShowingSolutionAgain
+	void blahleasty(GameObject x,string number){
+		if(number=="2"){
+			if(x.transform.GetChild(0).position.y > x.transform.GetChild(1).position.y){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else{
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+		else{
+			d1=d2=d3=0;
+			d1=(int)x.transform.GetChild(0).position.y;
+			d2=(int)x.transform.GetChild(1).position.y;
+			d3=(int)x.transform.GetChild(2).position.y;
+			result=Mathf.Min(d1,d2,d3);
+			if(result==d1){
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d2){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d3){
+				x.transform.GetChild(2).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+	}
+	void blahsmallx(GameObject x,string number){
+		if(number=="2"){
+			if(x.transform.GetChild(0).position.x > x.transform.GetChild(1).position.x){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else{
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}	
+		}
+		else{
+			d1=d2=d3=0;
+			d1=(int)x.transform.GetChild(0).position.x;
+			d2=(int)x.transform.GetChild(1).position.x;
+			d3=(int)x.transform.GetChild(2).position.x;
+			result=Mathf.Min(d1,d2,d3);
+			if(result==d1){
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d2){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d3){
+				x.transform.GetChild(2).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+	}
+	void blahbigz(GameObject x,string number){
+		if(number=="2"){
+			if(x.transform.GetChild(0).position.z < x.transform.GetChild(1).position.z){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			
+			else{
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+		else{
+			d1=d2=d3=0;
+			d1=(int)x.transform.GetChild(0).position.z;
+			d2=(int)x.transform.GetChild(1).position.z;
+			d3=(int)x.transform.GetChild(2).position.z;
+			result=Mathf.Max(d1,d2,d3);
+			if(result==d1){
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d2){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d3){
+				x.transform.GetChild(2).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+	}
+	void blahbigx(GameObject x,string number){
+		if(number=="2"){
+			if(x.transform.GetChild(0).position.x < x.transform.GetChild(1).position.x){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else{
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+		else{
+			d1=d2=d3=0;
+			d1=(int)x.transform.GetChild(0).position.x;
+			d2=(int)x.transform.GetChild(1).position.x;
+			d3=(int)x.transform.GetChild(2).position.x;
+			result=Mathf.Max(d1,d2,d3);
+			if(result==d1){
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d2){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d3){
+				x.transform.GetChild(2).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+	}
+	void blah(GameObject x,string number){
+		if(number=="2"){
+			if(x.transform.GetChild(0).position.y < x.transform.GetChild(1).position.y){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else{
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+		else{
+			d1=d2=d3=0;
+			d1=(int)x.transform.GetChild(0).position.y;
+			d2=(int)x.transform.GetChild(1).position.y;
+			d3=(int)x.transform.GetChild(2).position.y;
+			result=Mathf.Max(d1,d2,d3);
+			if(result==d1){
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d2){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d3){
+				x.transform.GetChild(2).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+	}
+	void blahblah(GameObject x,string number){
+		if(number=="2"){
+			if(x.transform.GetChild(0).position.z > x.transform.GetChild(1).position.z){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else{
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+		else{
+			d1=d2=d3=0;
+			d1=(int)x.transform.GetChild(0).position.z;
+			d2=(int)x.transform.GetChild(1).position.z;
+			d3=(int)x.transform.GetChild(2).position.z;
+			result=Mathf.Min(d1,d2,d3);
+			if(result==d1){
+				x.transform.GetChild(0).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d2){
+				x.transform.GetChild(1).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+			else if(result==d3){
+				x.transform.GetChild(2).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i++];
+			}
+		}
+	}
+	void ReadRedFace(){
+		for(int i=5;i<8;i++){
+			blah(GameObject.Find(UpperFaceSol[i]),GameObject.Find(UpperFaceSol[i]).tag);
+		}
+		for(int i=0;i<5;i++){
+			blah(GameObject.Find(UpperFaceSol[i]),GameObject.Find(UpperFaceSol[i]).tag);
+		}
+	}
+	void ReadGreenFace(){
+		// 1 0 3 6 7 8 5 2
+		blahblah(GameObject.Find(GreenFaceSol[1]),GameObject.Find(GreenFaceSol[1]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[0]),GameObject.Find(GreenFaceSol[0]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[3]),GameObject.Find(GreenFaceSol[3]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[6]),GameObject.Find(GreenFaceSol[6]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[7]),GameObject.Find(GreenFaceSol[7]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[8]),GameObject.Find(GreenFaceSol[8]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[5]),GameObject.Find(GreenFaceSol[5]).tag);
+		blahblah(GameObject.Find(GreenFaceSol[2]),GameObject.Find(GreenFaceSol[2]).tag);
+	}
+	void ReadBlueFace(){
+		blahbigx(GameObject.Find(BlueFaceSol[1]),GameObject.Find(BlueFaceSol[1]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[0]),GameObject.Find(BlueFaceSol[0]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[3]),GameObject.Find(BlueFaceSol[3]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[6]),GameObject.Find(BlueFaceSol[6]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[7]),GameObject.Find(BlueFaceSol[7]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[8]),GameObject.Find(BlueFaceSol[8]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[5]),GameObject.Find(BlueFaceSol[5]).tag);
+		blahbigx(GameObject.Find(BlueFaceSol[2]),GameObject.Find(BlueFaceSol[2]).tag);
+	}
+	void ReadYellowFace(){
+		blahbigz(GameObject.Find(YellowFaceSol[1]),GameObject.Find(YellowFaceSol[1]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[0]),GameObject.Find(YellowFaceSol[0]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[3]),GameObject.Find(YellowFaceSol[3]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[6]),GameObject.Find(YellowFaceSol[6]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[7]),GameObject.Find(YellowFaceSol[7]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[8]),GameObject.Find(YellowFaceSol[8]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[5]),GameObject.Find(YellowFaceSol[5]).tag);
+		blahbigz(GameObject.Find(YellowFaceSol[2]),GameObject.Find(YellowFaceSol[2]).tag);
+	}
+	void ReadOrangeFace(){
+		blahsmallx(GameObject.Find(OrangeFaceSol[1]),GameObject.Find(OrangeFaceSol[1]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[0]),GameObject.Find(OrangeFaceSol[0]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[3]),GameObject.Find(OrangeFaceSol[3]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[6]),GameObject.Find(OrangeFaceSol[6]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[7]),GameObject.Find(OrangeFaceSol[7]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[8]),GameObject.Find(OrangeFaceSol[8]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[5]),GameObject.Find(OrangeFaceSol[5]).tag);
+		blahsmallx(GameObject.Find(OrangeFaceSol[2]),GameObject.Find(OrangeFaceSol[2]).tag);
+	}
+	void ReadWhiteFace(){
+		for(int i=1;i>=0;i--){
+			blahleasty(GameObject.Find(DownFaceSol[i]),GameObject.Find(DownFaceSol[i]).tag);
+		}
+		for(int i=7;i>=2;i--){
+			blahleasty(GameObject.Find(DownFaceSol[i]),GameObject.Find(DownFaceSol[i]).tag);
+		}
+	}
 	void Start () {
 		nextButton=GameObject.Find("NextStepButton");
 		Moves=GameObject.Find("Moves");
@@ -38,7 +250,6 @@ public class solution : MonoBehaviour {
 		//Color it
 		for(int i=0;i<48;i++){
 			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i];
-			doItAgain.Add(OptimalSolution.GoToSolve[i]);
 		}
 		EndOfSolution = GameObject.Find ("EndOfSolution");
 		EndOfSolution.SetActive (false);
@@ -691,15 +902,13 @@ public class solution : MonoBehaviour {
 	}
 	public void ShowStepsAgain(){
 		nextButton.GetComponent<Button>().interactable = true;
-		/*UpperFaceSol=preUp;
-		DownFaceSol=preDown;
-		GreenFaceSol=preGreen;
-		BlueFaceSol=preBlue;
-		OrangeFaceSol=preOrange;
-		YellowFaceSol=preYellow;
-		for(int i=0;i<48;i++){
-			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=doItAgain[i];
-		}*/
+		i=0;
+		ReadRedFace();
+		ReadGreenFace();
+		ReadBlueFace();
+		ReadYellowFace();
+		ReadOrangeFace();
+		ReadWhiteFace();
 		NextStepCounter=0;
 		EndOfSolution.SetActive(false);
 	}

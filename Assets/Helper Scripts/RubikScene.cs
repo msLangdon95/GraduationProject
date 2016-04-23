@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
 	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps,UndoButton;
+	public static GameObject PleaseWait;
+	public static GameObject TooLong;
 	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ,YellowFaceZ;
 	Ray ray;
 	RaycastHit rayHit;
@@ -27,7 +29,22 @@ public class RubikScene : MonoBehaviour {
 	 public static string[]BlueFace={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
 	 public static string[]OrangeFace={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	 public static string[]YellowFace={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
-	 Color returnColor(string s){
+	public void WaitAgain(){
+		TooLong.SetActive(false);
+		OptimalSolution.timer=0f;
+	}
+	public void GoToHome(){
+		TooLong.SetActive(false);
+		//kill the process
+		//go home again
+	}
+	public void ExitTooLong(){
+		TooLong.SetActive(false);
+		//stop the process
+		OptimalSolution.paused=false;
+	}
+	
+	Color returnColor(string s){
 		 if(s=="RED")
 			 return Color.red;
 		 if(s=="GREEN")
@@ -311,6 +328,10 @@ public class RubikScene : MonoBehaviour {
 		}
 	}
 	void Start (){
+		PleaseWait=GameObject.Find("PleaseWait");
+		TooLong=GameObject.Find("TooLong");
+		PleaseWait.SetActive(false);
+		TooLong.SetActive(false);
 		UndoButton=GameObject.Find("tarajo3");
 		 GreenFaceZ=GameObject.Find("Line084");
 		 BlueFaceZ=GameObject.Find("Line026");

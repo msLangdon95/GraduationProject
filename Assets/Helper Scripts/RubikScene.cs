@@ -8,7 +8,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
-	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps;
+	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps,UndoButton;
 	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ,YellowFaceZ;
 	Ray ray;
 	RaycastHit rayHit;
@@ -19,6 +19,7 @@ public class RubikScene : MonoBehaviour {
 	 string[]rightFace;
 	 string[]leftFace;
 	 float totalRotation = 0;
+	 bool inFirst=false;
 	 List<string>Moves=new List<string>();
 	 public static string[]UpperFace={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	 public static string[]DownFace={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
@@ -42,6 +43,7 @@ public class RubikScene : MonoBehaviour {
 	 }
 	 
 	 IEnumerator RotateUpperFacecw(){
+		 inFirst=true;
 		 PutStuffInParent(UpperFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -54,8 +56,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateCW(UpperFace);
 			AllInOneUpdateFace(UpperFace);
 		}
+		inFirst=false;
 	 }	 
 	 IEnumerator RotateUpperFaceccw(){
+		 inFirst=true;
 		 PutStuffInParent(UpperFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -68,8 +72,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateCCW(UpperFace);
 			AllInOneUpdateFace(UpperFace);
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateDownFacecw(){
+		 inFirst=true;
 		PutStuffInParent(DownFace);
 		while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -82,8 +88,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(DownFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateDownFaceccw(){
+		 inFirst=true;
 		 PutStuffInParent(DownFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -96,8 +104,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(DownFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateLeftFacecw(){
+		 inFirst=true;
 		 PutStuffInParent(OrangeFace);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -110,8 +120,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(OrangeFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateLeftFaceccw(){
+		 inFirst=true;
 		 PutStuffInParent(OrangeFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -124,8 +136,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(OrangeFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateRightFacecw(){
+		 inFirst=true;
 		 PutStuffInParent(BlueFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -138,8 +152,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(BlueFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateRightFaceccw(){
+		 inFirst=true;
 		 PutStuffInParent(BlueFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -152,8 +168,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(BlueFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateFrontFacecw(){
+		 inFirst=true;
 		 PutStuffInParent(GreenFace);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -166,8 +184,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(GreenFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateFrontFaceccw(){
+		 inFirst=true;
 		 PutStuffInParent(GreenFace);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -180,8 +200,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(GreenFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	  IEnumerator RotateBackFacecw(){
+		  inFirst=true;
 		  PutStuffInParent(YellowFace);
 		   while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -194,8 +216,10 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(YellowFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 IEnumerator RotateBackFaceccw(){
+		 inFirst=true;
 		 PutStuffInParent(YellowFace);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -208,52 +232,86 @@ public class RubikScene : MonoBehaviour {
 			AllInOneUpdateFace(YellowFace);
 			totalRotation=0;
 		}
+		inFirst=false;
 	 }
 	 
-	 public void Undo(){
+	IEnumerator Undo(){
 		 if(Moves.Count>0){
+			 UndoButton.GetComponent<Button>().interactable = false;
 			 if(Moves[Moves.Count-1] == "UCW"){
 				StartCoroutine(RotateUpperFaceccw());
+				while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="UCCW"){
 				 StartCoroutine(RotateUpperFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="DCW"){
 				 StartCoroutine(RotateDownFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="DCCW"){
 				  StartCoroutine(RotateDownFacecw());
+				  while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="RCW"){
 				 StartCoroutine(RotateRightFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="RCCW"){
 				 StartCoroutine(RotateRightFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="LCW"){
 				StartCoroutine(RotateLeftFaceccw());
+				while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="LCCW"){
 				 StartCoroutine(RotateLeftFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="BCW"){
 				StartCoroutine(RotateBackFaceccw());
+				while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="BCCW"){
 				StartCoroutine(RotateBackFacecw());
+				while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="FCW"){
 				 StartCoroutine(RotateFrontFaceccw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="FCCW"){
 				 StartCoroutine(RotateFrontFacecw());
+				 while(inFirst)       
+					 yield return new WaitForSeconds(0.1f);
 			 }
 			 Moves.RemoveAt(Moves.Count-1);
 			 NoOfSteps--;
 			 steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 		 }
+		  UndoButton.GetComponent<Button>().interactable = true;
 	 }
+	
+	public void UndoBut(){
+		if(!OptimalSolution.paused){
+			StartCoroutine(Undo());
+		}
+	}
 	void Start (){
+		UndoButton=GameObject.Find("tarajo3");
 		 GreenFaceZ=GameObject.Find("Line084");
 		 BlueFaceZ=GameObject.Find("Line026");
 		 OrangeFaceZ=GameObject.Find("Line128");
@@ -568,7 +626,33 @@ public class RubikScene : MonoBehaviour {
 		 }
 	 }
 	 
+	IEnumerator Scramble(){
+		StartCoroutine(RotateUpperFacecw());
+		while(inFirst)       
+			yield return new WaitForSeconds(0.01f);
+		StartCoroutine(RotateDownFacecw());
+		while(inFirst)       
+			yield return new WaitForSeconds(0.01f);
+		StartCoroutine(RotateLeftFacecw());
+		while(inFirst)       
+			yield return new WaitForSeconds(0.01f);
+		StartCoroutine(RotateRightFacecw());
+		while(inFirst)       
+			yield return new WaitForSeconds(0.01f);
+		StartCoroutine(RotateFrontFacecw());
+		while(inFirst)       
+			yield return new WaitForSeconds(0.01f);
+	} 
+	 
+	 public void ScrambleButton(){
+		 if(!OptimalSolution.paused){
+			 StartCoroutine(Scramble());
+		 }
+	 }
+	 
+	 
 	void FixedUpdate(){ 
+	if(!OptimalSolution.paused){
 		if(Input.GetMouseButtonDown(0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
@@ -723,7 +807,7 @@ public class RubikScene : MonoBehaviour {
 	}
 }
 
-
+	}
 }
 
 

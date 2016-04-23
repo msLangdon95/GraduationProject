@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour {
 	void Start(){
 	}
 	void Update () {
+		if(!OptimalSolution.paused){
 		sec +=Time.deltaTime;
 		if(sec>=60){
 			min+=1;
@@ -20,6 +21,7 @@ public class Timer : MonoBehaviour {
 			min=0;
 		}
 		time.text = hours + ":" + min + ":" +(int) sec;
+		}
 	}
 
 }

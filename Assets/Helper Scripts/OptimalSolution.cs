@@ -17,6 +17,7 @@ public class OptimalSolution : MonoBehaviour {
 	float timer = 0f;
 	float fiveMinutes = 300; //300 seconds = 5minutes
 	bool badExit = false;
+	public static bool paused=false;
 	void blahleasty(GameObject x,string number){
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.y > x.transform.GetChild(1).position.y){
@@ -283,6 +284,7 @@ public class OptimalSolution : MonoBehaviour {
 		blahbigz(GameObject.Find(RubikScene.YellowFace[2]),GameObject.Find(RubikScene.YellowFace[2]).tag);
 	}
 	public void onClickFindSol(){
+		paused=true;
 		ReadRedFace();
 		ReadGreenFace();
 		ReadBlueFace();
@@ -312,8 +314,6 @@ public class OptimalSolution : MonoBehaviour {
 		});
 		myProcess.Start();
 		myProcess.BeginOutputReadLine();
-		//myProcess.WaitForExit(1000 * 60 * 5); //waits for 5 minutes
-		//Application.LoadLevel("solution");
 	}
 	void Update(){
 		if (myProcess != null){
@@ -332,6 +332,7 @@ public class OptimalSolution : MonoBehaviour {
 				if(badExit){
 					print("TimeOut!");
 				}else{
+					paused=false;
 					Application.LoadLevel("solution");
 				}
 			}

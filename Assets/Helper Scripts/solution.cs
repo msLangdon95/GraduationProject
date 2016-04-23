@@ -716,5 +716,4 @@ public class solution : MonoBehaviour {
 	public void shooowwmeee(){
 		StartCoroutine(ShowWholeSol());
 	}
-	
 }

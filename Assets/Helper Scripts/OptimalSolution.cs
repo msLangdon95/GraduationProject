@@ -9,14 +9,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 public class OptimalSolution : MonoBehaviour {
 	public static int StepsOfSolution=0;
-	Process myProcess;
+	public static Process myProcess;
 	string InputToAlgo="";
 	int d1,d2,d3,result;
 	string path=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"input.txt";
 	public static List<Color> GoToSolve=new List<Color>();
 	public static float timer = 0f;
-	float fiveMinutes = 300; //300 seconds = 5minutes
-	bool badExit = false;
+	float fiveMinutes = 2; //300 seconds = 5minutes
+	public static bool badExit = false;
 	public static bool paused=false;
 	void blahleasty(GameObject x,string number){
 		if(number=="2"){
@@ -319,17 +319,20 @@ public class OptimalSolution : MonoBehaviour {
 	void Update(){
 		if (myProcess != null){
 			if(timer>fiveMinutes){
-				badExit=true;
+				badExit = true; 
 				RubikScene.TooLong.SetActive(true);
-				//return;
+				RubikScene.PleaseWait.SetActive(false);
+				return;
 			}
 			timer += Time.deltaTime;
 			if (!myProcess.HasExited){
 				RubikScene.PleaseWait.SetActive(true);
+				print("not yet");
 			}
 			else{
 				if(badExit){
 					RubikScene.PleaseWait.SetActive(false);
+					print("bad exit");
 				}else{
 					paused=false;
 					Application.LoadLevel("solution");

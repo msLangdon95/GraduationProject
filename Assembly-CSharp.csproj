@@ -65,6 +65,7 @@
      <Compile Include="Assets\Helper Scripts\Saving.cs" />
      <Compile Include="Assets\Helper Scripts\Timer.cs" />
      <Compile Include="Assets\Helper Scripts\ToggleButtonIcon.cs" />
+     <Compile Include="Assets\Helper Scripts\TooLongProc.cs" />
      <Compile Include="Assets\Helper Scripts\changeButtonImage.cs" />
      <Compile Include="Assets\Helper Scripts\newscene.cs" />
      <Compile Include="Assets\Helper Scripts\solution.cs" />

@@ -29,20 +29,6 @@ public class RubikScene : MonoBehaviour {
 	 public static string[]BlueFace={"Corner6","Edge11","Corner7","Edge9","BLUE","Edge12","Corner5","Edge10","Corner8"};
 	 public static string[]OrangeFace={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	 public static string[]YellowFace={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
-	public void WaitAgain(){
-		TooLong.SetActive(false);
-		OptimalSolution.timer=0f;
-	}
-	public void GoToHome(){
-		TooLong.SetActive(false);
-		//kill the process
-		//go home again
-	}
-	public void ExitTooLong(){
-		TooLong.SetActive(false);
-		//stop the process
-		OptimalSolution.paused=false;
-	}
 	
 	Color returnColor(string s){
 		 if(s=="RED")
@@ -219,7 +205,7 @@ public class RubikScene : MonoBehaviour {
 		}
 		inFirst=false;
 	 }
-	  IEnumerator RotateBackFacecw(){
+	 IEnumerator RotateBackFacecw(){
 		  inFirst=true;
 		  PutStuffInParent(YellowFace);
 		   while(Mathf.Abs(totalRotation) < 90){
@@ -663,6 +649,9 @@ public class RubikScene : MonoBehaviour {
 		StartCoroutine(RotateFrontFacecw());
 		while(inFirst)       
 			yield return new WaitForSeconds(0.01f);
+		Moves.Clear();
+		NoOfSteps=0;
+		steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 	} 
 	 
 	 public void ScrambleButton(){

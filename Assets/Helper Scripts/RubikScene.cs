@@ -634,6 +634,7 @@ public class RubikScene : MonoBehaviour {
 	 }
 	 
 	IEnumerator Scramble(){
+		UndoButton.GetComponent<Button>().interactable = false;
 		StartCoroutine(RotateUpperFacecw());
 		while(inFirst)       
 			yield return new WaitForSeconds(0.01f);
@@ -652,6 +653,7 @@ public class RubikScene : MonoBehaviour {
 		Moves.Clear();
 		NoOfSteps=0;
 		steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
+		UndoButton.GetComponent<Button>().interactable = true;
 	} 
 	 
 	 public void ScrambleButton(){

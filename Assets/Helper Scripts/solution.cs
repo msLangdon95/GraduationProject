@@ -12,7 +12,7 @@ public class solution : MonoBehaviour {
 	float totalRotation=0;
 	int i,k,NextStepCounter=0; 
 	string solMsgs;
-	GameObject myMSG,EndOfSolution,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton,Moves;
+	GameObject myMSG,Parent,temp,blue,white,orange,red,yellow,green,rubix,nextButton,Moves,ShowAll,StartAllOver;
 	int d1,d2,d3,d4,result;
 	string[]UpperFaceSol={"Corner7","Edge7","Corner3","Edge2","Corner1","Edge5","Corner6","Edge11"};
 	string[]DownFaceSol={"Corner8","Edge8","Corner4","Edge3","Corner2","Edge6","Corner5","Edge10"};
@@ -21,7 +21,6 @@ public class solution : MonoBehaviour {
 	string[]OrangeFaceSol={"Corner3","Edge2","Corner1","Edge4","ORANGE","Edge1","Corner4","Edge3","Corner2"};
 	string[]YellowFaceSol={"Corner1","Edge5","Corner6","Edge1","YELLOW","Edge9","Corner2","Edge6","Corner5"};
 	bool inFirst=false;
-	//ForShowingSolutionAgain
 	void blahleasty(GameObject x,string number){
 		if(number=="2"){
 			if(x.transform.GetChild(0).position.y > x.transform.GetChild(1).position.y){
@@ -237,22 +236,22 @@ public class solution : MonoBehaviour {
 		}
 	}
 	void Start () {
+		ShowAll=GameObject.Find("ShowAll");
 		nextButton=GameObject.Find("NextStepButton");
 		Moves=GameObject.Find("Moves");
+		StartAllOver=GameObject.Find("StartAllOver");
 		rubix=GameObject.Find("RubiksCube");
-		 blue=GameObject.Find("BLUE");
-		 red=GameObject.Find("RED");
-		 orange=GameObject.Find("ORANGE");
-		 white=GameObject.Find("WHITE");
-		 yellow=GameObject.Find("YELLOW");
-		 green=GameObject.Find("GREEN");
+		blue=GameObject.Find("BLUE");
+		red=GameObject.Find("RED");
+		orange=GameObject.Find("ORANGE");
+		white=GameObject.Find("WHITE");
+		yellow=GameObject.Find("YELLOW");
+		green=GameObject.Find("GREEN");
 		Parent=GameObject.Find("Parent");
 		//Color it
 		for(int i=0;i<48;i++){
 			GameObject.Find(Globals.EdgesAndCorners[i]).GetComponent<Renderer>().material.color=OptimalSolution.GoToSolve[i];
 		}
-		EndOfSolution = GameObject.Find ("EndOfSolution");
-		EndOfSolution.SetActive (false);
 		myMSG = GameObject.Find ("Mymsg");
 		Moves.transform.GetComponent<Text>().text=OptimalSolution.StepsOfSolution.ToString()+" Steps ";
 	}
@@ -528,7 +527,6 @@ public class solution : MonoBehaviour {
 	
 	IEnumerator RotateUpperFacecw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(UpperFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -542,11 +540,9 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(UpperFaceSol);
 		}
 		 inFirst = false;
-		 nextButton.GetComponent<Button>().interactable = true;
 	 }	 
 	 IEnumerator RotateUpperFaceccw(){
 		  inFirst = true;
-		  nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(UpperFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -560,12 +556,10 @@ public class solution : MonoBehaviour {
 			AllInOneUpdateFace(UpperFaceSol);
 		}
 		 inFirst = false;
-		 nextButton.GetComponent<Button>().interactable = true;
 	 }
 	
 	IEnumerator RotateDownFacecw(){
 		inFirst = true;
-		nextButton.GetComponent<Button>().interactable = false;
 		PutStuffInParent(DownFaceSol);
 		while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -580,11 +574,9 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateDownFaceccw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(DownFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -599,12 +591,10 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	
 	IEnumerator RotateLeftFacecw(){
 		inFirst = true;
-		nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(OrangeFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -619,11 +609,9 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateLeftFaceccw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(OrangeFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -638,11 +626,9 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	IEnumerator RotateRightFacecw(){
 		inFirst = true;
-		nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(BlueFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -657,11 +643,9 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateRightFaceccw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(BlueFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -676,11 +660,9 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateFrontFacecw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(GreenFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90f){
 			totalRotation += 10;
@@ -694,11 +676,9 @@ public class solution : MonoBehaviour {
 			totalRotation=0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateFrontFaceccw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(GreenFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -712,11 +692,9 @@ public class solution : MonoBehaviour {
 			totalRotation=0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateBackFacecw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		  PutStuffInParent(YellowFaceSol);
 		   while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -731,11 +709,9 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	 IEnumerator RotateBackFaceccw(){
 		 inFirst = true;
-		 nextButton.GetComponent<Button>().interactable = false;
 		 PutStuffInParent(YellowFaceSol);
 		 while(Mathf.Abs(totalRotation) < 90){
 			totalRotation += 10;
@@ -750,11 +726,12 @@ public class solution : MonoBehaviour {
 			yield return 0;
 		}
 		inFirst = false;
-		nextButton.GetComponent<Button>().interactable = true;
 	 }
 	IEnumerator nextStep(int index) {
+		ShowAll.GetComponent<Button>().interactable = false;
 		if(index<output.Count){
 			nextButton.GetComponentInChildren<Text>().text="Next Step";
+			nextButton.GetComponent<Button>().interactable = false;
 		if (output[index]=="UCW"){
 				solMsgs="Rotate upper face clock wise";
 				StartCoroutine(RotateUpperFacecw());
@@ -881,11 +858,10 @@ public class solution : MonoBehaviour {
 				 while(inFirst)       
 					 yield return new WaitForSeconds(0.1f);
 			}
-		
-		myMSG.GetComponent<Text> ().text = solMsgs;
+			nextButton.GetComponent<Button>().interactable = true;
+			myMSG.GetComponent<Text> ().text = solMsgs;
 		}
 		else{
-			EndOfSolution.SetActive (true);
 			myMSG.GetComponent<Text> ().text = " ";
 			nextButton.GetComponentInChildren<Text>().text="Show Steps";
 			nextButton.GetComponent<Button>().interactable = false;
@@ -895,13 +871,7 @@ public class solution : MonoBehaviour {
 	public void beb(){
 		StartCoroutine(nextStep(NextStepCounter++));
 	}
-	public void hideMessage(){
-		EndOfSolution.SetActive(false);
-		myMSG.GetComponent<Text> ().text = " ";
-		nextButton.GetComponent<Button>().interactable = true;
-	}
 	public void ShowStepsAgain(){
-		nextButton.GetComponent<Button>().interactable = true;
 		i=0;
 		ReadRedFace();
 		ReadGreenFace();
@@ -910,17 +880,21 @@ public class solution : MonoBehaviour {
 		ReadOrangeFace();
 		ReadWhiteFace();
 		NextStepCounter=0;
-		EndOfSolution.SetActive(false);
+		ShowAll.GetComponent<Button>().interactable = true;
+		nextButton.GetComponent<Button>().interactable = true;
 	}
 	
 	IEnumerator ShowWholeSol(){
-		GameObject.Find("ShowAll").GetComponent<Button>().interactable = false;
+		ShowAll.GetComponent<Button>().interactable = false;
+		nextButton.GetComponent<Button>().interactable = false;
+		StartAllOver.GetComponent<Button>().interactable = false;
 		for(i=0;i<output.Count;i++){
 			StartCoroutine(nextStep(i));
 			while(inFirst)       
 					 yield return new WaitForSeconds(0.1f);
 		}
-		GameObject.Find("ShowAll").GetComponent<Button>().interactable = true;
+		nextButton.GetComponent<Button>().interactable = false;
+		StartAllOver.GetComponent<Button>().interactable = true;
 	}
 	public void shooowwmeee(){
 		StartCoroutine(ShowWholeSol());

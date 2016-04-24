@@ -15,7 +15,7 @@ public class OptimalSolution : MonoBehaviour {
 	string path=(System.Environment.CurrentDirectory )+Path.DirectorySeparatorChar+"input.txt";
 	public static List<Color> GoToSolve=new List<Color>();
 	public static float timer = 0f;
-	float fiveMinutes = 2; //300 seconds = 5minutes
+	float fiveMinutes = 300; //300 seconds = 5minutes
 	public static bool badExit = false;
 	public static bool paused=false;
 	void blahleasty(GameObject x,string number){

@@ -12,6 +12,7 @@ public class TooLongProc : MonoBehaviour {
 		OptimalSolution.myProcess.Kill();
 		OptimalSolution.myProcess.Close();
 		OptimalSolution.myProcess = null; 
+		//FlushIt
 		Application.LoadLevel("main");
 	}
 	public void ExitTooLong(){

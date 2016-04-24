@@ -23,6 +23,8 @@
          // Make the rigid body not change rotation
             if (GetComponent<Rigidbody>())
              GetComponent<Rigidbody>().freezeRotation = true;
+		  transform.rotation =Quaternion.Euler(-1.2583486f,7.4292461f,-0.129597f);
+		 // transform.position =new Vector3(1689.247f, 932.0135f,-1224.659f);
      }
      
      void LateUpdate()
@@ -45,7 +47,9 @@
              var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
              
              transform.rotation = rotation;
+			// print("rotation is "+ rotation.x+" "+rotation.y+" "+rotation.z);
              transform.position = position;
+			// print("position is "+ position.x+" "+position.y+" "+position.z);
          }
      }
  

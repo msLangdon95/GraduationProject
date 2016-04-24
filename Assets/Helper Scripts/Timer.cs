@@ -23,6 +23,5 @@ public class Timer : MonoBehaviour {
 		time.text = hours + ":" + min + ":" +(int) sec;
 		}
 	}
-
 }
 

@@ -2,12 +2,12 @@ Mono path[0] = 'C:/Users/sam/Documents/GitHub/GraduationProject/smsm_Data/Manage
 Mono path[1] = 'C:/Users/sam/Documents/GitHub/GraduationProject/smsm_Data/Mono'
 Mono config path = 'C:/Users/sam/Documents/GitHub/GraduationProject/smsm_Data/Mono/etc'
 PlayerConnection initialized from C:/Users/sam/Documents/GitHub/GraduationProject/smsm_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55480
-Multi-casting "[IP] 192.168.1.103 [Port] 55480 [Flags] 3 [Guid] 1880661323 [EditorId] 2708787577 [Version] 1048832 [Id] WindowsPlayer(cs) [Debug] 1" to [225.0.0.222:54997]...
-Waiting for connection from host on [192.168.1.103:55480]...
-PlayerConnection accepted from [192.168.1.103] handle:0x1e4
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56323
-PlayerConnection already initialized - listening to [192.168.1.103:55480]
+PlayerConnection initialized network socket : 0.0.0.0 55032
+Multi-casting "[IP] 192.168.1.103 [Port] 55032 [Flags] 3 [Guid] 956812619 [EditorId] 1180112004 [Version] 1048832 [Id] WindowsPlayer(cs) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [192.168.1.103:55032]...
+PlayerConnection accepted from [192.168.1.103] handle:0x11c
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56619
+PlayerConnection already initialized - listening to [192.168.1.103:55032]
 Initialize engine version: 5.1.1f1 (2046fc06d4d8)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -26,7 +26,7 @@ Platform assembly: C:\Users\sam\Documents\GitHub\GraduationProject\smsm_Data\Man
 Loading C:\Users\sam\Documents\GitHub\GraduationProject\smsm_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\sam\Documents\GitHub\GraduationProject\smsm_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\sam\Documents\GitHub\GraduationProject\smsm_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.166 seconds
+- Completed reload, in  0.080 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -34,30 +34,30 @@ desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 Platform assembly: C:\Users\sam\Documents\GitHub\GraduationProject\smsm_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\sam\Documents\GitHub\GraduationProject\smsm_Data\Managed\System.dll (this message is harmless)
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.169754 ms
+UnloadTime: 3.719813 ms
 System memory in use before: 14.4 MB.
 System memory in use after: 14.4 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 280.
-Total: 0.341971 ms (FindLiveObjects: 0.023400 ms CreateObjectMapping: 0.021347 ms MarkObjects: 0.277107 ms  DeleteObjects: 0.009442 ms)
+Total: 0.291476 ms (FindLiveObjects: 0.022168 ms CreateObjectMapping: 0.017652 ms MarkObjects: 0.235233 ms  DeleteObjects: 0.008621 ms)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.702827 ms
+UnloadTime: 0.731564 ms
 System memory in use before: 14.1 MB.
 System memory in use after: 14.1 MB.
 
 Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 264.
-Total: 0.443783 ms (FindLiveObjects: 0.038179 ms CreateObjectMapping: 0.012726 ms MarkObjects: 0.371529 ms  DeleteObjects: 0.020115 ms)
+Total: 0.278749 ms (FindLiveObjects: 0.025042 ms CreateObjectMapping: 0.008621 ms MarkObjects: 0.229896 ms  DeleteObjects: 0.013958 ms)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.780417 ms
+UnloadTime: 0.823112 ms
 System memory in use before: 14.1 MB.
 System memory in use after: 14.1 MB.
 
 Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 270.
-Total: 0.275055 ms (FindLiveObjects: 0.025863 ms CreateObjectMapping: 0.009031 ms MarkObjects: 0.232360 ms  DeleteObjects: 0.006157 ms)
+Total: 0.377687 ms (FindLiveObjects: 0.038589 ms CreateObjectMapping: 0.012726 ms MarkObjects: 0.316929 ms  DeleteObjects: 0.007389 ms)
 
-RED RED WHITE GREEN GREEN YELLOW WHITE ORANGE BLUE BLUE YELLOW BLUE YELLOW RED YELLOW WHITE BLUE BLUE BLUE ORANGE RED WHITE WHITE RED YELLOW RED GREEN WHITE ORANGE GREEN RED YELLOW GREEN BLUE ORANGE ORANGE RED YELLOW ORANGE YELLOW BLUE GREEN ORANGE WHITE WHITE ORANGE GREEN GREEN
+RED RED RED WHITE WHITE WHITE RED RED YELLOW YELLOW GREEN ORANGE ORANGE YELLOW YELLOW YELLOW GREEN GREEN BLUE GREEN GREEN GREEN BLUE BLUE BLUE BLUE GREEN GREEN BLUE BLUE YELLOW BLUE YELLOW ORANGE ORANGE ORANGE ORANGE ORANGE ORANGE YELLOW WHITE WHITE WHITE WHITE WHITE RED RED RED
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
 
@@ -66,12 +66,12 @@ The referenced script on this Behaviour is missing!
 (Filename: C:/buildslave/unity/build/Runtime/Mono/MonoBehaviour.cpp Line: 1715)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.662595 ms
+UnloadTime: 0.667111 ms
 System memory in use before: 22.3 MB.
 System memory in use after: 22.4 MB.
 
 Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 1418.
-Total: 0.490172 ms (FindLiveObjects: 0.065684 ms CreateObjectMapping: 0.020937 ms MarkObjects: 0.392877 ms  DeleteObjects: 0.009442 ms)
+Total: 0.417919 ms (FindLiveObjects: 0.068147 ms CreateObjectMapping: 0.019705 ms MarkObjects: 0.322676 ms  DeleteObjects: 0.006568 ms)
 
 C:/Users/sam/AppData/LocalLow/smasm/GraduationProject
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
@@ -81,84 +81,4 @@ Saving:Start() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper
 (Filename: C:/Users/sam/Documents/GitHub/GraduationProject/Assets/Helper Scripts/Saving.cs Line: 19)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 19fc -> priority: 1 
-up swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:731)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-down swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:782)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-down swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:782)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-down swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:782)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-down swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:782)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-up swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:731)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-down swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:782)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-down swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:782)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-up swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:731)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
-up swipe
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:108)
-RubikScene:FixedUpdate() (at C:\Users\sam\Documents\GitHub\GraduationProject\Assets\Helper Scripts\RubikScene.cs:731)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 108)
-
+  Thread -> id: ae0 -> priority: 1 

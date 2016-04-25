@@ -663,20 +663,18 @@ public class RubikScene : MonoBehaviour {
 	 }
 	 
 	 
-	void FixedUpdate(){ 
+	IEnumerator FixedUpdatefun(){ 
+	while(inFirst)       
+			yield return new WaitForSeconds(0.01f);
 	if(!OptimalSolution.paused){
 		if(Input.GetMouseButtonDown(0)){
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if(Physics.Raycast(ray, out rayHit)){
 				lastClicked = rayHit.collider.gameObject;
-				if(lastClicked==null )
-					return;
 			}
 			firstPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 		}
-		if(Input.GetMouseButtonUp(0)){
-			if(lastClicked==null )
-					return;
+		if(Input.GetMouseButtonUp(0) && lastClicked != null){
 			secondPressPos = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
 			currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
 			currentSwipe.Normalize();
@@ -820,6 +818,11 @@ public class RubikScene : MonoBehaviour {
 }
 
 	}
-}
+	
+	void FixedUpdate(){
+		StartCoroutine(FixedUpdatefun());
+	}
+	
+	}
 
 

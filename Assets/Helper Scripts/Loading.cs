@@ -26,7 +26,7 @@ public class Loading : MonoBehaviour {
 			sr.Close();
 		}	
 		foreach ( string word in words) {
-			//w = GameObject.Find (Globals.EdgesAndCorners [i]); 
+			w = GameObject.Find (Globals.EdgesAndCorners [i]); 
 			m[i]=word;
 			i++;
 		}

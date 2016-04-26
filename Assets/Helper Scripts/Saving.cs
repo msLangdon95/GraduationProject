@@ -41,6 +41,7 @@ public class Saving : MonoBehaviour {
 	
 	
 	public void saveMe () {
+		 if(!OptimalSolution.paused){
 		using (StreamWriter sw = File.CreateText(path)) {
 			for( i=0;i<48;i++){
 				x=GameObject.Find(Globals.EdgesAndCorners[i]);
@@ -54,7 +55,7 @@ public class Saving : MonoBehaviour {
 			
 			sw.Close();
 		}
-		
+	}
 	}
 
 }

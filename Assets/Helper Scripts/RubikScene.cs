@@ -8,7 +8,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 public class RubikScene : MonoBehaviour {
-	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps,UndoButton;
+	GameObject w,lastClicked,Parent,temp,Center,rubix,blue,white,orange,red,yellow,green,steps,UndoButton,ScrambleBut;
 	public static GameObject PleaseWait;
 	public static GameObject TooLong;
 	GameObject GreenFaceZ,BlueFaceZ,OrangeFaceZ,YellowFaceZ;
@@ -241,75 +241,55 @@ public class RubikScene : MonoBehaviour {
 	IEnumerator Undo(){
 		 if(Moves.Count>0){
 			 UndoButton.GetComponent<Button>().interactable = false;
+			 ScrambleBut.GetComponent<Button>().interactable = false;
 			 if(Moves[Moves.Count-1] == "UCW"){
 				StartCoroutine(RotateUpperFaceccw());
-				while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="UCCW"){
 				 StartCoroutine(RotateUpperFacecw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="DCW"){
 				 StartCoroutine(RotateDownFaceccw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="DCCW"){
 				  StartCoroutine(RotateDownFacecw());
-				  while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="RCW"){
 				 StartCoroutine(RotateRightFaceccw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="RCCW"){
 				 StartCoroutine(RotateRightFacecw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="LCW"){
 				StartCoroutine(RotateLeftFaceccw());
-				while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="LCCW"){
 				 StartCoroutine(RotateLeftFacecw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="BCW"){
 				StartCoroutine(RotateBackFaceccw());
-				while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="BCCW"){
 				StartCoroutine(RotateBackFacecw());
-				while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="FCW"){
 				 StartCoroutine(RotateFrontFaceccw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
 			 else if(Moves[Moves.Count-1] =="FCCW"){
 				 StartCoroutine(RotateFrontFacecw());
-				 while(inFirst)       
-					 yield return new WaitForSeconds(0.1f);
 			 }
+			 while(inFirst)       
+				yield return new WaitForSeconds(0.01f);
 			 Moves.RemoveAt(Moves.Count-1);
 			 NoOfSteps--;
 			 steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
+			 UndoButton.GetComponent<Button>().interactable = true;
+			 ScrambleBut.GetComponent<Button>().interactable = true;
 		 }
-		  UndoButton.GetComponent<Button>().interactable = true;
 	 }
 	
 	public void UndoBut(){
-		if(!OptimalSolution.paused){
+		if(!OptimalSolution.paused && !inFirst){
 			StartCoroutine(Undo());
 		}
 	}
@@ -319,6 +299,7 @@ public class RubikScene : MonoBehaviour {
 		PleaseWait.SetActive(false);
 		TooLong.SetActive(false);
 		UndoButton=GameObject.Find("tarajo3");
+		ScrambleBut=GameObject.Find("again");
 		 GreenFaceZ=GameObject.Find("Line084");
 		 BlueFaceZ=GameObject.Find("Line026");
 		 OrangeFaceZ=GameObject.Find("Line128");
@@ -634,7 +615,6 @@ public class RubikScene : MonoBehaviour {
 	 }
 	 
 	IEnumerator Scramble(){
-		UndoButton.GetComponent<Button>().interactable = false;
 		StartCoroutine(RotateUpperFacecw());
 		while(inFirst)       
 			yield return new WaitForSeconds(0.01f);
@@ -653,12 +633,13 @@ public class RubikScene : MonoBehaviour {
 		Moves.Clear();
 		NoOfSteps=0;
 		steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
-		UndoButton.GetComponent<Button>().interactable = true;
 	} 
 	 
 	 public void ScrambleButton(){
-		 if(!OptimalSolution.paused){
+		 if(!OptimalSolution.paused && !inFirst){
+			 UndoButton.GetComponent<Button>().interactable = false;
 			 StartCoroutine(Scramble());
+			 UndoButton.GetComponent<Button>().interactable = true;
 		 }
 	 }
 	 
@@ -822,7 +803,6 @@ public class RubikScene : MonoBehaviour {
 	void FixedUpdate(){
 		StartCoroutine(FixedUpdatefun());
 	}
-	
 	}
 
 

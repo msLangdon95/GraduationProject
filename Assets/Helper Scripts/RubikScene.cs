@@ -278,11 +278,11 @@ public class RubikScene : MonoBehaviour {
 			 else if(Moves[Moves.Count-1] =="FCCW"){
 				 StartCoroutine(RotateFrontFacecw());
 			 }
-			 while(inFirst)       
-				yield return new WaitForSeconds(0.01f);
 			 Moves.RemoveAt(Moves.Count-1);
 			 NoOfSteps--;
 			 steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
+			  while(inFirst)       
+				yield return new WaitForSeconds(0.001f);
 			 UndoButton.GetComponent<Button>().interactable = true;
 			 ScrambleBut.GetComponent<Button>().interactable = true;
 		 }
@@ -292,6 +292,8 @@ public class RubikScene : MonoBehaviour {
 		if(!OptimalSolution.paused && !inFirst){
 			StartCoroutine(Undo());
 		}
+		else
+			UndoButton.GetComponent<Button>().interactable = false;
 	}
 	void Start (){
 		PleaseWait=GameObject.Find("PleaseWait");

@@ -16,7 +16,6 @@ public class Saving : MonoBehaviour {
 	
 	
 	void Start (){
-		Debug.Log (Application.persistentDataPath);
 		if (File.Exists (path))
 			File.Delete (path);
 	}

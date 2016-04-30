@@ -289,11 +289,13 @@ public class RubikScene : MonoBehaviour {
 	 }
 	
 	public void UndoBut(){
+		print(Moves.Count);
 		if(!OptimalSolution.paused && !inFirst){
+			//UndoButton.GetComponent<Button>().interactable = true;
 			StartCoroutine(Undo());
 		}
-		else
-			UndoButton.GetComponent<Button>().interactable = false;
+	//	else
+			//UndoButton.GetComponent<Button>().interactable = false;
 	}
 	void Start (){
 		PleaseWait=GameObject.Find("PleaseWait");
@@ -663,50 +665,50 @@ public class RubikScene : MonoBehaviour {
 			currentSwipe.Normalize();
         if( currentSwipe.y > 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//UP
 			if(lastClicked.transform.parent.name==GreenFace[6] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				Moves.Add("RCW");
 				StartCoroutine(RotateRightFacecw());
+				Moves.Add("RCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==GreenFace[8] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				Moves.Add("LCCW");
 				StartCoroutine(RotateLeftFaceccw());
+				Moves.Add("LCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[6] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				Moves.Add("BCCW");
 				StartCoroutine(RotateBackFaceccw());
+				Moves.Add("BCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[8] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				Moves.Add("FCCW");
 				StartCoroutine(RotateFrontFaceccw());
+				Moves.Add("FCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[6] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				Moves.Add("FCW");
 				StartCoroutine(RotateFrontFacecw());
+				Moves.Add("FCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[8] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				Moves.Add("BCW");
 				StartCoroutine(RotateBackFacecw());
+				Moves.Add("BCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[6] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				Moves.Add("LCW");
 				StartCoroutine(RotateLeftFacecw());
+				Moves.Add("LCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[8] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				Moves.Add("RCCW");
 				StartCoroutine(RotateRightFaceccw());
+				Moves.Add("RCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -715,50 +717,50 @@ public class RubikScene : MonoBehaviour {
         }
         if(currentSwipe.y < 0 && currentSwipe.x > -0.7f && currentSwipe.x < 0.7f){//DownSwipe
 			if(lastClicked.transform.parent.name==GreenFace[0] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				Moves.Add("RCCW");
 				StartCoroutine(RotateRightFaceccw());
+				Moves.Add("RCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			else if(lastClicked.transform.parent.name==GreenFace[2] && (int)lastClicked.transform.position.z==(int)GreenFaceZ.transform.position.z){
-				Moves.Add("LCW");
 				StartCoroutine(RotateLeftFacecw());
+				Moves.Add("LCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[0] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				Moves.Add("BCW");
 				StartCoroutine(RotateBackFacecw());
+				Moves.Add("BCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==BlueFace[2] && (int)lastClicked.transform.position.x==(int)BlueFaceZ.transform.position.x){
-				Moves.Add("FCW");
 				StartCoroutine(RotateFrontFacecw());
+				Moves.Add("FCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[0] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				Moves.Add("FCCW");
 				StartCoroutine(RotateFrontFaceccw());
+				Moves.Add("FCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==OrangeFace[2] && (int)lastClicked.transform.position.x==(int)OrangeFaceZ.transform.position.x){
-				Moves.Add("BCCW");
 				StartCoroutine(RotateBackFaceccw());
+				Moves.Add("BCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[0] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				Moves.Add("LCCW");
 				StartCoroutine(RotateLeftFaceccw());
+				Moves.Add("LCCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
 			if(lastClicked.transform.parent.name==YellowFace[2] && (int)lastClicked.transform.position.z==(int)YellowFaceZ.transform.position.z){
-				Moves.Add("FCW");
 				StartCoroutine(RotateFrontFacecw());
+				Moves.Add("FCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -767,8 +769,8 @@ public class RubikScene : MonoBehaviour {
         if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f){ //leftSwipe
 			if(Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) >=0
 			&& Mathf.Abs(((int)Center.transform.position.y+(int)lastClicked.GetComponent<Collider>().bounds.size.y)-((int)lastClicked.transform.parent.position.y)) <=15){ // up face clock wise
-				Moves.Add("UCW");
 				StartCoroutine(RotateUpperFacecw());
+				Moves.Add("UCW");
 				NoOfSteps++;
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
@@ -797,12 +799,13 @@ public class RubikScene : MonoBehaviour {
 				steps.transform.GetComponent<Text>().text=NoOfSteps.ToString();
 			}
         }
+		currentSwipe.y=currentSwipe.x=0;
 	}
 }
-
 	}
 	
 	void FixedUpdate(){
+		
 		StartCoroutine(FixedUpdatefun());
 	}
 	}

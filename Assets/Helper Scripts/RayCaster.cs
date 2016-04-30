@@ -33,14 +33,6 @@ public class RayCaster : MonoBehaviour {
 	string test;
 	char c1,c2,c3;
 	void Start(){
-		/*{
-		new COLOR(GameObject.Find("greenc"),true,Color.green,0),
-		new COLOR(GameObject.Find("redc"),true,Color.red,0),
-		new COLOR(GameObject.Find("bluec"),true,Color.blue,0),
-		new COLOR(GameObject.Find("orangec"),true,new Color(1,0.27058823529f,0,1),0),
-		new COLOR(GameObject.Find("yellowc"),true,Color.yellow,0),
-		new COLOR(GameObject.Find("whitec"),true,Color.white,0),
-	};*/
 	ColorsArray[0]=new COLOR(GameObject.Find("greenc"),true,Color.green,0);
 	ColorsArray[1]=new COLOR(GameObject.Find("redc"),true,Color.red,0);
 	ColorsArray[2]=new COLOR(GameObject.Find("bluec"),true,Color.blue,0);
@@ -244,8 +236,10 @@ public class RayCaster : MonoBehaviour {
 							ColorsArray[x].GO.GetComponentInChildren<Text>().text=ColorsArray[x].ColorCounter.ToString();	
 							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "3" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,3)){ // verify new colored corner
 								if(!searchInCorners(test)){
-									if(Globals.dontShowAgain==false)
+									if(Globals.dontShowAgain==false){
+										OnClickChangeColor.flag=0;
 										Globals.ColoredWronglyPanel.SetActive(true);
+									}
 									for(int i=0;i<3;i++){
 										forNothing=GetColor(lastClicked.transform.parent.GetChild(i).gameObject);
 										ColorsArray[forNothing].ColorCounter--;
@@ -257,8 +251,10 @@ public class RayCaster : MonoBehaviour {
 							//verify new colored edges
 							if(lastClicked.transform.parent.GetComponent<Collider>().tag == "2" && IfCornersOrEdgesAndPaintedReturnStr(lastClicked,ref test,2)){ // verify new colored corner
 								if(!searchInEdges(test)){
-									if(Globals.dontShowAgain==false)
+									if(Globals.dontShowAgain==false){
+										OnClickChangeColor.flag=0;
 										Globals.ColoredWronglyPanel.SetActive(true);
+									}
 									for(int i=0;i<2;i++){
 										forNothing=GetColor(lastClicked.transform.parent.GetChild(i).gameObject);
 										ColorsArray[forNothing].ColorCounter--;

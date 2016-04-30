@@ -57,6 +57,7 @@ public class RandomGeneration : MonoBehaviour {
              print(e);        
          }
 		 myProcess.WaitForExit();
+		 myProcess=null;
 		 words = RandomGenerated.Split(delimiterChars);
 		 foreach (string s in words){
 			RandomGeneratedColors.Add(s);

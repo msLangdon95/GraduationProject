@@ -17,7 +17,8 @@ public class RubikScene : MonoBehaviour {
 	 Vector2 firstPressPos;
 	 Vector2 secondPressPos;
 	 Vector2 currentSwipe;
-	 int k,i,d1,d2,d3,d4,NoOfSteps=0;
+	 int k,i,d1,d2,d3,d4;
+	 public static int NoOfSteps=0;
 	 string[]rightFace;
 	 string[]leftFace;
 	 float totalRotation = 0;
@@ -337,7 +338,7 @@ public class RubikScene : MonoBehaviour {
 				}
 			 Globals.LoadFlag=false;
 		 }
-		 
+		 Globals.RandomGeneratedFlag=Globals.LoadFlag=Globals.ManualInputFlag=false;
 		 blue=GameObject.Find("BLUE");
 		 red=GameObject.Find("RED");
 		 orange=GameObject.Find("ORANGE");

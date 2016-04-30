@@ -22,6 +22,7 @@ public class ManualInputSceneScripts : MonoBehaviour {
 	public void VerifyAndGo(){ // next scene button
 		for(int i=0;i<6;i++){
 			if(RayCaster.ColorsArray[i].ColorCounter!= 8){ //not all cubies are fully colored
+				OnClickChangeColor.flag=0;
 				Globals.VerifyPanel.SetActive(true);
 				return;
 			}
@@ -38,10 +39,12 @@ public class ManualInputSceneScripts : MonoBehaviour {
 	}
 
 	public void Close(GameObject P){
+		OnClickChangeColor.flag=0;
 		P.SetActive(false);
 	}
 	
 	public void DontShowThisMessageAgain(GameObject P){
+		OnClickChangeColor.flag=0;
 		Globals.dontShowAgain=true;
 		P.SetActive(false);
 	}

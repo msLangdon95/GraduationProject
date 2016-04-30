@@ -15,5 +15,4 @@ public class OnClickChangeColor : MonoBehaviour {
 			myColor=PickedColor;
 		}
 	}
-	
 }

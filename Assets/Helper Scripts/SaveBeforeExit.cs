@@ -9,7 +9,7 @@ using System.Text;
 public class SaveBeforeExit : MonoBehaviour {
 	GameObject x;
 	Color Orange=new Color(1,0.27058823529f,0,1);
-	string path = @"C:\Users\Dania\AppData\LocalLow\Lolo\test\ myCubeColor.txt";
+	string path = @"C:\Users\Noor\AppData\LocalLow\Lolo\test\ myCubeColor.txt";
 	GameObject w;
 	
 	Color a;
@@ -54,6 +54,7 @@ public class SaveBeforeExit : MonoBehaviour {
 			
 			sw.Close();
 		}
+	//	Application.Ba
 		Application.Quit ();
 		
 	}

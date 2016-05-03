@@ -311,6 +311,7 @@ public class RubikScene : MonoBehaviour {
 		 YellowFaceZ=GameObject.Find("Line086");
 		 steps=GameObject.Find("steps");
 		 i=0;
+		 NoOfSteps=0;
 		 if(Globals.RandomGeneratedFlag){
 			 if(RandomGeneration.RandomGeneratedColors.Count()==48){
 				 for(i=0;i<48;i++){
@@ -323,6 +324,7 @@ public class RubikScene : MonoBehaviour {
 				 return;
 			 }
 			 Globals.RandomGeneratedFlag=false;
+			 RandomGeneration.RandomGeneratedColors.Clear();
 		 }
 		 else if(Globals.ManualInputFlag){
 			 for(i=0;i<48;i++){
@@ -806,7 +808,7 @@ public class RubikScene : MonoBehaviour {
 	}
 	
 	void FixedUpdate(){
-		
+		print("walo");
 		StartCoroutine(FixedUpdatefun());
 	}
 	}
